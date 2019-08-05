@@ -12,4 +12,17 @@
                android:src="@mipmap/notification_bg"
                android:scaleType="fitXY"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:id="@+id/rv_notification"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="40dp" android:layout_marginStart="40dp"
+            android:layout_marginRight="40dp" android:layout_marginEnd="40dp">
+
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
