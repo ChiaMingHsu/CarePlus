@@ -35,7 +35,7 @@ class NotificationFragment : Fragment() {
 
         FirebaseDatabase.getInstance().getReference("messages")
             .orderByKey()
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
                         .map {
@@ -43,7 +43,9 @@ class NotificationFragment : Fragment() {
                         }
                         .filterNotNull()
                         .let {
-                            messageAdapter.addAll(it)
+                            messageAdapter.messages.clear()
+                            messageAdapter.messages.addAll(it)
+                            messageAdapter.notifyDataSetChanged()
                         }
                 }
 
