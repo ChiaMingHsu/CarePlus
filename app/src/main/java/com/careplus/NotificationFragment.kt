@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_notification.*
-import java.util.*
 
 
 /**
@@ -27,16 +26,14 @@ class NotificationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val database = FirebaseDatabase.getInstance()
-        val messagesRef = database.getReference("messages")
+        return inflater.inflate(R.layout.fragment_notification, container, false)
+    }
 
-        // TODO: remove while it is unused
-//        // Write three mock messages to the database
-//        messagesRef.child(System.currentTimeMillis().toString() + "-" + UUID.randomUUID().toString()).setValue(Message("remind", "2019.10.10", "10:00 AM", "外出"))
-//        messagesRef.child(System.currentTimeMillis().toString() + "-" + UUID.randomUUID().toString()).setValue(Message("remind", "2019.10.10", "11:00 AM", "回家"))
-//        messagesRef.child(System.currentTimeMillis().toString() + "-" + UUID.randomUUID().toString()).setValue(Message("alarm", "2019.10.16", "11:05 AM", "跌倒"))
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupView()
 
-        messagesRef
+        FirebaseDatabase.getInstance().getReference("messages")
             .orderByKey()
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -52,13 +49,6 @@ class NotificationFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-
-        return inflater.inflate(R.layout.fragment_notification, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupView()
     }
 
     private fun setupView() {

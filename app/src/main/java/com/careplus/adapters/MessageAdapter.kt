@@ -20,7 +20,14 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
     override fun getItemCount(): Int = messages.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.tv_content.text = messages[position].content
+        messages[position].let {
+            when (it.type) {
+                "alarm" -> holder.view.tv_content.setBackgroundResource(R.mipmap.notification_message_content_bg_alarm)
+                "remind" -> holder.view.tv_content.setBackgroundResource(R.mipmap.notification_message_content_bg_remind)
+            }
+            holder.view.tv_date.text = it.date
+            holder.view.tv_content.text = String.format("%s %s", it.time, it.content)
+        }
     }
 
     fun addAll(messages: List<Message>) {
