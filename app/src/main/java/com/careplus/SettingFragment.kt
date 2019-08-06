@@ -1,6 +1,7 @@
 package com.careplus
 
 import android.app.AlertDialog
+import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,17 +9,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.careplus.adapters.SettingRemindAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.dialog_setting_go_out.view.*
 import kotlinx.android.synthetic.main.dialog_setting_stuck_toilet.view.*
+import kotlinx.android.synthetic.main.dialog_setting_stuck_toilet.view.btn_ok
 import kotlinx.android.synthetic.main.fragment_setting.*
+import java.util.*
 
 /**
  * A placeholder fragment containing a simple view.
  */
 class SettingFragment : Fragment() {
+
+    val settingRemindAdapter = SettingRemindAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,12 +95,23 @@ class SettingFragment : Fragment() {
                         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     }
                 dialog.show()
+                dialogView.rv_remind.run {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = settingRemindAdapter
+                }
+                dialogView.btn_add.setOnClickListener {
+                    val calendar = Calendar.getInstance()
+                    TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                        val ap = if (hourOfDay < 12) "A" else "P"
+                        val hour = (if (hourOfDay < 12) hourOfDay else hourOfDay - 12).run { if (this == 0) 12 else this }
+                        settingRemindAdapter.timeList.add("%02d : %02d  %s M".format(hour, minute, ap))
+                        settingRemindAdapter.notifyDataSetChanged()
+                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
+                }
                 dialogView.btn_ok.setOnClickListener {
-//                    dialogView.edt_stuck_toilet_minutes.text.toString().toIntOrNull()?.let { minutes ->
-//                        FirebaseDatabase.getInstance().getReference("settings").child("alarm_stuck_toilet_minutes").setValue(minutes)
-//                        dialog.dismiss()
-//                    }
-                    dialog.dismiss()  // TODO
+                    FirebaseDatabase.getInstance().getReference("settings").child("remind_go_out_times")
+                        .setValue(settingRemindAdapter.timeList.map { it })
+                    dialog.dismiss()
                 }
             }
         }
@@ -108,13 +127,19 @@ class SettingFragment : Fragment() {
                     dataSnapshot.children
                         .forEach {
                             when (it.key) {
-                                "alarm_fall_down" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_fall_down.isChecked = isChecked }
-                                "alarm_stuck_toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_toilet.isChecked = isChecked }
-                                "alarm_stuck_room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_room.isChecked = isChecked }
-                                "alarm_stuck_outdoor" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_outdoor.isChecked = isChecked }
-                                "remind_exercise" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_exercise.isChecked = isChecked }
-                                "remind_go_out" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_go_out.isChecked = isChecked }
-                                "remind_take_medicine" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_take_medicine.isChecked = isChecked }
+                                "alarm_fall_down" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_fall_down?.isChecked = isChecked }
+                                "alarm_stuck_toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_toilet?.isChecked = isChecked }
+                                "alarm_stuck_room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_room?.isChecked = isChecked }
+                                "alarm_stuck_outdoor" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_outdoor?.isChecked = isChecked }
+                                "remind_exercise" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_exercise?.isChecked = isChecked }
+                                "remind_go_out" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_go_out?.isChecked = isChecked }
+                                "remind_go_out_times" -> {
+                                    it.children.forEach {
+                                        it.getValue(String::class.java)?.let { settingRemindAdapter.timeList.add(it) }
+                                    }
+                                    settingRemindAdapter.notifyDataSetChanged()
+                                }
+                                "remind_take_medicine" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_take_medicine?.isChecked = isChecked }
                             }
                         }
                 }

@@ -48,9 +48,9 @@ class RegionFragment : Fragment() {
                     dataSnapshot.children
                         .forEach {
                             when (it.key) {
-                                "door" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_door.isChecked = isChecked }
-                                "toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_toilet.isChecked = isChecked }
-                                "room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_room.isChecked = isChecked }
+                                "door" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_door?.isChecked = isChecked }
+                                "toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_toilet?.isChecked = isChecked }
+                                "room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_room?.isChecked = isChecked }
                             }
                         }
                 }

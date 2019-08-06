@@ -36,8 +36,10 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setupView() {
-        rv_notification.layoutManager = LinearLayoutManager(context)
-        rv_notification.adapter = messageAdapter
+        rv_notification.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = messageAdapter
+        }
     }
 
     private fun setupDB() {
