@@ -32,7 +32,15 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
+        setupDB()
+    }
 
+    private fun setupView() {
+        rv_notification.layoutManager = LinearLayoutManager(context)
+        rv_notification.adapter = messageAdapter
+    }
+
+    private fun setupDB() {
         FirebaseDatabase.getInstance().getReference("messages")
             .orderByKey()
             .addValueEventListener(object : ValueEventListener {
@@ -51,10 +59,5 @@ class NotificationFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-    }
-
-    private fun setupView() {
-        rv_notification.layoutManager = LinearLayoutManager(context)
-        rv_notification.adapter = messageAdapter
     }
 }

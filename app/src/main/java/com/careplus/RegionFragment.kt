@@ -26,7 +26,22 @@ class RegionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
+        setupDB()
+    }
 
+    private fun setupView() {
+        sw_door.setOnCheckedChangeListener { _, isChecked ->
+            FirebaseDatabase.getInstance().getReference("region").child("door").setValue(isChecked)
+        }
+        sw_toilet.setOnCheckedChangeListener { _, isChecked ->
+            FirebaseDatabase.getInstance().getReference("region").child("toilet").setValue(isChecked)
+        }
+        sw_room.setOnCheckedChangeListener { _, isChecked ->
+            FirebaseDatabase.getInstance().getReference("region").child("room").setValue(isChecked)
+        }
+    }
+
+    private fun setupDB() {
         FirebaseDatabase.getInstance().getReference("region")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -42,17 +57,5 @@ class RegionFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-    }
-
-    private fun setupView() {
-        sw_door.setOnCheckedChangeListener { _, isChecked ->
-            FirebaseDatabase.getInstance().getReference("region").child("door").setValue(isChecked)
-        }
-        sw_toilet.setOnCheckedChangeListener { _, isChecked ->
-            FirebaseDatabase.getInstance().getReference("region").child("toilet").setValue(isChecked)
-        }
-        sw_room.setOnCheckedChangeListener { _, isChecked ->
-            FirebaseDatabase.getInstance().getReference("region").child("room").setValue(isChecked)
-        }
     }
 }
