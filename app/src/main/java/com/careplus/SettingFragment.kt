@@ -47,10 +47,10 @@ class SettingFragment : Fragment() {
             layout_remind.visibility = View.GONE
         }
         btn_alarm_fall_down_apply.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("settings").child("alarm_fall_down").setValue(sw_alarm_fall_down.isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_fall_down").setValue(sw_alarm_fall_down.isChecked)
         }
         btn_alarm_stuck_toilet_apply.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("settings").child("alarm_stuck_toilet").setValue(sw_alarm_stuck_toilet.isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_toilet").setValue(sw_alarm_stuck_toilet.isChecked)
 
             if (sw_alarm_stuck_toilet.isChecked) {
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_setting_stuck_toilet, layout_root, false)
@@ -63,17 +63,17 @@ class SettingFragment : Fragment() {
                 dialog.show()
                 dialogView.btn_ok.setOnClickListener {
                     dialogView.edt_stuck_toilet_minutes.text.toString().toIntOrNull()?.let { minutes ->
-                        FirebaseDatabase.getInstance().getReference("settings").child("alarm_stuck_toilet_minutes").setValue(minutes)
+                        FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_toilet_minutes").setValue(minutes)
                         dialog.dismiss()
                     }
                 }
             }
         }
         btn_alarm_stuck_room_apply.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("settings").child("alarm_stuck_room").setValue(sw_alarm_stuck_room.isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_room").setValue(sw_alarm_stuck_room.isChecked)
         }
         btn_alarm_stuck_outdoor_apply.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("settings").child("alarm_stuck_outdoor").setValue(sw_alarm_stuck_outdoor.isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_outdoor").setValue(sw_alarm_stuck_outdoor.isChecked)
         }
 
         btn_remind.setOnClickListener {
@@ -81,10 +81,10 @@ class SettingFragment : Fragment() {
             layout_remind.visibility = View.VISIBLE
         }
         btn_remind_exercise_apply.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("settings").child("remind_exercise").setValue(sw_remind_exercise.isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("remind_exercise").setValue(sw_remind_exercise.isChecked)
         }
         btn_remind_go_out_apply.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("settings").child("remind_go_out").setValue(sw_remind_go_out.isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("remind_go_out").setValue(sw_remind_go_out.isChecked)
 
             if (sw_remind_go_out.isChecked) {
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_setting_go_out, layout_root, false)
@@ -109,19 +109,19 @@ class SettingFragment : Fragment() {
                     }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
                 }
                 dialogView.btn_ok.setOnClickListener {
-                    FirebaseDatabase.getInstance().getReference("settings").child("remind_go_out_times")
+                    FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("remind_go_out_times")
                         .setValue(settingRemindAdapter.timeList.map { it })
                     dialog.dismiss()
                 }
             }
         }
         btn_remind_take_medicine_apply.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("settings").child("remind_take_medicine").setValue(sw_remind_take_medicine.isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("remind_take_medicine").setValue(sw_remind_take_medicine.isChecked)
         }
     }
 
     private fun setupDB() {
-        FirebaseDatabase.getInstance().getReference("settings")
+        FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
