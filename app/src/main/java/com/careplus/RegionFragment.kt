@@ -31,26 +31,26 @@ class RegionFragment : Fragment() {
 
     private fun setupView() {
         sw_door.setOnCheckedChangeListener { _, isChecked ->
-            FirebaseDatabase.getInstance().getReference("region").child("door").setValue(isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_outdoor").setValue(isChecked)
         }
         sw_toilet.setOnCheckedChangeListener { _, isChecked ->
-            FirebaseDatabase.getInstance().getReference("region").child("toilet").setValue(isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_toilet").setValue(isChecked)
         }
         sw_room.setOnCheckedChangeListener { _, isChecked ->
-            FirebaseDatabase.getInstance().getReference("region").child("room").setValue(isChecked)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_room").setValue(isChecked)
         }
     }
 
     private fun setupDB() {
-        FirebaseDatabase.getInstance().getReference("region")
+        FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
                         .forEach {
                             when (it.key) {
-                                "door" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_door?.isChecked = isChecked }
-                                "toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_toilet?.isChecked = isChecked }
-                                "room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_room?.isChecked = isChecked }
+                                "alarm_stuck_outdoor" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_door?.isChecked = isChecked }
+                                "alarm_stuck_toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_toilet?.isChecked = isChecked }
+                                "alarm_stuck_room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_room?.isChecked = isChecked }
                             }
                         }
                 }

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         btn_login.setOnClickListener {
             verify(edt_username.text.toString(), edt_password.text.toString(),
                 onSuccess = { user ->
-                    MyApplication.user = user
+                    App.user = user
                     startActivity(Intent(this@MainActivity, HomeActivity::class.java))
                 },
                 onFailure = {
