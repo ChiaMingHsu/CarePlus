@@ -4,6 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.careplus.model.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,18 +21,31 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupView() {
         btn_login.setOnClickListener {
-            if (!verify(edt_username.text.toString(), edt_password.text.toString())) {
-                Toast.makeText(this, R.string.login_failed_message, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            verify(edt_username.text.toString(), edt_password.text.toString(),
+                onSuccess = { user ->
+                    MyApplication.user = user
+                    startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                },
+                onFailure = {
+                    Toast.makeText(this, R.string.login_failed_message, Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 
-    private fun verify(username: String, password: String): Boolean {
-        return true  // TODO: remove it
-        return (username == "4caiot@gmail.com") and (password == "12345678")
+    private fun verify(username: String, password: String, onSuccess: (user: User) -> Unit, onFailure: () -> Unit) {
+        FirebaseDatabase.getInstance().getReference("users").orderByChild("username").equalTo(username)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    dataSnapshot.children
+                        .map { it.getValue(User::class.java) }
+                        .find { it?.password == password }
+                        ?.run(onSuccess)
+                        ?: onFailure()
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
     }
 
 }
