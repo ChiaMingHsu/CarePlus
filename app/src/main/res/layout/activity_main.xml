@@ -14,16 +14,24 @@
                />
 
     <ImageView android:layout_width="308dp" android:layout_height="155dp"
+               android:id="@+id/iv_hello"
                android:src="@mipmap/login_hello"
-               android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
-               android:layout_marginLeft="16dp" android:layout_marginTop="24dp"
-               app:layout_constraintTop_toTopOf="@+id/iv_bg" android:id="@+id/imageView"/>
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="@+id/iv_bg"/>
+
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+               android:id="@+id/iv_logo"
+               android:src="@mipmap/login_logo"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.283"/>
 
     <TextView android:layout_width="347dp" android:layout_height="80dp"
               android:id="@+id/tv_username"
               android:background="@mipmap/login_username"
-              android:layout_marginBottom="180dp" app:layout_constraintBottom_toBottomOf="@+id/iv_bg"
-              app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.507"
+              android:layout_marginBottom="244dp" app:layout_constraintBottom_toBottomOf="@+id/iv_bg"
+              app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText android:layout_width="189dp" android:layout_height="40dp"
@@ -35,8 +43,8 @@
     <TextView android:layout_width="347dp" android:layout_height="80dp"
               android:id="@+id/tv_password"
               android:background="@mipmap/login_password"
-              app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-              app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="2dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/tv_username"/>
 
     <EditText android:layout_width="189dp" android:layout_height="40dp"
@@ -48,8 +56,8 @@
     <Button android:layout_width="109dp" android:layout_height="70dp"
             android:id="@+id/btn_login"
             android:background="@drawable/btn_login" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.3" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="@+id/iv_bg"/>
+            app:layout_constraintHorizontal_bias="0.298" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="92dp" app:layout_constraintBottom_toBottomOf="@+id/iv_bg"/>
 
     <Button android:layout_width="65dp" android:layout_height="31dp"
             android:id="@+id/btn_register"

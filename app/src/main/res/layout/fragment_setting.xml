@@ -8,16 +8,16 @@
         tools:context=".SettingFragment"
         android:id="@+id/layout_root">
 
-    <Button android:layout_width="100dp" android:layout_height="70dp"
+    <Button android:layout_width="100dp" android:layout_height="50dp"
             android:id="@+id/btn_alarm" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="140dp" app:layout_constraintHorizontal_bias="0.1"
+            android:layout_marginTop="150dp" app:layout_constraintHorizontal_bias="0.1"
             android:background="#0000"/>
 
-    <Button android:layout_width="100dp" android:layout_height="70dp"
+    <Button android:layout_width="100dp" android:layout_height="50dp"
             android:id="@+id/btn_remind" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="140dp" app:layout_constraintHorizontal_bias="0.9"
+            android:layout_marginTop="150dp" app:layout_constraintHorizontal_bias="0.9"
             android:background="#0000"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent"
