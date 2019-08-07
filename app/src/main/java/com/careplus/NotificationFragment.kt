@@ -43,7 +43,7 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setupDB() {
-        FirebaseDatabase.getInstance().getReference("messages")
+        FirebaseDatabase.getInstance().getReference("messages").child(App.user.id!!)
             .orderByKey()
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
