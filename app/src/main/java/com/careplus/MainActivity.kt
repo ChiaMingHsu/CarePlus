@@ -2,6 +2,7 @@ package com.careplus
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.careplus.model.User
@@ -21,13 +22,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupView() {
         btn_login.setOnClickListener {
+            pb_loading?.visibility = View.VISIBLE
             verify(edt_username.text.toString(), edt_password.text.toString(),
                 onSuccess = { user ->
                     App.user = user
                     startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                    pb_loading?.visibility = View.GONE
                 },
                 onFailure = {
                     Toast.makeText(this, R.string.login_failed_message, Toast.LENGTH_SHORT).show()
+                    pb_loading?.visibility = View.GONE
                 }
             )
         }

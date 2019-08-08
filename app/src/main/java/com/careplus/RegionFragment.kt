@@ -86,6 +86,8 @@ class RegionFragment : Fragment() {
     }
 
     private fun setupDB() {
+        pb_loading?.visibility = View.VISIBLE
+
         FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -109,6 +111,8 @@ class RegionFragment : Fragment() {
                                 "alarm_stuck_room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_room?.isChecked = isChecked }
                             }
                         }
+
+                    pb_loading?.visibility = View.GONE
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}

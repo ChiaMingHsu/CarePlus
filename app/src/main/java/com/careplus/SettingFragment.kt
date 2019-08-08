@@ -121,6 +121,8 @@ class SettingFragment : Fragment() {
     }
 
     private fun setupDB() {
+        pb_loading?.visibility = View.VISIBLE
+
         FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -142,6 +144,8 @@ class SettingFragment : Fragment() {
                                 "remind_take_medicine" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_take_medicine?.isChecked = isChecked }
                             }
                         }
+
+                    pb_loading?.visibility = View.GONE
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}
