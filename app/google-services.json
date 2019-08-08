@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "204643576408",
+    "firebase_url": "https://careplus-eb9e3.firebaseio.com",
+    "project_id": "careplus-eb9e3",
+    "storage_bucket": "careplus-eb9e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204643576408:android:8a7c4713557bf49e",
+        "android_client_info": {
+          "package_name": "com.careplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204643576408-rvtc0jau9uqh47evdro4ca681247f802.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.careplus",
+            "certificate_hash": "7a8d1857a3c8e811359dde4cabd4124e8531c79a"
+          }
+        },
+        {
+          "client_id": "204643576408-khs4g1igpomcg6u41rtub9vlt2e63qc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDURNLH4Q0Hw7zRkKMF1bvy5sc4sLPaj9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204643576408-khs4g1igpomcg6u41rtub9vlt2e63qc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
