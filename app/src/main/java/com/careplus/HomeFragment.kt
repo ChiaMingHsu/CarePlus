@@ -1,12 +1,13 @@
 package com.careplus
 
 import android.graphics.BitmapFactory
-import androidx.fragment.app.Fragment
+import android.graphics.Matrix
 import android.os.Bundle
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -31,13 +32,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupDB() {
+        iv_frame.maximumScale = 10f
+
         FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.child("frame").getValue(String::class.java)?.let { base64Str ->
-                        Base64.decode(base64Str, Base64.DEFAULT)
-                            .run { BitmapFactory.decodeByteArray(this, 0, this.size) }
-                            .run { iv_frame?.setImageBitmap(this) }
+                        Matrix().let { matrix ->
+                            iv_frame?.getDisplayMatrix(matrix)
+                            Base64.decode(base64Str, Base64.DEFAULT)
+                                .run { BitmapFactory.decodeByteArray(this, 0, this.size) }
+                                .run { iv_frame?.setImageBitmap(this) }
+                            iv_frame?.setDisplayMatrix(matrix)
+                        }
                     }
                 }
 
