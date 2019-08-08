@@ -12,6 +12,20 @@
                android:src="@mipmap/region_bg"
                android:scaleType="fitXY"/>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/iv_frame"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            android:layout_marginTop="110dp"/>
+
+    <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+               android:id="@+id/iv_mask"
+               android:visibility="gone"
+               android:tag="none"/>
+
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:id="@+id/iv_door_block"
                android:src="@mipmap/region_door_block" app:layout_constraintTop_toTopOf="@id/iv_toilet_block"
@@ -22,7 +36,7 @@
                android:id="@+id/iv_toilet_block"
                android:src="@mipmap/region_toilet_block" app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
-               android:layout_marginBottom="30dp" app:layout_constraintBottom_toBottomOf="parent"/>
+               android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:id="@+id/iv_room_block"
@@ -30,23 +44,26 @@
                app:layout_constraintStart_toEndOf="@+id/iv_toilet_block" android:layout_marginLeft="24dp"
                android:layout_marginStart="24dp"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_door"
-               android:src="@mipmap/region_door" app:layout_constraintBottom_toTopOf="@id/iv_door_block"
-               app:layout_constraintStart_toStartOf="@id/iv_door_block"
-               app:layout_constraintEnd_toEndOf="@id/iv_door_block" android:layout_marginBottom="8dp"/>
+    <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                 android:id="@+id/btn_door"
+                 android:src="@mipmap/region_door" app:layout_constraintBottom_toTopOf="@id/iv_door_block"
+                 app:layout_constraintStart_toStartOf="@id/iv_door_block"
+                 app:layout_constraintEnd_toEndOf="@id/iv_door_block"
+                 android:background="#0000"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_toilet"
-               android:src="@mipmap/region_toilet" app:layout_constraintStart_toStartOf="@id/iv_toilet_block"
-               app:layout_constraintEnd_toEndOf="@id/iv_toilet_block"
-               app:layout_constraintBottom_toTopOf="@id/iv_toilet_block" android:layout_marginBottom="8dp"/>
+    <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                 android:id="@+id/btn_toilet"
+                 android:src="@mipmap/region_toilet" app:layout_constraintStart_toStartOf="@id/iv_toilet_block"
+                 app:layout_constraintEnd_toEndOf="@id/iv_toilet_block"
+                 app:layout_constraintBottom_toTopOf="@id/iv_toilet_block"
+                 android:background="#0000"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_room"
-               android:src="@mipmap/region_room" app:layout_constraintStart_toStartOf="@id/iv_room_block"
-               app:layout_constraintEnd_toEndOf="@id/iv_room_block"
-               app:layout_constraintBottom_toTopOf="@id/iv_room_block" android:layout_marginBottom="8dp"/>
+    <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                 android:id="@+id/btn_room"
+                 android:src="@mipmap/region_room" app:layout_constraintStart_toStartOf="@id/iv_room_block"
+                 app:layout_constraintEnd_toEndOf="@id/iv_room_block"
+                 app:layout_constraintBottom_toTopOf="@id/iv_room_block"
+                 android:background="#0000"/>
 
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:id="@+id/iv_door_small"
