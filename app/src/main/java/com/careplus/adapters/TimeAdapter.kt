@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.careplus.R
-import kotlinx.android.synthetic.main.item_setting_remind.view.*
+import kotlinx.android.synthetic.main.item_time.view.*
 
-class SettingRemindAdapter : RecyclerView.Adapter<SettingRemindAdapter.ViewHolder>() {
+class TimeAdapter : RecyclerView.Adapter<TimeAdapter.ViewHolder>() {
 
     val timeList = arrayListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_setting_remind, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_time, parent, false)
         return ViewHolder(view)
     }
 

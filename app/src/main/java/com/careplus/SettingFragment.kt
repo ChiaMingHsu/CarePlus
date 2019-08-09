@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.careplus.adapters.SettingRemindAdapter
+import com.careplus.adapters.TimeAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -24,7 +24,7 @@ import java.util.*
 
 class SettingFragment : Fragment() {
 
-    val settingRemindAdapter = SettingRemindAdapter()
+    val timeAdapter = TimeAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,20 +101,20 @@ class SettingFragment : Fragment() {
                 dialog.show()
                 dialogView.rv_remind.run {
                     layoutManager = LinearLayoutManager(context)
-                    adapter = settingRemindAdapter
+                    adapter = timeAdapter
                 }
                 dialogView.btn_add.setOnClickListener {
                     val calendar = Calendar.getInstance()
                     TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                         val ap = if (hourOfDay < 12) "AM" else "PM"
                         val hour = (if (hourOfDay < 12) hourOfDay else hourOfDay - 12).run { if (this == 0) 12 else this }
-                        settingRemindAdapter.timeList.add("%02d:%02d %s".format(hour, minute, ap))
-                        settingRemindAdapter.notifyDataSetChanged()
+                        timeAdapter.timeList.add("%02d:%02d %s".format(hour, minute, ap))
+                        timeAdapter.notifyDataSetChanged()
                     }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
                 }
                 dialogView.btn_ok.setOnClickListener {
                     FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("remind_go_out_times")
-                        .setValue(settingRemindAdapter.timeList.map { it })
+                        .setValue(timeAdapter.timeList.map { it })
                     dialog.dismiss()
                 }
             }
@@ -141,9 +141,9 @@ class SettingFragment : Fragment() {
                                 "remind_go_out" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_go_out?.isChecked = isChecked }
                                 "remind_go_out_times" -> {
                                     it.children.forEach {
-                                        it.getValue(String::class.java)?.let { settingRemindAdapter.timeList.add(it) }
+                                        it.getValue(String::class.java)?.let { timeAdapter.timeList.add(it) }
                                     }
-                                    settingRemindAdapter.notifyDataSetChanged()
+                                    timeAdapter.notifyDataSetChanged()
                                 }
                                 "remind_take_medicine" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_take_medicine?.isChecked = isChecked }
                             }
