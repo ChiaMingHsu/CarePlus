@@ -29,16 +29,17 @@
             android:text="＋"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              app:layout_constraintLeft_toRightOf="@id/btn_add"
               app:layout_constraintTop_toTopOf="@id/btn_add"
               app:layout_constraintBottom_toBottomOf="@id/btn_add"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintRight_toRightOf="parent"
               android:layout_marginLeft="20dp" android:layout_marginStart="20dp"
               android:textStyle="bold"
               android:gravity="center"
               android:textSize="36sp"
               android:textColor="#fff"
               android:textAlignment="center"
-              android:text="00 : 00  A M"/>
+              android:text="00:00 AM"/>
 
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/btn_ok"

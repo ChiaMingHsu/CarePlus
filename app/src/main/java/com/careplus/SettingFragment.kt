@@ -102,9 +102,9 @@ class SettingFragment : Fragment() {
                 dialogView.btn_add.setOnClickListener {
                     val calendar = Calendar.getInstance()
                     TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                        val ap = if (hourOfDay < 12) "A" else "P"
+                        val ap = if (hourOfDay < 12) "AM" else "PM"
                         val hour = (if (hourOfDay < 12) hourOfDay else hourOfDay - 12).run { if (this == 0) 12 else this }
-                        settingRemindAdapter.timeList.add("%02d : %02d  %s M".format(hour, minute, ap))
+                        settingRemindAdapter.timeList.add("%02d:%02d %s".format(hour, minute, ap))
                         settingRemindAdapter.notifyDataSetChanged()
                     }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
                 }
