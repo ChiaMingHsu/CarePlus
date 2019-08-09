@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_notification.*
 class NotificationFragment : Fragment() {
 
     val messageAdapter = MessageAdapter()
+    var messagesValueEventListener: ValueEventListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,7 @@ class NotificationFragment : Fragment() {
     private fun setupDB() {
         pb_loading?.visibility = View.VISIBLE
 
-        FirebaseDatabase.getInstance().getReference("messages").child(App.user.id!!)
+        messagesValueEventListener = FirebaseDatabase.getInstance().getReference("messages").child(App.user.id!!)
             .orderByKey()
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -62,5 +63,10 @@ class NotificationFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        messagesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("messages").child(App.user.id!!).removeEventListener(it) }
     }
 }

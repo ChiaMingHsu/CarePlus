@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
+    var framesValueEventListener: ValueEventListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +34,7 @@ class HomeFragment : Fragment() {
     private fun setupDB() {
         iv_frame.maximumScale = 10f
 
-        FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
+        framesValueEventListener = FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.child("frame").getValue(String::class.java)?.let { base64Str ->
@@ -48,5 +50,10 @@ class HomeFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        framesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!).removeEventListener(it) }
     }
 }

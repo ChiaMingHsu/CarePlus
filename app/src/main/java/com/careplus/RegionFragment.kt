@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.fragment_region.*
 
 class RegionFragment : Fragment() {
 
+    var framesValueEventListener: ValueEventListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,7 +88,7 @@ class RegionFragment : Fragment() {
     private fun setupDB() {
         pb_loading?.visibility = View.VISIBLE
 
-        FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
+        framesValueEventListener = FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.child("frame").getValue(String::class.java)?.let { base64Str ->
@@ -115,5 +117,10 @@ class RegionFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        framesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!).removeEventListener(it) }
     }
 }
