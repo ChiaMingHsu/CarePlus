@@ -6,7 +6,7 @@
 
     <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
                android:id="@+id/iv_bg"
-               android:src="@mipmap/setting_alarm_stuck_toilet_dialog_bg"/>
+               android:src="@mipmap/setting_alarm_fall_down_dialog_bg"/>
 
     <EditText android:layout_width="60dp" android:layout_height="60dp"
               android:id="@+id/edt_minute"

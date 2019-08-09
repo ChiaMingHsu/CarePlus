@@ -9,20 +9,20 @@ import kotlinx.android.synthetic.main.item_time.view.*
 
 class TimeAdapter : RecyclerView.Adapter<TimeAdapter.ViewHolder>() {
 
-    val timeList = arrayListOf<String>()
+    val times = arrayListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_time, parent, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = timeList.size
+    override fun getItemCount(): Int = times.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        timeList[position].let {
+        times[position].let {
             holder.view.tv_time.text = it
             holder.view.btn_remove.setOnClickListener {
-                timeList.removeAt(position)
+                times.removeAt(position)
                 notifyDataSetChanged()
             }
         }
