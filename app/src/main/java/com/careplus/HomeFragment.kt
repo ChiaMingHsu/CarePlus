@@ -37,11 +37,11 @@ class HomeFragment : Fragment() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.child("frame").getValue(String::class.java)?.let { base64Str ->
                         Matrix().let { matrix ->
-                            iv_frame?.getDisplayMatrix(matrix)
+                            iv_frame?.attacher?.getSuppMatrix(matrix)  // Note: Do not use .getDisplayMatrix
                             Base64.decode(base64Str, Base64.DEFAULT)
                                 .run { BitmapFactory.decodeByteArray(this, 0, this.size) }
                                 .run { iv_frame?.setImageBitmap(this) }
-                            iv_frame?.setDisplayMatrix(matrix)
+                            iv_frame?.attacher?.setDisplayMatrix(matrix)
                         }
                     }
                 }
