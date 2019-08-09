@@ -14,9 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_home.*
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 class HomeFragment : Fragment() {
 
     override fun onCreateView(

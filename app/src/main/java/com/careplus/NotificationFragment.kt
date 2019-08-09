@@ -15,9 +15,6 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_notification.*
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 class NotificationFragment : Fragment() {
 
     val messageAdapter = MessageAdapter()

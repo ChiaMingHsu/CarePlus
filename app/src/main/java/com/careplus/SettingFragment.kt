@@ -21,9 +21,7 @@ import kotlinx.android.synthetic.main.dialog_setting_stuck_toilet.view.btn_ok
 import kotlinx.android.synthetic.main.fragment_setting.*
 import java.util.*
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 class SettingFragment : Fragment() {
 
     val settingRemindAdapter = SettingRemindAdapter()
@@ -42,6 +40,9 @@ class SettingFragment : Fragment() {
     }
 
     private fun setupView() {
+        /**
+         * Alarm
+         */
         btn_alarm.setOnClickListener {
             layout_alarm.visibility = View.VISIBLE
             layout_remind.visibility = View.GONE
@@ -76,6 +77,9 @@ class SettingFragment : Fragment() {
             FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!).child("alarm_stuck_outdoor").setValue(sw_alarm_stuck_outdoor.isChecked)
         }
 
+        /**
+         * Remind
+         */
         btn_remind.setOnClickListener {
             layout_alarm.visibility = View.GONE
             layout_remind.visibility = View.VISIBLE

@@ -13,9 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_region.*
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 class RegionFragment : Fragment() {
 
     override fun onCreateView(
