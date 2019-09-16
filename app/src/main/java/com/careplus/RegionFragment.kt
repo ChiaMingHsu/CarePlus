@@ -86,7 +86,7 @@ class RegionFragment : Fragment() {
     }
 
     private fun setupDB() {
-        pb_loading?.visibility = View.VISIBLE
+        pbLoading?.visibility = View.VISIBLE
 
         framesValueEventListener = FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
             .addValueEventListener(object : ValueEventListener {
@@ -112,7 +112,7 @@ class RegionFragment : Fragment() {
                             }
                         }
 
-                    pb_loading?.visibility = View.GONE
+                    pbLoading?.visibility = View.GONE
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}

@@ -21,35 +21,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        btn_login.setOnClickListener {
-            pb_loading?.visibility = View.VISIBLE
-            verify(edt_username.text.toString(), edt_password.text.toString(),
-                onSuccess = { user ->
-                    App.user = user
-                    startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-                    pb_loading?.visibility = View.GONE
-                },
-                onFailure = {
-                    Toast.makeText(this, R.string.login_failed_message, Toast.LENGTH_SHORT).show()
-                    pb_loading?.visibility = View.GONE
-                }
-            )
-        }
+//        btn_login.setOnClickListener {
+//            pb_loading?.visibility = View.VISIBLE
+//            verify(edt_username.text.toString(), edt_password.text.toString(),
+//                onSuccess = { user ->
+//                    App.user = user
+//                    startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+//                    pb_loading?.visibility = View.GONE
+//                },
+//                onFailure = {
+//                    Toast.makeText(this, R.string.login_failed_message, Toast.LENGTH_SHORT).show()
+//                    pb_loading?.visibility = View.GONE
+//                }
+//            )
+//        }
     }
 
     private fun verify(username: String, password: String, onSuccess: (user: User) -> Unit, onFailure: () -> Unit) {
-        FirebaseDatabase.getInstance().getReference("users").orderByChild("username").equalTo(username)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    dataSnapshot.children
-                        .map { it.getValue(User::class.java) }
-                        .find { it?.password == password }
-                        ?.run(onSuccess)
-                        ?: onFailure()
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
+//        FirebaseDatabase.getInstance().getReference("users").orderByChild("username").equalTo(username)
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    dataSnapshot.children
+//                        .map { it.getValue(User::class.java) }
+//                        .find { it?.password == password }
+//                        ?.run(onSuccess)
+//                        ?: onFailure()
+//                }
+//
+//                override fun onCancelled(databaseError: DatabaseError) {}
+//            })
     }
 
 }

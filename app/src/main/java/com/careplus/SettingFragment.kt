@@ -72,7 +72,7 @@ class SettingFragment : Fragment() {
     }
 
     private fun setupDB() {
-        pb_loading?.visibility = View.VISIBLE
+        pbLoading?.visibility = View.VISIBLE
 
         FirebaseDatabase.getInstance().getReference("settings").child(App.user.id!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -120,7 +120,7 @@ class SettingFragment : Fragment() {
                             }
                         }
 
-                    pb_loading?.visibility = View.GONE
+                    pbLoading?.visibility = View.GONE
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}

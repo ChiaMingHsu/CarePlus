@@ -7,72 +7,112 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
-               android:id="@+id/iv_bg"
-               android:src="@mipmap/login_bg"
-               android:scaleType="fitXY"/>
+    <ImageView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/ivBg"
+            android:src="@drawable/component_290_1"
+            android:adjustViewBounds="true"/>
 
-    <ImageView android:layout_width="308dp" android:layout_height="155dp"
-               android:id="@+id/iv_hello"
-               android:src="@mipmap/login_hello"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="@+id/iv_bg"/>
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.3624"
+            app:layout_constraintLeft_toLeftOf="@id/ivBg"
+            app:layout_constraintRight_toRightOf="@id/ivBg"
+            app:layout_constraintTop_toTopOf="@id/ivBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivBg"
+            app:layout_constraintHorizontal_bias="0.2171"
+            app:layout_constraintVertical_bias="0.0979"
+            android:id="@+id/ivHello"
+            android:src="@drawable/component_14_3"
+            android:adjustViewBounds="true"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_logo"
-               android:src="@mipmap/login_logo"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.283"/>
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.5176"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivBg"
+            app:layout_constraintBottom_toTopOf="@id/layoutForm"
+            android:id="@+id/ivAppName"
+            android:src="@drawable/component_9_2"
+            android:adjustViewBounds="true"/>
 
-    <TextView android:layout_width="347dp" android:layout_height="80dp"
-              android:id="@+id/tv_username"
-              android:background="@mipmap/login_username"
-              android:layout_marginBottom="244dp" app:layout_constraintBottom_toBottomOf="@+id/iv_bg"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.7520"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnLogin"
+            android:id="@+id/layoutForm">
 
-    <EditText android:layout_width="189dp" android:layout_height="40dp"
-              android:id="@+id/edt_username"
-              app:layout_constraintTop_toTopOf="@id/tv_username" app:layout_constraintStart_toStartOf="@+id/tv_username"
-              android:layout_marginLeft="136dp" android:layout_marginStart="136dp" android:layout_marginTop="16dp"
-              android:inputType="textEmailAddress"/>
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="6dp"
+                android:id="@+id/ivUsername"
+                android:src="@drawable/component_10_2"
+                android:adjustViewBounds="true"/>
 
-    <TextView android:layout_width="347dp" android:layout_height="80dp"
-              android:id="@+id/tv_password"
-              android:background="@mipmap/login_password"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/tv_username"/>
+        <EditText
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.5500"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.85"
+                android:id="@+id/edtUsername"
+                android:inputType="textEmailAddress"/>
 
-    <EditText android:layout_width="189dp" android:layout_height="40dp"
-              android:id="@+id/edt_password"
-              app:layout_constraintStart_toStartOf="@+id/tv_password"
-              app:layout_constraintTop_toTopOf="@+id/tv_password" android:layout_marginTop="16dp"
-              android:layout_marginLeft="136dp" android:layout_marginStart="136dp" android:inputType="textPassword"/>
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivUsername"
+                android:layout_marginTop="6dp"
+                android:id="@+id/ivPassword"
+                android:src="@drawable/component_11_2"
+                android:adjustViewBounds="true"/>
 
-    <Button android:layout_width="109dp" android:layout_height="70dp"
-            android:id="@+id/btn_login"
-            android:background="@drawable/btn_login" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.298" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="92dp" app:layout_constraintBottom_toBottomOf="@+id/iv_bg"/>
+        <EditText
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.5500"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivUsername"
+                app:layout_constraintHorizontal_bias="0.85"
+                android:id="@+id/edtPassword"
+                android:inputType="textPassword"/>
 
-    <Button android:layout_width="65dp" android:layout_height="31dp"
-            android:id="@+id/btn_register"
-            android:background="@drawable/btn_register" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.7" app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="661dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/btn_login"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+            android:layout_width="90dp" android:layout_height="55dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/btnLogin"
+            android:background="@drawable/btn_login"/>
+
+    <Button
+            android:layout_width="50dp" android:layout_height="25dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="15dp"
+            android:id="@+id/btnRegister"
+            android:background="@drawable/btn_register"/>
 
     <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pb_loading"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/pbLoading"
             android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@
         tools:context=".RegionFragment">
 
     <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
-               android:id="@+id/iv_bg"
+               android:id="@+id/ivBg"
                android:src="@mipmap/region_bg"
                android:scaleType="fitXY"/>
 
@@ -106,7 +106,7 @@
     <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/pb_loading"
+            android:id="@+id/pbLoading"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
