@@ -14,6 +14,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -120,6 +121,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onLoginSucceed(user: User) {
+        FirebaseDatabase.getInstance().getReference("users").push().setValue(user)
         App.user = user
         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
         pbLoading?.visibility = View.GONE

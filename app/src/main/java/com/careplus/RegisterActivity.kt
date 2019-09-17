@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.careplus.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_register.edtPassword
 import kotlinx.android.synthetic.main.activity_register.edtUsername
@@ -49,7 +51,11 @@ class RegisterActivity : AppCompatActivity() {
             firebaseAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        onRegisterSucceed()
+                        val user = firebaseAuth.currentUser!!
+                            .run {
+                                User(uid, displayName)
+                            }
+                        onRegisterSucceed(user)
                     } else {
                         onRegisterFailed()
                     }
@@ -57,7 +63,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun onRegisterSucceed() {
+    private fun onRegisterSucceed(user: User) {
+        FirebaseDatabase.getInstance().getReference("users").push().setValue(user)
         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         pbLoading?.visibility = View.GONE
     }
