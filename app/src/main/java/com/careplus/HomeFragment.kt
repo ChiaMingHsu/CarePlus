@@ -1,5 +1,6 @@
 package com.careplus
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Bundle
@@ -13,11 +14,29 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlin.properties.Delegates
 
 
 class HomeFragment : Fragment() {
 
     var framesValueEventListener: ValueEventListener? = null
+
+    var observableBase64Str: String by Delegates.observable("") {_, _, newBase64Str->
+        if (newBase64Str.isEmpty())
+            return@observable
+
+        val bitmap = decodeBase64ToBitmap(newBase64Str)
+
+        ivFullFrame?.apply {
+            if (this.visibility != View.GONE) {
+                val matrix = Matrix()
+                this.attacher?.getSuppMatrix(matrix)  // Note: Do not use .getDisplayMatrix
+                this.setImageBitmap(bitmap)
+                this.attacher?.setDisplayMatrix(matrix)
+            }
+        }
+        ivCircleFrame?.setImageBitmap(bitmap)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,28 +47,47 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupView()
         setupDB()
     }
 
-    private fun setupDB() {
-        iv_frame.maximumScale = 10f
+    private fun setupView() {
+        ivFullFrame.maximumScale = 10f
 
+        btnFullscreen.setOnClickListener {
+            val bitmap = decodeBase64ToBitmap(observableBase64Str)
+
+            ivFullFrame?.apply {
+                this.visibility = View.VISIBLE
+                this.setImageBitmap(bitmap)
+                this.post {
+                    val x = bitmap.width / 2f
+                    val y = bitmap.height / 2f
+                    val focalX = x * this.width / bitmap.width
+                    val focalY = y * this.height / bitmap.height
+                    this.setScale(this.maximumScale, focalX, focalY, true)
+                }
+            }
+            ivCircleFrame?.setImageBitmap(bitmap)
+        }
+    }
+
+    private fun setupDB() {
         framesValueEventListener = FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.child("frame").getValue(String::class.java)?.let { base64Str ->
-                        Matrix().let { matrix ->
-                            iv_frame?.attacher?.getSuppMatrix(matrix)  // Note: Do not use .getDisplayMatrix
-                            Base64.decode(base64Str, Base64.DEFAULT)
-                                .run { BitmapFactory.decodeByteArray(this, 0, this.size) }
-                                .run { iv_frame?.setImageBitmap(this) }
-                            iv_frame?.attacher?.setDisplayMatrix(matrix)
-                        }
+                        observableBase64Str = base64Str
                     }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
+    }
+
+    private fun decodeBase64ToBitmap(base64Str: String): Bitmap {
+        return Base64.decode(base64Str, Base64.DEFAULT)
+            .run { BitmapFactory.decodeByteArray(this, 0, this.size) }
     }
 
     override fun onDestroyView() {

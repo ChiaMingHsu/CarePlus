@@ -8,7 +8,7 @@
         tools:context=".HomeActivity">
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="0dp"
-                 android:id="@+id/layout_fragment_placeholder"
+                 android:id="@+id/layoutFragmentPlaceholder"
                  android:layout_weight="1"/>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="41dp"
@@ -18,17 +18,17 @@
                   android:gravity="bottom">
         <ImageButton android:layout_width="0dp" android:layout_height="40dp"
                      android:layout_weight="1"
-                     android:id="@+id/btn_notification"
+                     android:id="@+id/btnNotification"
                      android:src="@drawable/component_237_1"
                      android:background="#f8f8f8"/>
         <ImageButton android:layout_width="0dp" android:layout_height="40dp"
                      android:layout_weight="1"
-                     android:id="@+id/btn_home"
+                     android:id="@+id/btnHome"
                      android:src="@drawable/component_241"
                      android:background="#f8f8f8"/>
         <ImageButton android:layout_width="0dp" android:layout_height="40dp"
                      android:layout_weight="1"
-                     android:id="@+id/btn_setting"
+                     android:id="@+id/btnSetting"
                      android:src="@drawable/component_236_1"
                      android:background="#f8f8f8"/>
     </LinearLayout>

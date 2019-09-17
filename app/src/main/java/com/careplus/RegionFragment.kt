@@ -94,7 +94,7 @@ class RegionFragment : Fragment() {
                     dataSnapshot.child("frame").getValue(String::class.java)?.let { base64Str ->
                         Base64.decode(base64Str, Base64.DEFAULT)
                             .run { BitmapFactory.decodeByteArray(this, 0, this.size) }
-                            .run { iv_frame?.setImageBitmap(this) }
+                            .run { ivFrame?.setImageBitmap(this) }
                     }
                 }
 

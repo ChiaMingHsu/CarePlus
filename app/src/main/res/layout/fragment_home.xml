@@ -7,38 +7,63 @@
         android:layout_height="match_parent"
         tools:context=".HomeFragment">
 
-    <com.github.chrisbanes.photoview.PhotoView android:layout_width="match_parent" android:layout_height="match_parent"
-               android:id="@+id/iv_frame"
-               android:background="#000"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintLeft_toLeftOf="parent"
-               app:layout_constraintRight_toRightOf="parent"
-               android:layout_marginTop="100dp"/>
+    <ImageView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/ivLocation"
+            android:src="@drawable/component_292_2"/>
 
-    <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
-               android:id="@+id/ivBg"
-               android:src="@mipmap/home_bg"
-               android:scaleType="fitXY"/>
+    <ImageView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/ivPrivacy"
+            android:src="@drawable/component_20_2"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_welcome"
-               android:src="@mipmap/home_welcome" app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="40dp"
-               android:layout_marginLeft="50dp" android:layout_marginStart="50dp"/>
+    <ImageButton
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivPrivacy"
+            app:layout_constraintBottom_toBottomOf="@id/ivPrivacy"
+            android:id="@+id/btnFullscreen"
+            android:src="@drawable/component_19_2"
+            android:background="#0000"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_display_name"
-               android:src="@mipmap/home_display_name"
-               app:layout_constraintEnd_toStartOf="@+id/iv_thumbnail" android:layout_marginEnd="7dp"
-               android:layout_marginRight="7dp"
-               app:layout_constraintTop_toTopOf="@id/iv_thumbnail" android:layout_marginTop="32dp"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.5"
+            android:orientation="horizontal"
+            android:id="@+id/glHorizontalCenter"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_thumbnail"
-               android:src="@mipmap/home_thumbnail" app:layout_constraintEnd_toEndOf="parent"
-               android:layout_marginEnd="46dp"
-               android:layout_marginRight="46dp" app:layout_constraintTop_toTopOf="parent"
-               android:layout_marginTop="30dp"/>
+    <ImageView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/glHorizontalCenter"
+            android:id="@+id/ivHead"
+            android:src="@drawable/component_18_2"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp" android:layout_height="0dp"
+            android:id="@+id/ivCircleFrame"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintVertical_bias="0.6"/>
+
+    <com.github.chrisbanes.photoview.PhotoView
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:id="@+id/ivFullFrame"
+            android:background="#000"
+            android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
