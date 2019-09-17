@@ -7,33 +7,30 @@
         android:gravity="bottom"
         tools:context=".HomeActivity">
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp"
                  android:id="@+id/layout_fragment_placeholder"
                  android:layout_weight="1"/>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="match_parent" android:layout_height="41dp"
                   android:orientation="horizontal"
-                  android:weightSum="4">
-        <ImageButton android:layout_width="0dp" android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                     android:id="@+id/btn_home"
-                     android:src="@mipmap/tab_home_inactive"
-                     android:background="#0000"/>
-        <ImageButton android:layout_width="0dp" android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                     android:id="@+id/btn_region"
-                     android:src="@mipmap/tab_region_inactive"
-                     android:background="#0000"/>
-        <ImageButton android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  android:background="@drawable/component_235_1"
+                  android:gravity="bottom">
+        <ImageButton android:layout_width="0dp" android:layout_height="40dp"
                      android:layout_weight="1"
                      android:id="@+id/btn_notification"
-                     android:src="@mipmap/tab_notification_inactive"
-                     android:background="#0000"/>
-        <ImageButton android:layout_width="0dp" android:layout_height="wrap_content"
+                     android:src="@drawable/component_237_1"
+                     android:background="#f8f8f8"/>
+        <ImageButton android:layout_width="0dp" android:layout_height="40dp"
+                     android:layout_weight="1"
+                     android:id="@+id/btn_home"
+                     android:src="@drawable/component_241"
+                     android:background="#f8f8f8"/>
+        <ImageButton android:layout_width="0dp" android:layout_height="40dp"
                      android:layout_weight="1"
                      android:id="@+id/btn_setting"
-                     android:src="@mipmap/tab_setting_inactive"
-                     android:background="#0000"/>
+                     android:src="@drawable/component_236_1"
+                     android:background="#f8f8f8"/>
     </LinearLayout>
 
 </LinearLayout>
