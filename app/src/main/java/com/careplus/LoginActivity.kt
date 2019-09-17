@@ -95,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser!!
                         .run {
-                            User(uid, displayName)
+                            User(uid, displayName, photoUrl.toString())
                         }
                     onLoginSucceed(user)
                 } else {
@@ -111,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser!!
                         .run {
-                            User(uid, displayName)
+                            User(uid, displayName, photoUrl.toString())
                         }
                     onLoginSucceed(user)
                 } else {

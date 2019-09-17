@@ -49,6 +49,83 @@
             android:id="@+id/ivHead"
             android:src="@drawable/component_18_2"/>
 
+    <ImageView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ivHead"
+            app:layout_constraintTop_toTopOf="@id/ivHead"
+            android:id="@+id/ivUserBg"
+            android:src="@drawable/component_217_2"/>
+
+    <ImageView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@id/ivHead"
+            app:layout_constraintTop_toTopOf="@id/ivHead"
+            android:id="@+id/ivDateBg"
+            android:src="@drawable/component_291_2"/>
+
+    <TextView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ivUserBg"
+            app:layout_constraintRight_toRightOf="@id/ivUserBg"
+            app:layout_constraintTop_toTopOf="@id/ivUserBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivUserBg"
+            app:layout_constraintVertical_bias="0.8"
+            android:id="@+id/tvName"
+            android:gravity="center"
+            android:text="NAME"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp" android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/ivUserBg"
+            app:layout_constraintRight_toRightOf="@id/ivUserBg"
+            app:layout_constraintTop_toTopOf="@id/ivUserBg"
+            app:layout_constraintBottom_toTopOf="@id/tvName"
+            app:layout_constraintDimensionRatio="W,1:1"
+            android:layout_margin="10dp"
+            android:id="@+id/ivAvatar"/>
+
+    <TextView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ivDateBg"
+            app:layout_constraintRight_toRightOf="@id/ivDateBg"
+            app:layout_constraintTop_toTopOf="@id/ivDateBg"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="50dp"
+            android:id="@+id/tvYear"
+            android:gravity="right"
+            android:text="2019"
+            android:textColor="#fff"
+            android:textSize="10sp"/>
+
+    <TextView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ivDateBg"
+            app:layout_constraintRight_toRightOf="@id/ivDateBg"
+            app:layout_constraintTop_toTopOf="@id/tvYear"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="50dp"
+            android:id="@+id/tvMonth"
+            android:gravity="right"
+            android:text="9"
+            android:textColor="#fff"
+            android:textSize="10sp"/>
+
+    <TextView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ivDateBg"
+            app:layout_constraintRight_toRightOf="@id/ivDateBg"
+            app:layout_constraintTop_toTopOf="@id/tvMonth"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="50dp"
+            android:id="@+id/tvDay"
+            android:gravity="right"
+            android:text="23"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="0dp" android:layout_height="0dp"
             android:id="@+id/ivCircleFrame"

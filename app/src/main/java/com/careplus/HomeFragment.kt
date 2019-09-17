@@ -13,7 +13,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -52,6 +54,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
+        tvName.text = App.user.name
+        Picasso.get().load(App.user.avatarUrl).into(ivAvatar)
+
+        Calendar.getInstance().run {
+            tvYear.text = this.get(Calendar.YEAR).toString()
+            tvMonth.text = this.get(Calendar.MONTH).run { this + 1 }.toString()
+            tvDay.text = this.get(Calendar.DAY_OF_MONTH).toString()
+        }
+
         ivFullFrame.maximumScale = 10f
 
         btnFullscreen.setOnClickListener {

@@ -53,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val user = firebaseAuth.currentUser!!
                             .run {
-                                User(uid, displayName)
+                                User(uid, displayName, photoUrl.toString())
                             }
                         onRegisterSucceed(user)
                     } else {
