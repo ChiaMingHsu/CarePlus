@@ -63,7 +63,13 @@ class HomeFragment : Fragment() {
             tvDay.text = this.get(Calendar.DAY_OF_MONTH).toString()
         }
 
-        ivFullFrame.maximumScale = 10f
+        ivFullFrame.apply {
+            maximumScale = 10f
+            setOnSingleFlingListener { _, _, _, _ ->
+                ivFullFrame.visibility = View.GONE
+                return@setOnSingleFlingListener true
+            }
+        }
 
         btnFullscreen.setOnClickListener {
             val bitmap = decodeBase64ToBitmap(observableBase64Str)

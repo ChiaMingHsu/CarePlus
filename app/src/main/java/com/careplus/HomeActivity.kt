@@ -10,7 +10,7 @@ import kotlin.properties.Delegates
 class HomeActivity : AppCompatActivity() {
 
     var tabIndex: Int by Delegates.observable(-1) { _, oldTabIndex, newTabIndex ->
-        if (newTabIndex == 1 || newTabIndex != oldTabIndex)
+        if (newTabIndex != oldTabIndex)
             navigateToTab(newTabIndex)
     }
 
