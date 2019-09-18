@@ -57,7 +57,7 @@ class RegisterActivity : AppCompatActivity() {
                             }
                         onRegisterSucceed(user)
                     } else {
-                        onRegisterFailed()
+                        onRegisterFailed(task.exception?.message)
                     }
                 }
         }
@@ -69,8 +69,8 @@ class RegisterActivity : AppCompatActivity() {
         pbLoading?.visibility = View.GONE
     }
 
-    private fun onRegisterFailed() {
-        Toast.makeText(this, R.string.login_failed_message, Toast.LENGTH_SHORT).show()
+    private fun onRegisterFailed(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         pbLoading?.visibility = View.GONE
     }
 

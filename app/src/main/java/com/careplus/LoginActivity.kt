@@ -14,7 +14,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -99,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                     onLoginSucceed(user)
                 } else {
-                    onLoginFailed()
+                    onLoginFailed(task.exception?.message)
                 }
             }
     }
@@ -115,20 +118,31 @@ class LoginActivity : AppCompatActivity() {
                         }
                     onLoginSucceed(user)
                 } else {
-                    onLoginFailed()
+                    onLoginFailed(task.exception?.message)
                 }
             }
     }
 
     private fun onLoginSucceed(user: User) {
-        FirebaseDatabase.getInstance().getReference("users").push().setValue(user)
-        App.user = user
-        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
-        pbLoading?.visibility = View.GONE
+        FirebaseDatabase.getInstance().getReference("users").orderByChild("id").equalTo(user.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    dataSnapshot.children
+                        .map { it.getValue(User::class.java) }
+                        .firstOrNull()
+                        ?: FirebaseDatabase.getInstance().getReference("users").push().setValue(user)
+
+                    App.user = user
+                    pbLoading?.visibility = View.GONE
+                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
     }
 
-    private fun onLoginFailed() {
-        Toast.makeText(this, R.string.login_failed_message, Toast.LENGTH_SHORT).show()
+    private fun onLoginFailed(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         pbLoading?.visibility = View.GONE
     }
 }

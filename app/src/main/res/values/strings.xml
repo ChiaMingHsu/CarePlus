@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">CarePlus</string>
-    <string name="login_failed_message">Incorrect username or password</string>
     <string name="action_settings">Settings</string>
     <string name="illegal_value">Illegal value</string>
 </resources>
