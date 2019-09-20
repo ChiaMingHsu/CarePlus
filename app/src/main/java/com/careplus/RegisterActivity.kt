@@ -9,8 +9,6 @@ import com.careplus.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.edtPassword
-import kotlinx.android.synthetic.main.activity_register.edtUsername
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -27,34 +25,32 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupView() {
         btnSubmit.setOnClickListener {
+            val name = edtName.text.toString()
             val username = edtUsername.text.toString()
             val password = edtPassword.text.toString()
             val passwordConfirm = edtPasswordConfirm.text.toString()
 
-            if (username.isEmpty() or password.isEmpty()) {
-                Toast.makeText(this, "Username or password is empty", Toast.LENGTH_SHORT).show()
+            if (name.isEmpty() or username.isEmpty() or password.isEmpty()) {
+                Toast.makeText(this, "請填寫姓名、Email、密碼", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (password.length < 6) {
-                Toast.makeText(this, "Password must have at least 6 characters", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "密碼不得少於 6 個字元", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (password != passwordConfirm) {
-                Toast.makeText(this, "Specified passwords do not match", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "密碼確認錯誤", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            pbLoading?.visibility = View.VISIBLE
+            frameProgress?.visibility = View.VISIBLE
 
             firebaseAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val user = firebaseAuth.currentUser!!
-                            .run {
-                                User(uid, displayName, photoUrl.toString())
-                            }
+                        val user = User(firebaseAuth.currentUser!!.uid, edtName.text.toString(), null)
                         onRegisterSucceed(user)
                     } else {
                         onRegisterFailed(task.exception?.message)
@@ -66,12 +62,12 @@ class RegisterActivity : AppCompatActivity() {
     private fun onRegisterSucceed(user: User) {
         FirebaseDatabase.getInstance().getReference("users").push().setValue(user)
         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-        pbLoading?.visibility = View.GONE
+        frameProgress?.visibility = View.GONE
     }
 
     private fun onRegisterFailed(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        pbLoading?.visibility = View.GONE
+        frameProgress?.visibility = View.GONE
     }
 
 }

@@ -63,13 +63,13 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            pbLoading?.visibility = View.VISIBLE
+            frameProgress?.visibility = View.VISIBLE
 
             firebaseAuthWithEmailAndPassword(username, password)
         }
 
         btnGoogle.setOnClickListener {
-            pbLoading?.visibility = View.VISIBLE
+            frameProgress?.visibility = View.VISIBLE
             startActivityForResult(googleSignInClient.signInIntent, RC_GOOGLE_SIGN_IN)
         }
 
@@ -94,55 +94,54 @@ class LoginActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithEmailAndPassword(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = firebaseAuth.currentUser!!
-                        .run {
-                            User(uid, displayName, photoUrl.toString())
+            .addOnSuccessListener {
+                val uid = firebaseAuth.currentUser!!.uid
+
+                FirebaseDatabase.getInstance().getReference("users").orderByChild("id").equalTo(uid)
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            val user = dataSnapshot.children
+                                .map { it.getValue(User::class.java) }
+                                .firstOrNull()
+                                ?.let { user -> onLoginSucceed(user) }
+                                ?: Toast.makeText(this@LoginActivity, "異常的使用者", Toast.LENGTH_SHORT).show()
                         }
-                    onLoginSucceed(user)
-                } else {
-                    onLoginFailed(task.exception?.message)
-                }
+
+                        override fun onCancelled(databaseError: DatabaseError) {}
+                    })
+            }
+            .addOnFailureListener { exception ->
+                onLoginFailed(exception.message)
+            }
+            .addOnCompleteListener {
+                frameProgress?.visibility = View.GONE
             }
     }
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = firebaseAuth.currentUser!!
-                        .run {
-                            User(uid, displayName, photoUrl.toString())
-                        }
-                    onLoginSucceed(user)
-                } else {
-                    onLoginFailed(task.exception?.message)
-                }
+            .addOnSuccessListener {
+                val user = firebaseAuth.currentUser!!
+                    .run {
+                        User(uid, displayName ?: "", photoUrl?.toString())
+                    }
+                onLoginSucceed(user)
+            }
+            .addOnFailureListener {exception ->
+                onLoginFailed(exception.message)
+            }
+            .addOnCompleteListener {
+                frameProgress?.visibility = View.GONE
             }
     }
 
     private fun onLoginSucceed(user: User) {
-        FirebaseDatabase.getInstance().getReference("users").orderByChild("id").equalTo(user.id)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    dataSnapshot.children
-                        .map { it.getValue(User::class.java) }
-                        .firstOrNull()
-                        ?: FirebaseDatabase.getInstance().getReference("users").push().setValue(user)
-
-                    App.user = user
-                    pbLoading?.visibility = View.GONE
-                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
+        App.user = user
+        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
     }
 
     private fun onLoginFailed(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        pbLoading?.visibility = View.GONE
     }
 }

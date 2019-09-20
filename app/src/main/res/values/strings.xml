@@ -2,4 +2,6 @@
     <string name="app_name">CarePlus</string>
     <string name="action_settings">Settings</string>
     <string name="illegal_value">Illegal value</string>
+    <string name="username">帳號</string>
+    <string name="password">密碼</string>
 </resources>

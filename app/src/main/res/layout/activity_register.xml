@@ -8,41 +8,206 @@
         tools:context=".RegisterActivity"
         android:id="@+id/root">
 
-    <EditText
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.796"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/edtUsername"
-            android:inputType="textEmailAddress"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutForm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivBg"
+            android:src="@drawable/register_bg"/>
 
-    <EditText
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtUsername"
-            android:id="@+id/edtPassword"
-            android:inputType="textPassword"/>
-
-    <EditText
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPassword"
-            android:id="@+id/edtPasswordConfirm"
-            android:inputType="textPassword"/>
-
-    <Button
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPasswordConfirm"
-            android:id="@+id/btnSubmit"
-            android:text="Submit"/>
-
-    <ProgressBar
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.424"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/pbLoading"
-            android:visibility="gone"/>
+            app:layout_constraintBottom_toTopOf="@id/layoutForm"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivTitle"
+            android:src="@drawable/register_title"/>
+
+    <!-- Form -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTitle"
+            app:layout_constraintBottom_toTopOf="@id/ivBg"
+            android:id="@+id/layoutForm">
+
+        <!-- Name -->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="119.3dp"
+                android:layout_marginRight="43.4dp"
+                android:id="@+id/ivNameBg"
+                android:src="@drawable/register_name_bg"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.081"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivNameBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivNameBg"
+                android:layout_marginLeft="44dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivNameLabel"
+                android:src="@drawable/register_name_label"/>
+
+        <EditText
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivNameBg"
+                app:layout_constraintRight_toRightOf="@id/ivNameBg"
+                app:layout_constraintTop_toTopOf="@id/ivNameBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivNameBg"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="7dp"
+                android:id="@+id/edtName"
+                android:inputType="textPersonName"
+                android:background="@android:color/transparent"/>
+
+        <!-- Email -->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivNameBg"
+                app:layout_constraintRight_toRightOf="@id/ivNameBg"
+                app:layout_constraintTop_toBottomOf="@id/ivNameBg"
+                android:id="@+id/ivEmailBg"
+                android:src="@drawable/register_email_bg"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.133"
+                app:layout_constraintLeft_toLeftOf="@id/ivNameLabel"
+                app:layout_constraintTop_toTopOf="@id/ivEmailBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmailBg"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivEmailLabel"
+                android:src="@drawable/register_email_label"/>
+
+        <EditText
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivEmailBg"
+                app:layout_constraintRight_toRightOf="@id/ivEmailBg"
+                app:layout_constraintTop_toTopOf="@id/ivEmailBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmailBg"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="7dp"
+                android:id="@+id/edtUsername"
+                android:inputType="textEmailAddress"
+                android:background="@android:color/transparent"/>
+
+        <!-- Password -->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivEmailBg"
+                app:layout_constraintRight_toRightOf="@id/ivEmailBg"
+                app:layout_constraintTop_toBottomOf="@id/ivEmailBg"
+                android:id="@+id/ivPasswordBg"
+                android:src="@drawable/register_password_bg"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.081"
+                app:layout_constraintLeft_toLeftOf="@id/ivEmailLabel"
+                app:layout_constraintTop_toTopOf="@id/ivPasswordBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivPasswordBg"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivPasswordLabel"
+                android:src="@drawable/register_password_label"/>
+
+        <EditText
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivPasswordBg"
+                app:layout_constraintRight_toRightOf="@id/ivPasswordBg"
+                app:layout_constraintTop_toTopOf="@id/ivPasswordBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivPasswordBg"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="7dp"
+                android:id="@+id/edtPassword"
+                android:inputType="textPassword"
+                android:background="@android:color/transparent"/>
+
+        <!-- Password Confirm -->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivPasswordBg"
+                app:layout_constraintRight_toRightOf="@id/ivPasswordBg"
+                app:layout_constraintTop_toBottomOf="@id/ivPasswordBg"
+                android:id="@+id/ivPasswordConfirmBg"
+                android:src="@drawable/register_password_confirm_bg"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.170"
+                app:layout_constraintLeft_toLeftOf="@id/ivPasswordLabel"
+                app:layout_constraintTop_toTopOf="@id/ivPasswordConfirmBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivPasswordConfirmBg"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivPasswordConfirmLabel"
+                android:src="@drawable/register_password_confirm_label"/>
+
+        <EditText
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivPasswordConfirmBg"
+                app:layout_constraintRight_toRightOf="@id/ivPasswordConfirmBg"
+                app:layout_constraintTop_toTopOf="@id/ivPasswordConfirmBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivPasswordConfirmBg"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="7dp"
+                android:id="@+id/edtPasswordConfirm"
+                android:inputType="textPassword"
+                android:background="@android:color/transparent"/>
+
+        <!-- Submit -->
+
+        <ImageButton
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.156"
+                app:layout_constraintRight_toRightOf="@id/ivPasswordConfirmBg"
+                app:layout_constraintTop_toBottomOf="@id/ivPasswordConfirmBg"
+                android:layout_marginTop="8.5dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/btnSubmit"
+                android:src="@drawable/register_btn_submit"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Progress -->
+
+    <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:id="@+id/frameProgress"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="#7000"
+            android:visibility="gone">
+        <ProgressBar
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/pbLoading"/>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
