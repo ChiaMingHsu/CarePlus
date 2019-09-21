@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
+        tvName.isSelected = true
         tvName.text = App.user.name
         Picasso.get().load(App.user.avatarUrl).into(ivAvatar)
 
@@ -90,7 +91,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupDB() {
-        framesValueEventListener = FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!)
+        framesValueEventListener = FirebaseDatabase.getInstance().getReference("frames").child(App.user.id)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.child("frame").getValue(String::class.java)?.let { base64Str ->
@@ -109,6 +110,6 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        framesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("frames").child(App.user.id!!).removeEventListener(it) }
+        framesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("frames").child(App.user.id).removeEventListener(it) }
     }
 }

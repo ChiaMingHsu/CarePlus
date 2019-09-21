@@ -7,33 +7,36 @@
         android:layout_height="match_parent"
         tools:context=".HomeFragment">
 
-    <ImageView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
+    <!-- Location -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.312"
+            app:layout_constraintRight_toRightOf="@id/ivCircleFrame"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
-            android:id="@+id/ivLocation"
-            android:src="@drawable/component_292_2"/>
+            app:layout_constraintBottom_toTopOf="@id/frameDate"
+            android:id="@+id/frameLocation">
 
-    <ImageView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
-            android:id="@+id/ivPrivacy"
-            android:src="@drawable/component_20_2"/>
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivLocationBg"
+                android:src="@drawable/home_location_bg"/>
 
-    <ImageButton
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivPrivacy"
-            app:layout_constraintBottom_toBottomOf="@id/ivPrivacy"
-            android:id="@+id/btnFullscreen"
-            android:src="@drawable/component_19_2"
-            android:background="#0000"/>
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.4924"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivLocationText"
+                android:src="@drawable/home_location_text"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -42,100 +45,187 @@
             android:id="@+id/glHorizontalCenter"/>
 
     <ImageView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.769"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/glHorizontalCenter"
+            android:adjustViewBounds="true"
             android:id="@+id/ivHead"
-            android:src="@drawable/component_18_2"/>
+            android:src="@drawable/home_head"/>
 
-    <ImageView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/ivHead"
-            app:layout_constraintTop_toTopOf="@id/ivHead"
-            android:id="@+id/ivUserBg"
-            android:src="@drawable/component_217_2"/>
+    <!-- User Info -->
 
-    <ImageView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="@id/ivHead"
-            app:layout_constraintTop_toTopOf="@id/ivHead"
-            android:id="@+id/ivDateBg"
-            android:src="@drawable/component_291_2"/>
-
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/ivUserBg"
-            app:layout_constraintRight_toRightOf="@id/ivUserBg"
-            app:layout_constraintTop_toTopOf="@id/ivUserBg"
-            app:layout_constraintBottom_toBottomOf="@id/ivUserBg"
-            app:layout_constraintVertical_bias="0.8"
-            android:id="@+id/tvName"
-            android:gravity="center"
-            android:text="NAME"
-            android:textColor="#fff"
-            android:textStyle="bold"/>
+            app:layout_constraintWidth_percent="0.293"
+            app:layout_constraintLeft_toLeftOf="@id/ivCircleFrame"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/ivCircleFrame"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/frameUserInfo">
+
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivUserInfoBg"
+                android:src="@drawable/home_user_info_bg"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5"
+                android:orientation="horizontal"
+                android:id="@+id/glUserInfoHorizontalCenter"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="0dp" android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.2871"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/glUserInfoHorizontalCenter"
+                app:layout_constraintDimensionRatio="H,1:1"
+                android:id="@+id/ivAvatar"
+                android:src="@drawable/home_avatar_placeholder"/>
+
+        <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/glUserInfoHorizontalCenter"
+                android:id="@+id/tvName"
+                android:gravity="center"
+                android:text="NAME"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:textColor="#fff"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
+                android:id="@+id/tvEmail"
+                android:gravity="center"
+                android:text="email@email.com"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:textColor="#fff"
+                android:textSize="10sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Date -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.300"
+            app:layout_constraintRight_toRightOf="@id/ivCircleFrame"
+            app:layout_constraintBottom_toTopOf="@id/ivCircleFrame"
+            android:layout_marginRight="8dp"
+            android:id="@+id/frameDate">
+
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivDateBg"
+                android:src="@drawable/home_date_bg"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5708"
+                android:orientation="vertical"
+                android:id="@+id/glDateVerticalRight"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.1654"
+                android:orientation="horizontal"
+                android:id="@+id/glDateHorizontalTopYear"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.3813"
+                android:orientation="horizontal"
+                android:id="@+id/glDateHorizontalTopMonth"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.8200"
+                android:orientation="horizontal"
+                android:id="@+id/glDateHorizontalBottomDay"/>
+
+        <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="@id/glDateVerticalRight"
+                app:layout_constraintTop_toTopOf="@id/glDateHorizontalTopYear"
+                android:id="@+id/tvYear"
+                android:gravity="right"
+                android:text="2019"
+                android:textColor="#fff"
+                android:textSize="10sp"/>
+
+        <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="@id/glDateVerticalRight"
+                app:layout_constraintTop_toTopOf="@id/glDateHorizontalTopMonth"
+                android:id="@+id/tvMonth"
+                android:gravity="right"
+                android:text="12"
+                android:textColor="#fff"
+                android:textSize="10sp"/>
+
+        <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="@id/glDateVerticalRight"
+                app:layout_constraintBottom_toBottomOf="@id/glDateHorizontalBottomDay"
+                android:id="@+id/tvDay"
+                android:gravity="right"
+                android:text="31"
+                android:textColor="#fff"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="0dp" android:layout_height="0dp"
-            app:layout_constraintLeft_toLeftOf="@id/ivUserBg"
-            app:layout_constraintRight_toRightOf="@id/ivUserBg"
-            app:layout_constraintTop_toTopOf="@id/ivUserBg"
-            app:layout_constraintBottom_toTopOf="@id/tvName"
-            app:layout_constraintDimensionRatio="W,1:1"
-            android:layout_margin="10dp"
-            android:id="@+id/ivAvatar"/>
-
-    <TextView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/ivDateBg"
-            app:layout_constraintRight_toRightOf="@id/ivDateBg"
-            app:layout_constraintTop_toTopOf="@id/ivDateBg"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="50dp"
-            android:id="@+id/tvYear"
-            android:gravity="right"
-            android:text="2019"
-            android:textColor="#fff"
-            android:textSize="10sp"/>
-
-    <TextView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/ivDateBg"
-            app:layout_constraintRight_toRightOf="@id/ivDateBg"
-            app:layout_constraintTop_toTopOf="@id/tvYear"
-            android:layout_marginTop="22dp"
-            android:layout_marginRight="50dp"
-            android:id="@+id/tvMonth"
-            android:gravity="right"
-            android:text="9"
-            android:textColor="#fff"
-            android:textSize="10sp"/>
-
-    <TextView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/ivDateBg"
-            app:layout_constraintRight_toRightOf="@id/ivDateBg"
-            app:layout_constraintTop_toTopOf="@id/tvMonth"
-            android:layout_marginTop="22dp"
-            android:layout_marginRight="50dp"
-            android:id="@+id/tvDay"
-            android:gravity="right"
-            android:text="23"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="24sp"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="0dp" android:layout_height="0dp"
-            android:id="@+id/ivCircleFrame"
-            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintWidth_percent="0.856"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintVertical_bias="0.6"/>
+            app:layout_constraintVertical_bias="0.6"
+            android:id="@+id/ivCircleFrame"
+            android:src="@drawable/home_frame_placeholder"/>
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.143"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCircleFrame"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnFullscreen"
+            android:src="@drawable/home_btn_enter_fullscreen"
+            android:background="#0000"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.245"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnFullscreen"
+            app:layout_constraintBottom_toBottomOf="@id/btnFullscreen"
+            android:layout_marginRight="39.7dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivPrivacy"
+            android:src="@drawable/home_privacy_protection"/>
 
     <com.github.chrisbanes.photoview.PhotoView
             android:layout_width="match_parent" android:layout_height="match_parent"
