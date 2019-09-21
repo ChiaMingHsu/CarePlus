@@ -120,11 +120,12 @@
 
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.060"
+                app:layout_constraintWidth_percent="0.064"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/btnGoogle"
                 app:layout_constraintBottom_toBottomOf="@id/btnGoogle"
                 android:layout_marginRight="30.8dp"
+                android:padding="5dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/btnRegister"
                 android:src="@drawable/login_btn_register"
