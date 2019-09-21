@@ -82,13 +82,16 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_GOOGLE_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account)
-            } catch (e: ApiException) {
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-            }
+            GoogleSignIn.getSignedInAccountFromIntent(data)
+                .addOnSuccessListener { account ->
+                    firebaseAuthWithGoogle(account)
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this@LoginActivity, exception.message, Toast.LENGTH_SHORT).show()
+                }
+                .addOnCompleteListener {
+                    frameProgress.visibility = View.GONE
+                }
         }
     }
 
