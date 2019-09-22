@@ -23,21 +23,28 @@ class HomeFragment : Fragment() {
 
     var framesValueEventListener: ValueEventListener? = null
 
+    var isCircleFrameUpdatable: Boolean = true
+    var isFullFrameUpdatable: Boolean = false
+
     var observableBase64Str: String by Delegates.observable("") {_, _, newBase64Str->
         if (newBase64Str.isEmpty())
             return@observable
 
-        val bitmap = decodeBase64ToBitmap(newBase64Str)
+        decodeBase64ToBitmap(newBase64Str).let {bitmap ->
+            ivCircleFrame
+                ?.takeIf { isCircleFrameUpdatable }
+                ?.setImageBitmap(bitmap)
 
-        ivFullFrame?.apply {
-            if (this.visibility != View.GONE) {
-                val matrix = Matrix()
-                this.attacher?.getSuppMatrix(matrix)  // Note: Do not use .getDisplayMatrix
-                this.setImageBitmap(bitmap)
-                this.attacher?.setDisplayMatrix(matrix)
-            }
+            ivFullFrame
+                ?.takeIf { isFullFrameUpdatable }
+                ?.apply {
+                    // Keep previous matrix and then apply it after updating bitmap
+                    val matrix = Matrix()
+                    this.attacher?.getSuppMatrix(matrix)  // Note: Do not use .getDisplayMatrix
+                    this.setImageBitmap(bitmap)
+                    this.attacher?.setDisplayMatrix(matrix)
+                }
         }
-        ivCircleFrame?.setImageBitmap(bitmap)
     }
 
     override fun onCreateView(
@@ -64,29 +71,56 @@ class HomeFragment : Fragment() {
             tvDay.text = this.get(Calendar.DAY_OF_MONTH).toString()
         }
 
-        ivFullFrame.apply {
-            maximumScale = 10f
-            setOnSingleFlingListener { _, _, _, _ ->
-                ivFullFrame.visibility = View.GONE
-                return@setOnSingleFlingListener true
+        ivFullFrame.maximumScale = 10f
+
+        btnEnterFullscreen.setOnClickListener {
+            btnEnterFullscreen.visibility = View.GONE
+            isCircleFrameUpdatable = false
+            ivCircleFrame.setImageBitmap(null)
+
+            decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
+                ivFullFrame
+                    ?.apply {
+                        this.visibility = View.VISIBLE
+                        this.setImageBitmap(bitmap)
+                        this.setZoomTransitionDuration(1000)
+                        this.post {
+                            val x = bitmap.width / 2f
+                            val y = bitmap.height / 2f
+                            val focalX = x * this.width / bitmap.width
+                            val focalY = y * this.height / bitmap.height
+                            this.setScale(this.maximumScale, focalX, focalY, true)
+                        }
+                    }
+                    ?.postDelayed({
+                        btnExitFullscreen?.visibility = View.VISIBLE
+                        isFullFrameUpdatable = true
+                    }, 1000)
             }
         }
 
-        btnFullscreen.setOnClickListener {
-            val bitmap = decodeBase64ToBitmap(observableBase64Str)
+        btnExitFullscreen.setOnClickListener {
+            btnExitFullscreen.visibility = View.GONE
+            isFullFrameUpdatable = false
 
-            ivFullFrame?.apply {
-                this.visibility = View.VISIBLE
-                this.setImageBitmap(bitmap)
-                this.post {
-                    val x = bitmap.width / 2f
-                    val y = bitmap.height / 2f
-                    val focalX = x * this.width / bitmap.width
-                    val focalY = y * this.height / bitmap.height
-                    this.setScale(this.maximumScale, focalX, focalY, true)
-                }
+            decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
+                ivFullFrame
+                    ?.apply {
+                        this.setZoomTransitionDuration(1000)
+                        this.post {
+                            this.setScale(this.minimumScale, true)
+                        }
+                    }
+                    ?.postDelayed({
+                        btnEnterFullscreen?.visibility = View.VISIBLE
+                        ivCircleFrame?.setImageBitmap(bitmap)
+                        ivFullFrame?.apply {
+                            setImageBitmap(null)
+                            visibility = View.GONE
+                        }
+                        isCircleFrameUpdatable = true
+                    }, 1000)
             }
-            ivCircleFrame?.setImageBitmap(bitmap)
         }
     }
 
