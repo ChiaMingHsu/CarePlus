@@ -9,7 +9,7 @@
 
     <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
                android:id="@+id/ivBg"
-               android:src="@mipmap/notification_bg"
+               android:src="@drawable/notification_bg"
                android:scaleType="fitXY"/>
 
     <androidx.recyclerview.widget.RecyclerView
