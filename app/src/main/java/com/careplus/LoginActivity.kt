@@ -63,34 +63,16 @@ class LoginActivity : AppCompatActivity() {
             }
 
             frameProgress?.visibility = View.VISIBLE
-
             firebaseAuthWithEmailAndPassword(username, password)
         }
 
         btnGoogle.setOnClickListener {
             frameProgress?.visibility = View.VISIBLE
-            startActivityForResult(googleSignInClient.signInIntent, RC_GOOGLE_SIGN_IN)
+            requestGoogleSignIn()
         }
 
         btnRegister.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_GOOGLE_SIGN_IN) {
-            GoogleSignIn.getSignedInAccountFromIntent(data)
-                .addOnSuccessListener { account ->
-                    firebaseAuthWithGoogle(account)
-                }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(this@LoginActivity, exception.message, Toast.LENGTH_SHORT).show()
-                }
-                .addOnCompleteListener {
-                    frameProgress.visibility = View.GONE
-                }
         }
     }
 
@@ -102,11 +84,11 @@ class LoginActivity : AppCompatActivity() {
                 FirebaseDatabase.getInstance().getReference("users").orderByChild("id").equalTo(uid)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            val user = dataSnapshot.children
+                            dataSnapshot.children
                                 .map { it.getValue(User::class.java) }
                                 .firstOrNull()
                                 ?.let { user -> onLoginSucceed(user) }
-                                ?: Toast.makeText(this@LoginActivity, "異常的使用者", Toast.LENGTH_SHORT).show()
+                                ?: onLoginFailed("異常的使用者")
                         }
 
                         override fun onCancelled(databaseError: DatabaseError) {}
@@ -115,9 +97,24 @@ class LoginActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 onLoginFailed(exception.message)
             }
-            .addOnCompleteListener {
-                frameProgress?.visibility = View.GONE
-            }
+    }
+
+    private fun requestGoogleSignIn() {
+        startActivityForResult(googleSignInClient.signInIntent, RC_GOOGLE_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_GOOGLE_SIGN_IN) {
+            GoogleSignIn.getSignedInAccountFromIntent(data)
+                .addOnSuccessListener { account ->
+                    firebaseAuthWithGoogle(account)
+                }
+                .addOnFailureListener { exception ->
+                    onLoginFailed(exception.message)
+                }
+        }
     }
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
@@ -133,17 +130,16 @@ class LoginActivity : AppCompatActivity() {
             .addOnFailureListener {exception ->
                 onLoginFailed(exception.message)
             }
-            .addOnCompleteListener {
-                frameProgress?.visibility = View.GONE
-            }
     }
 
     private fun onLoginSucceed(user: User) {
         App.user = user
         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+        frameProgress?.visibility = View.GONE
     }
 
     private fun onLoginFailed(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        frameProgress?.visibility = View.GONE
     }
 }

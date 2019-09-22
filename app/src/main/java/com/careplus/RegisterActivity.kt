@@ -46,7 +46,6 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             frameProgress?.visibility = View.VISIBLE
-
             firebaseAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
