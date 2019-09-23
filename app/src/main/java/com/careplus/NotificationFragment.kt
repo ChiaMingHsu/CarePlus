@@ -34,7 +34,7 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setupView() {
-        rv_notification.apply {
+        rvNotification.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = messageAdapter
         }
@@ -42,6 +42,16 @@ class NotificationFragment : Fragment() {
 
     private fun setupDB() {
         pbLoading?.visibility = View.VISIBLE
+
+        messageAdapter.onBtnPlayClickListener = View.OnClickListener { view ->
+            val position = view.tag as Int  // TODO
+            fragmentManager?.run {
+                beginTransaction()
+                    .add(R.id.layoutFragmentPlaceholder, PlaybackFragment())
+                    .addToBackStack(this@NotificationFragment::class.java.simpleName)
+                    .commit()
+            }
+        }
 
         messagesValueEventListener = FirebaseDatabase.getInstance().getReference("messages").child(App.user.id!!)
             .orderByKey()
