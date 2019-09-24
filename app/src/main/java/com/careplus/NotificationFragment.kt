@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.careplus.adapters.MessageAdapter
@@ -47,6 +48,13 @@ class NotificationFragment : Fragment() {
             val position = view.tag as Int
             val message = messageAdapter.messages[position]
             val playbackId = message.playbackId
+
+            if (playbackId.isEmpty()) {
+                Toast.makeText(context, "此訊息沒有回放影像", Toast.LENGTH_SHORT).show()
+                return@OnClickListener
+            }
+
+
             fragmentManager?.run {
                 beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, PlaybackFragment(message, playbackId))
