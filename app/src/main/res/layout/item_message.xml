@@ -3,63 +3,76 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="34.9dp"
+        android:layout_height="wrap_content"
         android:background="#0f0">
 
-    <ImageButton
-            android:layout_width="13.2dp" android:layout_height="13.2dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="0.7dp"
-            android:layout_marginBottom="7.7dp"
-            android:id="@+id/btnPlay"
-            android:background="#4b5cff"/>
-    
-    <ImageView
-            android:layout_width="0dp" android:layout_height="21.3dp"
-            app:layout_constraintWidth_percent="0.8034"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="3.3dp"
-            android:layout_marginBottom="4dp"
-            android:id="@+id/ivBody"
-            android:background="#4b5cff"/>
-
-    <TextView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/ivBody"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="12dp"
-            android:id="@+id/tvDate"
-            android:text="0000.00.00"
-            android:textSize="7sp"
-            android:textColor="#6170ff"
-            android:lineSpacingExtra="27.3sp"
-            android:textStyle="bold"/>
+            app:layout_constraintWidth_percent="0.7370"
+            android:background="#0ff">
 
-    <TextView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/tvDate"
-            app:layout_constraintTop_toTopOf="@id/ivBody"
-            app:layout_constraintBottom_toBottomOf="@id/ivBody"
-            android:id="@+id/tvTime"
-            android:text="00:00 AM"
-            android:textSize="7sp"
-            android:textColor="#ffffff"
-            android:lineSpacingExtra="6.3sp"
-            android:textStyle="bold"/>
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.8034"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="3.3dp"
+                android:layout_marginBottom="4dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivContentBg"
+                android:src="@drawable/notification_content_alarm_standard_bg"
+                android:scaleType="fitXY"/>
 
-    <TextView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivBody"
-            app:layout_constraintBottom_toBottomOf="@id/ivBody"
-            android:layout_marginRight="13dp"
-            android:id="@+id/tvContent"
-            android:text="內容"
-            android:textSize="9.3sp"
-            android:textColor="#ffffff"
-            android:lineSpacingExtra="4.7sp"
-            android:textStyle="bold"/>/>
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivContentBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivContentBg"
+                android:layout_marginRight="16.3dp"
+                android:id="@+id/tvContent"
+                android:text="內容"
+                android:textSize="10sp"
+                android:textColor="#ffffff"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivContentBg"
+                app:layout_constraintTop_toTopOf="@id/ivContentBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivContentBg"
+                android:layout_marginLeft="12dp"
+                android:id="@+id/tvTime"
+                android:text="00:00 AM"
+                android:textSize="8sp"
+                android:textColor="#ffffff"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/tvTime"
+                app:layout_constraintBottom_toTopOf="@id/ivContentBg"
+                android:id="@+id/tvDate"
+                android:text="0000.00.00"
+                android:textSize="8sp"
+                android:textColor="#6170ff"
+                android:textStyle="bold"/>
+
+        <ImageButton
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.0613"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivContentBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivContentBg"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="0.7dp"
+                android:id="@+id/btnPlay"
+                android:src="@drawable/notification_btn_play_alarm_standard"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

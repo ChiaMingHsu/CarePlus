@@ -14,7 +14,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="23.3sp"
             android:textColor="#4b5cff"
-            android:letterSpacing="0.2"
             android:lineSpacingExtra="14.3sp"
             tools:text="記錄"
             android:textStyle="bold"/>
