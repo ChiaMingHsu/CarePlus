@@ -53,7 +53,7 @@ class NotificationFragment : Fragment() {
             }
         }
 
-        messagesValueEventListener = FirebaseDatabase.getInstance().getReference("messages").child(App.user.id!!)
+        messagesValueEventListener = FirebaseDatabase.getInstance().getReference("messages").child(App.user.id)
             .orderByKey()
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -77,6 +77,6 @@ class NotificationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        messagesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("messages").child(App.user.id!!).removeEventListener(it) }
+        messagesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("messages").child(App.user.id).removeEventListener(it) }
     }
 }

@@ -1,10 +1,7 @@
 package com.careplus
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Bundle
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +27,7 @@ class HomeFragment : Fragment() {
         if (newBase64Str.isEmpty())
             return@observable
 
-        decodeBase64ToBitmap(newBase64Str).let {bitmap ->
+        Util.decodeBase64ToBitmap(newBase64Str).let { bitmap ->
             ivCircleFrame
                 ?.takeIf { isCircleFrameUpdatable }
                 ?.setImageBitmap(bitmap)
@@ -78,7 +75,7 @@ class HomeFragment : Fragment() {
             isCircleFrameUpdatable = false
             ivCircleFrame.setImageBitmap(null)
 
-            decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
+            Util.decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
                 ivFullFrame
                     ?.apply {
                         this.visibility = View.VISIBLE
@@ -103,7 +100,7 @@ class HomeFragment : Fragment() {
             btnExitFullscreen.visibility = View.GONE
             isFullFrameUpdatable = false
 
-            decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
+            Util.decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
                 ivFullFrame
                     ?.apply {
                         this.setZoomTransitionDuration(1000)
@@ -135,11 +132,6 @@ class HomeFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-    }
-
-    private fun decodeBase64ToBitmap(base64Str: String): Bitmap {
-        return Base64.decode(base64Str, Base64.DEFAULT)
-            .run { BitmapFactory.decodeByteArray(this, 0, this.size) }
     }
 
     override fun onDestroyView() {
