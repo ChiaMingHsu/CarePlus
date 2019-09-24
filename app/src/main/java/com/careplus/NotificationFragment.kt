@@ -45,10 +45,11 @@ class NotificationFragment : Fragment() {
 
         messageAdapter.onBtnPlayClickListener = View.OnClickListener { view ->
             val position = view.tag as Int
-            val playbackId = messageAdapter.messages[position].playbackId
+            val message = messageAdapter.messages[position]
+            val playbackId = message.playbackId
             fragmentManager?.run {
                 beginTransaction()
-                    .add(R.id.layoutFragmentPlaceholder, PlaybackFragment(playbackId))
+                    .replace(R.id.layoutFragmentPlaceholder, PlaybackFragment(message, playbackId))
                     .addToBackStack(this@NotificationFragment::class.java.simpleName)
                     .commit()
             }

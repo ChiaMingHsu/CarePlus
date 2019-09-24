@@ -5,18 +5,74 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".NotificationFragment"
-        android:background="#0f0">
+        tools:context=".PlaybackFragment">
 
     <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="記錄"
             android:textSize="23.3sp"
             android:textColor="#4b5cff"
-            android:lineSpacingExtra="14.3sp"
-            tools:text="記錄"
             android:textStyle="bold"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.5"
+            android:orientation="vertical"
+            android:id="@+id/glVerticalCenter"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.325"
+            app:layout_constraintLeft_toLeftOf="@id/glVerticalCenter"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.05"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivMessageBg"
+            android:src="@drawable/playback_message_bg"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.811"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivFrame"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.8751"
+            android:orientation="horizontal"
+            android:id="@+id/glHorizontalBottom"/>
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.30"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/glHorizontalBottom"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnSave"
+            android:src="@drawable/playback_btn_save"
+            android:background="@android:color/transparent"/>
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.146"
+            app:layout_constraintLeft_toRightOf="@id/btnSave"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/glHorizontalBottom"
+            app:layout_constraintHorizontal_bias="0.7"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnBack"
+            android:src="@drawable/playback_btn_back"
+            android:background="@android:color/transparent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

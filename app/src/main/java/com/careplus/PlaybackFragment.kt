@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.careplus.model.Message
 
 
-class PlaybackFragment(val playbackId: String) : Fragment() {
+class PlaybackFragment(val message: Message, val playbackId: String) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
