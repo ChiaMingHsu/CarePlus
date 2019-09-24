@@ -8,5 +8,6 @@ data class Message(
     var priority: String = "",
     var date: String = "",
     var time: String = "",
-    var content: String = ""
+    var content: String = "",
+    var playbackId: String = ""
 )

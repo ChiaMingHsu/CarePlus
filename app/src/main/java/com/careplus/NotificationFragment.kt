@@ -44,10 +44,11 @@ class NotificationFragment : Fragment() {
         pbLoading?.visibility = View.VISIBLE
 
         messageAdapter.onBtnPlayClickListener = View.OnClickListener { view ->
-            val position = view.tag as Int  // TODO
+            val position = view.tag as Int
+            val playbackId = messageAdapter.messages[position].playbackId
             fragmentManager?.run {
                 beginTransaction()
-                    .add(R.id.layoutFragmentPlaceholder, PlaybackFragment())
+                    .add(R.id.layoutFragmentPlaceholder, PlaybackFragment(playbackId))
                     .addToBackStack(this@NotificationFragment::class.java.simpleName)
                     .commit()
             }
@@ -58,9 +59,7 @@ class NotificationFragment : Fragment() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
-                        .map {
-                            it.getValue(Message::class.java)
-                        }
+                        .map { it.getValue(Message::class.java) }
                         .filterNotNull()
                         .let {
                             messageAdapter.messages.clear()
