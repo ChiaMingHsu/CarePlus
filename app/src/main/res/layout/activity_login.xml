@@ -17,10 +17,24 @@
 
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.201"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivBg"
+            app:layout_constraintHorizontal_bias="0.178"
+            app:layout_constraintVertical_bias="0.0996"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivHello"
+            android:src="@drawable/login_hello"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.396"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivBg"
+            app:layout_constraintBottom_toTopOf="@id/layoutForm"
             android:adjustViewBounds="true"
             android:id="@+id/ivAppName"
             android:src="@drawable/login_app_name"/>
