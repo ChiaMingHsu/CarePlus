@@ -60,7 +60,8 @@
             android:adjustViewBounds="true"
             android:id="@+id/btnSave"
             android:src="@drawable/playback_btn_save"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"/>
 
     <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"
@@ -72,7 +73,8 @@
             android:adjustViewBounds="true"
             android:id="@+id/btnBack"
             android:src="@drawable/playback_btn_back"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
