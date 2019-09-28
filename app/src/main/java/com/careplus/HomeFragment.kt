@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
         if (newBase64Str.isEmpty())
             return@observable
 
-        Util.decodeBase64ToBitmap(newBase64Str).let { bitmap ->
+        Util.decodeBase64ToBitmap(newBase64Str)?.let { bitmap ->
             ivCircleFrame
                 ?.takeIf { isCircleFrameUpdatable }
                 ?.setImageBitmap(bitmap)
@@ -71,11 +71,11 @@ class HomeFragment : Fragment() {
         ivFullFrame.maximumScale = 10f
 
         btnEnterFullscreen.setOnClickListener {
-            btnEnterFullscreen.visibility = View.GONE
-            isCircleFrameUpdatable = false
-            ivCircleFrame.setImageBitmap(null)
+            Util.decodeBase64ToBitmap(observableBase64Str)?.let { bitmap ->
+                btnEnterFullscreen.visibility = View.GONE
+                isCircleFrameUpdatable = false
+                ivCircleFrame.setImageBitmap(null)
 
-            Util.decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
                 ivFullFrame
                     ?.apply {
                         this.visibility = View.VISIBLE
@@ -97,10 +97,10 @@ class HomeFragment : Fragment() {
         }
 
         btnExitFullscreen.setOnClickListener {
-            btnExitFullscreen.visibility = View.GONE
-            isFullFrameUpdatable = false
+            Util.decodeBase64ToBitmap(observableBase64Str)?.let { bitmap ->
+                btnExitFullscreen.visibility = View.GONE
+                isFullFrameUpdatable = false
 
-            Util.decodeBase64ToBitmap(observableBase64Str).let { bitmap ->
                 ivFullFrame
                     ?.apply {
                         this.setZoomTransitionDuration(1000)

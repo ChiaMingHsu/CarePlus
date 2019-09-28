@@ -68,8 +68,7 @@ class NotificationFragment : Fragment() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
-                        .map { it.getValue(Message::class.java) }
-                        .filterNotNull()
+                        .mapNotNull { it.getValue(Message::class.java) }
                         .let {
                             messageAdapter.messages.clear()
                             messageAdapter.messages.addAll(it)

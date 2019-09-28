@@ -56,9 +56,8 @@ class PlaybackFragment(val message: Message, val playbackId: String) : Fragment(
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     frames = dataSnapshot.children
-                        .map { it.getValue(String::class.java) }
-                        .filterNotNull()
-                        .map { Util.decodeBase64ToBitmap(it) }
+                        .mapNotNull { it.getValue(String::class.java) }
+                        .mapNotNull { Util.decodeBase64ToBitmap(it) }
                     playFrames()
                 }
 
