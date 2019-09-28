@@ -88,7 +88,8 @@ class LoginActivity : AppCompatActivity() {
                                 .map { it.getValue(User::class.java) }
                                 .firstOrNull()
                                 ?.let { user -> onLoginSucceed(user) }
-                                ?: onLoginFailed("異常的使用者")
+                                ?: onLoginFailed("異常的使用者")  // Successfully sing-in Firebase but no user was found in DB,
+                                                                // this usually occurred by inconsistency user list between authentication and DB
                         }
 
                         override fun onCancelled(databaseError: DatabaseError) {}
@@ -133,9 +134,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onLoginSucceed(user: User) {
-        App.user = user
+        FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
         frameProgress?.visibility = View.GONE
+        App.user = user
     }
 
     private fun onLoginFailed(message: String?) {

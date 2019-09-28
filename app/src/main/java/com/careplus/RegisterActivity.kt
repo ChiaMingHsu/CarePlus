@@ -59,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onRegisterSucceed(user: User) {
-        FirebaseDatabase.getInstance().getReference("users").push().setValue(user)
+        FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         frameProgress?.visibility = View.GONE
     }
