@@ -2,12 +2,25 @@ package com.careplus
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.properties.Delegates
 
 class HomeActivity : AppCompatActivity() {
+
+    class HeartbeatThread : Thread() {
+        var shouldContinue = AtomicBoolean(true)
+        override fun run() {
+            while (shouldContinue.get()) {
+                FirebaseDatabase.getInstance().getReference("heartbeats").child(App.user.id).child("timestamp").setValue(System.currentTimeMillis())
+                sleep(5000)
+            }
+        }
+    }
+
+    var heartbeatThread: HeartbeatThread? = null
 
     var tabIndex: Int by Delegates.observable(-1) { _, oldTabIndex, newTabIndex ->
         if (newTabIndex != oldTabIndex)
@@ -72,4 +85,13 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        heartbeatThread = HeartbeatThread().apply { start() }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        heartbeatThread?.apply { shouldContinue.set(false) }
+    }
 }

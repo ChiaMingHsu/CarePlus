@@ -58,6 +58,7 @@
         ```
         - root
             - frames: false
+            - heartbeats: false
             - messages: false
             - playbacks: false
             - settings: false
