@@ -54,7 +54,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        setupDB()
     }
 
     private fun setupView() {
@@ -121,6 +120,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupDB()
+    }
+
     private fun setupDB() {
         framesValueEventListener = FirebaseDatabase.getInstance().getReference("frames").child(App.user.id)
             .addValueEventListener(object : ValueEventListener {
@@ -134,8 +138,8 @@ class HomeFragment : Fragment() {
             })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onPause() {
+        super.onPause()
         framesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("frames").child(App.user.id).removeEventListener(it) }
     }
 }

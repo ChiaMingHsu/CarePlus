@@ -31,7 +31,6 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        setupDB()
     }
 
     private fun setupView() {
@@ -39,10 +38,6 @@ class NotificationFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = messageAdapter
         }
-    }
-
-    private fun setupDB() {
-        pbLoading?.visibility = View.VISIBLE
 
         messageAdapter.onBtnPlayClickListener = View.OnClickListener { view ->
             val position = view.tag as Int
@@ -54,6 +49,15 @@ class NotificationFragment : Fragment() {
                     .commit()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupDB()
+    }
+
+    private fun setupDB() {
+        pbLoading?.visibility = View.VISIBLE
 
         messagesValueEventListener = FirebaseDatabase.getInstance().getReference("messages").child(App.user.id)
             .orderByKey()
@@ -74,8 +78,8 @@ class NotificationFragment : Fragment() {
             })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onPause() {
+        super.onPause()
         messagesValueEventListener?.let { FirebaseDatabase.getInstance().getReference("messages").child(App.user.id).removeEventListener(it) }
     }
 }

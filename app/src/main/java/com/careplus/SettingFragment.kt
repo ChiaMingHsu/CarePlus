@@ -43,7 +43,6 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        setupDB()
     }
 
     private fun setupView() {
@@ -69,6 +68,11 @@ class SettingFragment : Fragment() {
         btn_remind_exercise_apply.setOnClickListener { onBtnRemindExerciseApplyClickListener() }
         btn_remind_go_out_apply.setOnClickListener { onBtnRemindGoOutApplyClickListener() }
         btn_remind_take_medicine_apply.setOnClickListener { onBtnRemindTakeMedicineApplyClickListener() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupDB()
     }
 
     private fun setupDB() {

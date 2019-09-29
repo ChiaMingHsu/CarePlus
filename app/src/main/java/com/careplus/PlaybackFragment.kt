@@ -45,10 +45,14 @@ class PlaybackFragment(val message: Message) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        setupDB()
     }
 
     private fun setupView() {
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupDB()
     }
 
     private fun setupDB() {
@@ -72,8 +76,8 @@ class PlaybackFragment(val message: Message) : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onPause() {
+        super.onPause()
         playFramesThread?.apply { shouldContinue.set(false) }
         frames = null
         playFramesThread = null
