@@ -47,17 +47,9 @@ class NotificationFragment : Fragment() {
         messageAdapter.onBtnPlayClickListener = View.OnClickListener { view ->
             val position = view.tag as Int
             val message = messageAdapter.messages[position]
-            val playbackId = message.playbackId
-
-            if (playbackId.isEmpty()) {
-                Toast.makeText(context, "此訊息沒有回放影像", Toast.LENGTH_SHORT).show()
-                return@OnClickListener
-            }
-
-
             fragmentManager?.run {
                 beginTransaction()
-                    .replace(R.id.layoutFragmentPlaceholder, PlaybackFragment(message, playbackId))
+                    .replace(R.id.layoutFragmentPlaceholder, PlaybackFragment(message))
                     .addToBackStack(this@NotificationFragment::class.java.simpleName)
                     .commit()
             }

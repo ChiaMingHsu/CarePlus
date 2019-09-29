@@ -4,10 +4,9 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Message(
+    var id: String = "",
+    var createdAt: Long = 0,
     var type: String = "",
     var priority: String = "",
-    var date: String = "",
-    var time: String = "",
-    var content: String = "",
-    var playbackId: String = ""
+    var content: String = ""
 )

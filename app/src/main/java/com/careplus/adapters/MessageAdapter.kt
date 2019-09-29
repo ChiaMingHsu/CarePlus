@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.careplus.R
 import com.careplus.model.Message
 import kotlinx.android.synthetic.main.item_message.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MessageAdapter : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
@@ -40,8 +42,8 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
                     holder.view.tvDate.setTextColor(Color.parseColor("#adadbe"))
                 }
             }
-            holder.view.tvDate.text = message.date
-            holder.view.tvTime.text = message.time
+            holder.view.tvDate.text = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(message.createdAt)
+            holder.view.tvTime.text = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(message.createdAt)
             holder.view.tvContent.text = message.content
             holder.view.btnPlay.apply {
                 tag = position

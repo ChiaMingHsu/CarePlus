@@ -57,10 +57,48 @@
     
         ```
         - root
-            - frames: false
+            - users: false
             - heartbeats: false
+            - frames: false
             - messages: false
             - playbacks: false
             - settings: false
-            - users: false
         ```
+
+
+## DB Structure
+
+```
+- root
+    - users (many users)
+        - USER_ID_1
+            - id
+            - name
+        - USER_ID_2
+        - ...
+    - heartbeats (one user to one heartbeat)
+        - USER_ID
+            - timestamp: (in milliseconds)
+    - frames (one user to one frame)
+        - USER_ID
+            - frame: (base64)
+    - messages (one user to many messages)
+        - USER_ID
+            - MESSAGE_ID_1 (format: yyyyMMddHHmmss-UUID4, e.g. 20191515150030-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)
+                - id
+                - createdAt: (in milliseconds)
+                - type: (`alarm` or `remind`)
+                - priority: (`standard` or `emergent`)
+                - content
+            - MESSAGE_ID_2
+            - ...
+    - playbacks (one message to many playbacks)
+        - MESSAGE_ID
+            - PLAYBACK_ID_1
+                - 0: (base64) 
+                - 1
+                - 2
+                - ...
+            - PLAYBACK_ID_2
+    - settings (one user to one setting) 
+```

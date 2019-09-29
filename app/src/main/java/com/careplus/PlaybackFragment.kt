@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_playback.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 
-class PlaybackFragment(val message: Message, val playbackId: String) : Fragment() {
+class PlaybackFragment(val message: Message) : Fragment() {
 
     class PlayFramesThread(val frames: List<Bitmap>, val imageView: ImageView?) : Thread() {
         var shouldContinue = AtomicBoolean(true)
@@ -52,7 +52,7 @@ class PlaybackFragment(val message: Message, val playbackId: String) : Fragment(
     }
 
     private fun setupDB() {
-        FirebaseDatabase.getInstance().getReference("playbacks").child(playbackId)
+        FirebaseDatabase.getInstance().getReference("playbacks").child(message.id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     frames = dataSnapshot.children
