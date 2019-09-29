@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             dataSnapshot.children
-                                .map { it.getValue(User::class.java) }
+                                .map { it.getValue(User::class.java)?.apply { id = it.key!! } }
                                 .firstOrNull()
                                 ?.let { user -> onLoginSucceed(user) }
                                 ?: onLoginFailed("異常的使用者")  // Successfully sing-in Firebase but no user was found in DB,

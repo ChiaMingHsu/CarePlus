@@ -72,7 +72,6 @@
 - root
     - users (many users)
         - USER_ID_1
-            - id
             - name
         - USER_ID_2
         - ...
@@ -85,7 +84,6 @@
     - messages (one user to many messages)
         - USER_ID
             - MESSAGE_ID_1 (format: yyyyMMddHHmmss-UUID4, e.g. 20191515150030-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)
-                - id
                 - createdAt: (in milliseconds)
                 - type: (`alarm` or `remind`)
                 - priority: (`standard` or `emergent`)

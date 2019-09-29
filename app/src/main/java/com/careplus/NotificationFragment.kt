@@ -60,7 +60,7 @@ class NotificationFragment : Fragment() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
-                        .mapNotNull { it.getValue(Message::class.java) }
+                        .mapNotNull { it.getValue(Message::class.java)?.apply { id = it.key!! } }
                         .let {
                             messageAdapter.messages.clear()
                             messageAdapter.messages.addAll(it)
