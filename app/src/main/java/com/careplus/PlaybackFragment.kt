@@ -13,6 +13,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_playback.*
+import org.jcodec.api.SequenceEncoder
+import org.jcodec.common.AndroidUtil
+import org.jcodec.common.Codec
+import org.jcodec.common.Format
+import org.jcodec.common.io.NIOUtils
+import org.jcodec.common.model.ColorSpace
+import org.jcodec.common.model.Rational
+import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
 
 
@@ -48,6 +56,22 @@ class PlaybackFragment(val message: Message) : Fragment() {
     }
 
     private fun setupView() {
+        btnSave.setOnClickListener {
+            context?.let { context ->
+                val file = File(context.filesDir, "%s.mp4".format(message.id))
+                val byteChannel = NIOUtils.writableFileChannel(file.path)
+                val encoder = SequenceEncoder(byteChannel, Rational.R(1, 1), Format.MOV, Codec.H264, Codec.AAC)
+                frames
+                    ?.takeIf { it.count() > 0 }
+                    ?.forEach { bitmap ->
+                        val picture = AndroidUtil.fromBitmap(bitmap, ColorSpace.RGB)
+                        encoder.encodeNativeFrame(picture)
+                    }
+                    ?.run {
+                        encoder.finish()
+                    }
+            }
+        }
     }
 
     override fun onResume() {
