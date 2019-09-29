@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.MediaController
+import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.careplus.model.Message
 import com.google.firebase.database.DataSnapshot
@@ -13,35 +15,53 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_playback.*
-import org.jcodec.api.SequenceEncoder
-import org.jcodec.common.AndroidUtil
-import org.jcodec.common.Codec
-import org.jcodec.common.Format
+import org.jcodec.api.android.AndroidSequenceEncoder
 import org.jcodec.common.io.NIOUtils
-import org.jcodec.common.model.ColorSpace
 import org.jcodec.common.model.Rational
 import java.io.File
-import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.concurrent.thread
+import kotlin.properties.Delegates
 
 
-class PlaybackFragment(val message: Message) : Fragment() {
+class PlaybackFragment(private val message: Message) : Fragment() {
 
-    class PlayFramesThread(val frames: List<Bitmap>, val imageView: ImageView?) : Thread() {
-        var shouldContinue = AtomicBoolean(true)
-        override fun run() {
-            while (shouldContinue.get()) {
-                frames.forEach { frame ->
-                    imageView?.post {
-                        imageView.setImageBitmap(frame)
+    companion object {
+        const val FPS = 1
+    }
+
+    var frames: Array<Bitmap> by Delegates.observable(initialValue = emptyArray()) { _, _, newFrames ->
+        context?.let { context ->
+            thread(start = true) {
+                val file = File(context.cacheDir, "tmp.mp4")
+                val byteChannel = NIOUtils.writableFileChannel(file.path)
+                val encoder = AndroidSequenceEncoder(byteChannel, Rational.R1(FPS))
+
+                newFrames
+                    .takeIf { it.count() > 0 }
+                    ?.forEach { bitmap ->
+                        encoder.encodeImage(bitmap)
                     }
-                    sleep(1000)
-                }
+                    ?.run {
+                        encoder.finish()
+                        pathToTempVideo = file.path
+                    }
             }
         }
     }
 
-    var frames: List<Bitmap>? = null
-    var playFramesThread: PlayFramesThread? = null
+    var pathToTempVideo: String by Delegates.observable("") { _, _, newPathToTempVideo ->
+        newPathToTempVideo
+            .takeIf { it.isNotEmpty() }
+            ?.run {
+                vvPlayback.post {
+                    val uri = File(newPathToTempVideo).toUri()
+                    vvPlayback.apply {
+                        setVideoURI(uri)
+                        start()
+                    }
+                }
+            }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,19 +76,24 @@ class PlaybackFragment(val message: Message) : Fragment() {
     }
 
     private fun setupView() {
+        vvPlayback.setOnPreparedListener { mediaPlayer ->
+            mediaPlayer.isLooping = true
+
+            val mediaController = MediaController(context, false).apply { setAnchorView(layoutPlayback) }
+            vvPlayback.setMediaController(mediaController)
+        }
+
         btnSave.setOnClickListener {
             context?.let { context ->
-                val file = File(context.filesDir, "%s.mp4".format(message.id))
-                val byteChannel = NIOUtils.writableFileChannel(file.path)
-                val encoder = SequenceEncoder(byteChannel, Rational.R(1, 1), Format.MOV, Codec.H264, Codec.AAC)
-                frames
-                    ?.takeIf { it.count() > 0 }
-                    ?.forEach { bitmap ->
-                        val picture = AndroidUtil.fromBitmap(bitmap, ColorSpace.RGB)
-                        encoder.encodeNativeFrame(picture)
-                    }
-                    ?.run {
-                        encoder.finish()
+                pathToTempVideo
+                    .takeIf { it.isNotEmpty() }
+                    ?.let { tempVideoFile ->
+                        val srcFile = File(tempVideoFile)
+                        val dstFile = File(context.filesDir, "%s.mp4".format(message.id))
+                        if (!dstFile.exists()) {
+                            srcFile.copyTo(dstFile)
+                        }
+                        Toast.makeText(context, "影片已儲存", Toast.LENGTH_SHORT).show()
                     }
             }
         }
@@ -86,24 +111,15 @@ class PlaybackFragment(val message: Message) : Fragment() {
                     frames = dataSnapshot.children
                         .mapNotNull { it.getValue(String::class.java) }
                         .mapNotNull { Util.decodeBase64ToBitmap(it) }
-                    playFrames()
+                        .toTypedArray()
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
     }
 
-    private fun playFrames() {
-        frames?.let { frames ->
-            playFramesThread = PlayFramesThread(frames, ivFrame)
-            playFramesThread?.start()
-        }
-    }
-
     override fun onPause() {
         super.onPause()
-        playFramesThread?.apply { shouldContinue.set(false) }
-        frames = null
-        playFramesThread = null
+        vvPlayback.stopPlayback()
     }
 }
