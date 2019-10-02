@@ -1,6 +1,8 @@
 package com.careplus
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -124,7 +126,8 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 val user = firebaseAuth.currentUser!!
                     .run {
-                        User(uid, displayName ?: "", photoUrl?.toString())
+                        val pushToken = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("pushToken", null)
+                        User(uid, displayName ?: "", photoUrl?.toString(), pushToken)
                     }
                 onLoginSucceed(user)
             }

@@ -73,6 +73,8 @@
     - users (many users)
         - USER_ID_1
             - name
+            - avatarUrl
+            - pushToken
         - USER_ID_2
         - ...
     - heartbeats (one user to one heartbeat)

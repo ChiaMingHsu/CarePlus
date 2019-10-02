@@ -1,5 +1,6 @@
 package com.careplus
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -49,7 +50,8 @@ class RegisterActivity : AppCompatActivity() {
             firebaseAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val user = User(firebaseAuth.currentUser!!.uid, edtName.text.toString(), null)
+                        val pushToken = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("pushToken", null)
+                        val user = User(firebaseAuth.currentUser!!.uid, edtName.text.toString(), null, pushToken)
                         onRegisterSucceed(user)
                     } else {
                         onRegisterFailed(task.exception?.message)
