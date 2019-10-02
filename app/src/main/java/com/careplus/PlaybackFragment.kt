@@ -100,16 +100,12 @@ class PlaybackFragment(private val message: Message) : Fragment() {
                 ?.also { context ->
                     val srcFile = File(context.cacheDir, tempThumbnailFilename)
                     val dstFile = File(context.filesDir, "%s.jpg".format(message.id))
-                    if (!dstFile.exists()) {
-                        srcFile.copyTo(dstFile)
-                    }
+                    srcFile.copyTo(dstFile, true)
                 }
                 ?.also { context ->
                     val srcFile = File(context.cacheDir, tempVideoFilename)
                     val dstFile = File(context.filesDir, "%s.mp4".format(message.id))
-                    if (!dstFile.exists()) {
-                        srcFile.copyTo(dstFile)
-                    }
+                    srcFile.copyTo(dstFile, true)
                 }
                 ?.also {
                     Toast.makeText(context, "影片已儲存", Toast.LENGTH_SHORT).show()
