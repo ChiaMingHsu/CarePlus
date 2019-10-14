@@ -59,6 +59,7 @@
                 android:id="@+id/indicator"
                 app:siIndicatorColors="@array/functionIndicatorColors"
                 app:siRadiusMax="10dp"/>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
