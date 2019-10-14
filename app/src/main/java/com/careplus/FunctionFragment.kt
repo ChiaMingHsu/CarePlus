@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
+import com.careplus.adapters.FunctionFragmentPagerAdapter
+import kotlinx.android.synthetic.main.fragment_function.*
 
 
 class FunctionFragment : Fragment() {
@@ -24,7 +27,47 @@ class FunctionFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_function, container, false)
     }
 
-//    private fun setupView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupView()
+    }
+
+    private fun setupView() {
+        fragmentManager?.let { fragmentManager ->
+            FunctionFragmentPagerAdapter(fragmentManager)
+                .apply {
+                    fragments.addAll(arrayOf(
+                        AlarmFragment(),
+                        RemindFragment()
+                    ))
+                }
+                .let { viewPager.adapter = it }
+
+            indicator.setViewPager(viewPager)
+        }
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        ivIndicatorBg.setImageResource(R.drawable.function_indicator_alarm_bg)
+                        ivIndicatorAlarm.setImageResource(R.drawable.function_indicator_alarm_active)
+                        ivIndicatorRemind.setImageResource(R.drawable.function_indicator_remind_inactive)
+                    }
+                    1 -> {
+                        ivIndicatorBg.setImageResource(R.drawable.function_indicator_remind_bg)
+                        ivIndicatorAlarm.setImageResource(R.drawable.function_indicator_alarm_inactive)
+                        ivIndicatorRemind.setImageResource(R.drawable.function_indicator_remind_active)
+                    }
+                }
+            }
+        })
+
+
 //        /**
 //         * Alarm
 //         */
@@ -47,7 +90,7 @@ class FunctionFragment : Fragment() {
 //        btn_remind_exercise_apply.setOnClickListener { onBtnRemindExerciseApplyClickListener() }
 //        btn_remind_go_out_apply.setOnClickListener { onBtnRemindGoOutApplyClickListener() }
 //        btn_remind_take_medicine_apply.setOnClickListener { onBtnRemindTakeMedicineApplyClickListener() }
-//    }
+    }
 //
 //    override fun onResume() {
 //        super.onResume()

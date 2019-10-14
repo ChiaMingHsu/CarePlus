@@ -5,12 +5,60 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CalendarFragment"
-        android:background="#adadbe">
+        tools:context=".FunctionFragment"
+        android:background="#dedeea">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Function"/>
+    <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent" android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/viewPager"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.103"
+            app:layout_constraintLeft_toLeftOf="@id/layoutIndicator"
+            app:layout_constraintBottom_toTopOf="@id/layoutIndicator"
+            android:layout_marginLeft="60dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivIndicatorAlarm"
+            android:src="@drawable/function_indicator_alarm_active"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.103"
+            app:layout_constraintRight_toRightOf="@id/layoutIndicator"
+            app:layout_constraintBottom_toTopOf="@id/layoutIndicator"
+            android:layout_marginRight="60dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivIndicatorRemind"
+            android:src="@drawable/function_indicator_remind_inactive"
+            android:scaleType="fitXY"/>
+
+    <FrameLayout
+            android:layout_width="300dp" android:layout_height="30dp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewPager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/layoutIndicator">
+
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:id="@+id/ivIndicatorBg"
+                android:src="@drawable/function_indicator_alarm_bg"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"/>
+
+        <github.chenupt.springindicator.SpringIndicator
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:id="@+id/indicator"
+                app:siIndicatorColors="@array/functionIndicatorColors"
+                app:siRadiusMax="10dp"/>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
