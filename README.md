@@ -62,7 +62,7 @@
             - frames: false
             - messages: false
             - playbacks: false
-            - settings: false
+            - events: false
         ```
 
 
@@ -100,5 +100,21 @@
                 - 2
                 - ...
             - PLAYBACK_ID_2
-    - settings (one user to one setting) 
+    - events (one user to many events)
+        - USER_ID
+            - EVENT_ID_1 (format: yyyyMMddHHmmss-UUID4, e.g. 20191515150030-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)
+                - name
+                - type: (`alarm` or `remind`)
+                - icon: (see `Name` in `Icon Table`)
+                - mode: (`elapsed` or `time`)
+                - value: (format `mm:ss` for `elapsed` mode, format `HH:mm` for `time` mode)
 ```
+
+## Icon Table
+
+| Name     | ResID                                                     |
+|:--------:|:---------------------------------------------------------:|
+| falldown | alarm_btn_falldown_active / alarm_btn_falldown_inactive   |
+| toilet   | alarm_btn_toilet_active / alarm_btn_toilet_inactive       |
+| outdoor  | alarm_btn_outdoor_active / alarm_btn_outdoor_inactive     |
+| room     | alarm_btn_room_active / alarm_btn_room_inactive           |

@@ -33,18 +33,15 @@ class FunctionFragment : Fragment() {
     }
 
     private fun setupView() {
-        fragmentManager?.let { fragmentManager ->
-            FunctionFragmentPagerAdapter(fragmentManager)
-                .apply {
-                    fragments.addAll(arrayOf(
-                        AlarmFragment(),
-                        RemindFragment()
-                    ))
-                }
-                .let { viewPager.adapter = it }
-
-            indicator.setViewPager(viewPager)
-        }
+        FunctionFragmentPagerAdapter(childFragmentManager)
+            .apply {
+                fragments.addAll(arrayOf(
+                    AlarmFragment(),
+                    RemindFragment()
+                ))
+            }
+            .let { viewPager.adapter = it }
+            .run { indicator.setViewPager(viewPager) }
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}

@@ -1,0 +1,13 @@
+<resources>
+    <item type="drawable" name="icon_falldown_active">@drawable/alarm_btn_falldown_active</item>
+    <item type="drawable" name="icon_falldown_inactive">@drawable/alarm_btn_falldown_inactive</item>
+
+    <item type="drawable" name="icon_toilet_active">@drawable/alarm_btn_toilet_active</item>
+    <item type="drawable" name="icon_toilet_inactive">@drawable/alarm_btn_toilet_inactive</item>
+
+    <item type="drawable" name="icon_outdoor_active">@drawable/alarm_btn_outdoor_active</item>
+    <item type="drawable" name="icon_outdoor_inactive">@drawable/alarm_btn_outdoor_inactive</item>
+
+    <item type="drawable" name="icon_room_active">@drawable/alarm_btn_room_active</item>
+    <item type="drawable" name="icon_room_inactive">@drawable/alarm_btn_room_inactive</item>
+</resources>

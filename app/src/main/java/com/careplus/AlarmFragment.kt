@@ -1,7 +1,6 @@
 package com.careplus
 
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.careplus.adapters.EventAdapter
+import com.careplus.model.Event
 import kotlinx.android.synthetic.main.fragment_alarm.*
 
 
@@ -21,11 +21,11 @@ class AlarmFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        eventAdapter.resIds.addAll(arrayOf(
-            R.drawable.alarm_btn_falldown_active,
-            R.drawable.alarm_btn_toilet_active,
-            R.drawable.alarm_btn_outdoor_active,
-            R.drawable.alarm_btn_room_active
+        eventAdapter.events.addAll(arrayOf(
+            Event("0", "跌倒", "alarm", "falldown", "elapsed", "00:05"),
+            Event("1", "廁所", "alarm", "toilet", "elapsed", "00:05"),
+            Event("2", "出門", "alarm", "outdoor", "elapsed", "00:05"),
+            Event("3", "房間", "alarm", "room", "elapsed", "08:00")
         ))
         return inflater.inflate(R.layout.fragment_alarm, container, false)
     }
