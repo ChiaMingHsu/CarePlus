@@ -34,6 +34,7 @@
             app:layout_constraintLeft_toLeftOf="@id/glHamburgerLeft"
             app:layout_constraintTop_toTopOf="@id/glHamburgerTop"
             android:adjustViewBounds="true"
+            android:id="@+id/btnConfig"
             android:src="@drawable/alarm_btn_hamburger_active"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"/>

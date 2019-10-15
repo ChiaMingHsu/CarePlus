@@ -13,5 +13,6 @@ data class Event(
     var type: String = "",
     var icon: String = "",
     var mode: String = "",
-    var value: String = ""
+    var value: String = "",
+    var enabled: Boolean = true
 )

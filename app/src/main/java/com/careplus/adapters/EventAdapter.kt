@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.item_event.view.*
 class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     val events = arrayListOf<Event>()
-    val onBtnEventClickListener: View.OnClickListener? = null
-    val onBtnHamburgerClickListener: View.OnClickListener? = null
+    var onBtnEventClickListener: View.OnClickListener? = null
+    var onBtnConfigClickListener: View.OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
@@ -22,9 +22,26 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
     override fun getItemCount(): Int = events.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val type = events[position].type
+        val icon = events[position].icon
+        val activeness = if (events[position].enabled) "active" else "inactive"
+
         holder.view.btnEvent.apply {
-            val resId = resources.getIdentifier("icon_%s_active".format(events[position].icon), "drawable", context.packageName)
-            setImageResource(resId)
+            resources
+                .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
+                .let { resId -> setImageResource(resId) }
+
+            tag = position
+            onBtnEventClickListener?.run { setOnClickListener(this) }
+        }
+
+        holder.view.btnConfig.apply {
+            resources
+                .getIdentifier("%s_btn_hamburger_%s".format(type, activeness), "drawable", context.packageName)
+                .let { resId -> setImageResource(resId) }
+
+            tag = position
+            onBtnConfigClickListener?.run { setOnClickListener(this) }
         }
     }
 

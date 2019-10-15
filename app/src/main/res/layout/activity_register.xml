@@ -199,7 +199,7 @@
 
     <RelativeLayout
             android:layout_width="match_parent" android:layout_height="match_parent"
-            android:id="@+id/frameProgress"
+            android:id="@+id/layoutProgress"
             android:clickable="true"
             android:focusable="true"
             android:background="#7000"

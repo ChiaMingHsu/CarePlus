@@ -46,7 +46,7 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            frameProgress?.visibility = View.VISIBLE
+            layoutProgress?.visibility = View.VISIBLE
             firebaseAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -63,12 +63,12 @@ class RegisterActivity : AppCompatActivity() {
     private fun onRegisterSucceed(user: User) {
         FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-        frameProgress?.visibility = View.GONE
+        layoutProgress?.visibility = View.GONE
     }
 
     private fun onRegisterFailed(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        frameProgress?.visibility = View.GONE
+        layoutProgress?.visibility = View.GONE
     }
 
 }

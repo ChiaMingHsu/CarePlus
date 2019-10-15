@@ -102,12 +102,14 @@
             - PLAYBACK_ID_2
     - events (one user to many events)
         - USER_ID
-            - EVENT_ID_1 (format: yyyyMMddHHmmss-UUID4, e.g. 20191515150030-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)
+            - EVENT_ID_1 (format: TIMESTAMP_IN_MILLISECONDS-UUID4, e.g. 1571158337779-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)
                 - name
                 - type: (`alarm` or `remind`)
                 - icon: (see `Name` in `Icon Table`)
                 - mode: (`elapsed` or `time`)
                 - value: (format `mm:ss` for `elapsed` mode, format `HH:mm` for `time` mode)
+                - enabled: (boolean)
+            - EVENT_ID_2
 ```
 
 ## Icon Table

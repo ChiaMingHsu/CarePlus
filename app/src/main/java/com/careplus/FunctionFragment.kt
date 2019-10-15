@@ -7,7 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.careplus.adapters.FunctionFragmentPagerAdapter
+import com.careplus.model.Event
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_alarm.*
 import kotlinx.android.synthetic.main.fragment_function.*
+import kotlinx.android.synthetic.main.fragment_function.layoutProgress
+import java.util.*
 
 
 class FunctionFragment : Fragment() {
@@ -30,6 +38,7 @@ class FunctionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
+        setupDB()
     }
 
     private fun setupView() {
@@ -63,93 +72,48 @@ class FunctionFragment : Fragment() {
                 }
             }
         })
-
-
-//        /**
-//         * Alarm
-//         */
-//        btn_alarm.setOnClickListener {
-//            layout_alarm.visibility = View.VISIBLE
-//            layout_remind.visibility = View.GONE
-//        }
-//        btn_alarm_fall_down_apply.setOnClickListener { onBtnAlarmFallDownApplyClickListener() }
-//        btn_alarm_stuck_toilet_apply.setOnClickListener { onBtnAlarmStuckToiletApplyClickListener() }
-//        btn_alarm_stuck_room_apply.setOnClickListener { onBtnAlarmStuckRoomApplyClickListener() }
-//        btn_alarm_stuck_outdoor_apply.setOnClickListener { onBtnAlarmStuckOutdoorApplyClickListener() }
-//
-//        /**
-//         * Remind
-//         */
-//        btn_remind.setOnClickListener {
-//            layout_alarm.visibility = View.GONE
-//            layout_remind.visibility = View.VISIBLE
-//        }
-//        btn_remind_exercise_apply.setOnClickListener { onBtnRemindExerciseApplyClickListener() }
-//        btn_remind_go_out_apply.setOnClickListener { onBtnRemindGoOutApplyClickListener() }
-//        btn_remind_take_medicine_apply.setOnClickListener { onBtnRemindTakeMedicineApplyClickListener() }
     }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        setupDB()
-//    }
-//
-//    private fun setupDB() {
-//        pbLoading?.visibility = View.VISIBLE
-//
-//        FirebaseDatabase.getInstance().getReference("settings").child(App.user.id)
-//            .addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    dataSnapshot.children
-//                        .forEach {
-//                            when (it.key) {
-//                                "alarm_fall_down" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_fall_down?.isChecked = isChecked }
-//                                "alarm_fall_down_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmFallDownMinute = it }
-//                                }
-//                                "alarm_stuck_toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_toilet?.isChecked = isChecked }
-//                                "alarm_stuck_toilet_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmStuckToiletMinute = it }
-//                                }
-//                                "alarm_stuck_room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_room?.isChecked = isChecked }
-//                                "alarm_stuck_room_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmStuckRoomMinute = it }
-//                                }
-//                                "alarm_stuck_outdoor" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_outdoor?.isChecked = isChecked }
-//                                "alarm_stuck_outdoor_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmStuckOutdoorMinute = it }
-//                                }
-//                                "remind_exercise" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_exercise?.isChecked = isChecked }
-//                                "remind_exercise_times" -> {
-//                                    it.children.forEach {
-//                                        it.getValue(String::class.java)?.let { remindExerciseTimeAdapter.times.add(it) }
-//                                    }
-//                                    remindExerciseTimeAdapter.notifyDataSetChanged()
-//                                }
-//                                "remind_go_out" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_go_out?.isChecked = isChecked }
-//                                "remind_go_out_times" -> {
-//                                    it.children.forEach {
-//                                        it.getValue(String::class.java)?.let { remindGoOutTimeAdapter.times.add(it) }
-//                                    }
-//                                    remindGoOutTimeAdapter.notifyDataSetChanged()
-//                                }
-//                                "remind_take_medicine" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_take_medicine?.isChecked = isChecked }
-//                                "remind_take_medicine_times" -> {
-//                                    it.children.forEach {
-//                                        it.getValue(String::class.java)?.let { remindTakeMedicineTimeAdapter.times.add(it) }
-//                                    }
-//                                    remindTakeMedicineTimeAdapter.notifyDataSetChanged()
-//                                }
-//                            }
-//                        }
-//
-//                    pbLoading?.visibility = View.GONE
-//                }
-//
-//                override fun onCancelled(databaseError: DatabaseError) {}
-//            })
-//    }
-//
+
+    private fun setupDB() {
+        layoutProgress?.visibility = View.VISIBLE
+
+        // Initialize default events if no events was found
+        FirebaseDatabase.getInstance().getReference("events").orderByKey().equalTo(App.user.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.children.count() == 0) {
+                        FirebaseDatabase.getInstance().getReference("events").child(App.user.id)
+                            .apply {
+                                val eventId =
+                                    "%d-%s".format(System.currentTimeMillis() + 0, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "跌倒", "alarm", "falldown", "elapsed", "00:05"))
+                            }
+                            .apply {
+                                val eventId =
+                                    "%d-%s".format(System.currentTimeMillis() + 1, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "廁所", "alarm", "toilet", "elapsed", "00:05"))
+                            }
+                            .apply {
+                                val eventId =
+                                    "%d-%s".format(System.currentTimeMillis() + 2, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "出門", "alarm", "outdoor", "elapsed", "00:05"))
+                            }
+                            .apply {
+                                val eventId =
+                                    "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "房間", "alarm", "room", "time", "08:00"))
+                            }
+                    }
+
+                    layoutProgress?.visibility = View.GONE
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+    }
+
+
+    //
 //    private fun onBtnAlarmFallDownApplyClickListener() {
 //        FirebaseDatabase.getInstance().getReference("settings").child(App.user.id).child("alarm_fall_down").setValue(sw_alarm_fall_down.isChecked)
 //
@@ -377,5 +341,7 @@ class FunctionFragment : Fragment() {
 //            dialog.show()
 //        }
 //    }
+
+
 
 }

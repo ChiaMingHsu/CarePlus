@@ -62,4 +62,19 @@
 
     </FrameLayout>
 
+    <!-- Progress -->
+
+    <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:id="@+id/layoutProgress"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="#7000"
+            android:visibility="gone">
+        <ProgressBar
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/pbLoading"/>
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

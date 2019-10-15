@@ -2,7 +2,6 @@ package com.careplus
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -64,12 +63,12 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            frameProgress?.visibility = View.VISIBLE
+            layoutProgress?.visibility = View.VISIBLE
             firebaseAuthWithEmailAndPassword(username, password)
         }
 
         btnGoogle.setOnClickListener {
-            frameProgress?.visibility = View.VISIBLE
+            layoutProgress?.visibility = View.VISIBLE
             requestGoogleSignIn()
         }
 
@@ -83,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 val uid = firebaseAuth.currentUser!!.uid
 
-                FirebaseDatabase.getInstance().getReference("users").orderByChild("id").equalTo(uid)
+                FirebaseDatabase.getInstance().getReference("users").orderByKey().equalTo(uid)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             dataSnapshot.children
@@ -139,12 +138,12 @@ class LoginActivity : AppCompatActivity() {
     private fun onLoginSucceed(user: User) {
         FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
-        frameProgress?.visibility = View.GONE
+        layoutProgress?.visibility = View.GONE
         App.user = user
     }
 
     private fun onLoginFailed(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        frameProgress?.visibility = View.GONE
+        layoutProgress?.visibility = View.GONE
     }
 }
