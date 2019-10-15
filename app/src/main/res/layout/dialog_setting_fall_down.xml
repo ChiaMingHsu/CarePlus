@@ -9,7 +9,7 @@
                android:src="@mipmap/setting_alarm_fall_down_dialog_bg"/>
 
     <EditText android:layout_width="60dp" android:layout_height="60dp"
-              android:id="@+id/edt_minute"
+              android:id="@+id/edtMinute"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
               android:textAlignment="center"/>
 
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/btn_ok"
+            android:id="@+id/btnOk"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

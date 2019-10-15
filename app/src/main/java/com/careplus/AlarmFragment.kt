@@ -1,6 +1,9 @@
 package com.careplus
 
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +17,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.dialog_config_alarm_elapsed.view.*
 import kotlinx.android.synthetic.main.fragment_alarm.*
-import kotlinx.android.synthetic.main.fragment_alarm.layoutProgress
-import kotlinx.android.synthetic.main.fragment_function.*
-import java.util.*
 
 
 class AlarmFragment : Fragment() {
@@ -47,8 +48,40 @@ class AlarmFragment : Fragment() {
             layoutProgress?.visibility = View.VISIBLE
 
             val position = view.tag as Int
-            val event = eventAdapter.events[position].apply { enabled = !enabled }
+            val event = eventAdapter.events[position]
+
+            event.enabled = event.enabled.not()
             FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
+        }
+
+        eventAdapter.onBtnConfigClickListener = View.OnClickListener { view ->
+            val position = view.tag as Int
+            val event = eventAdapter.events[position]
+
+            if (event.enabled) {
+                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_config_alarm_elapsed, layout_root, false)
+                val dialog = AlertDialog.Builder(context)
+                    .setView(dialogView)
+                    .create()
+                    .apply {
+                        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    }
+
+                dialogView.tvName.text = event.name
+                dialogView.edtMinute.setText(event.value.split(":")[0])
+                dialogView.edtSecond.setText(event.value.split(":")[1])
+                dialogView.btnOk.setOnClickListener {
+                    dialogView.edtMinute.text.toString().toIntOrNull()?.let { minute ->
+                        dialogView.edtSecond.text.toString().toIntOrNull()?.let { second ->
+                            event.value = "%02d:%02d".format(minute, second)
+                            FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id)
+                                .setValue(event)
+                            dialog.dismiss()
+                        }
+                    }
+                }
+                dialog.show()
+            }
         }
     }
 
@@ -77,55 +110,6 @@ class AlarmFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    dataSnapshot.children
-//                        .forEach {
-//                            when (it.key) {
-//                                "alarm_fall_down" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_fall_down?.isChecked = isChecked }
-//                                "alarm_fall_down_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmFallDownMinute = it }
-//                                }
-//                                "alarm_stuck_toilet" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_toilet?.isChecked = isChecked }
-//                                "alarm_stuck_toilet_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmStuckToiletMinute = it }
-//                                }
-//                                "alarm_stuck_room" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_room?.isChecked = isChecked }
-//                                "alarm_stuck_room_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmStuckRoomMinute = it }
-//                                }
-//                                "alarm_stuck_outdoor" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_alarm_stuck_outdoor?.isChecked = isChecked }
-//                                "alarm_stuck_outdoor_minute" -> {
-//                                    it.getValue(Int::class.java)?.let { alarmStuckOutdoorMinute = it }
-//                                }
-//                                "remind_exercise" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_exercise?.isChecked = isChecked }
-//                                "remind_exercise_times" -> {
-//                                    it.children.forEach {
-//                                        it.getValue(String::class.java)?.let { remindExerciseTimeAdapter.times.add(it) }
-//                                    }
-//                                    remindExerciseTimeAdapter.notifyDataSetChanged()
-//                                }
-//                                "remind_go_out" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_go_out?.isChecked = isChecked }
-//                                "remind_go_out_times" -> {
-//                                    it.children.forEach {
-//                                        it.getValue(String::class.java)?.let { remindGoOutTimeAdapter.times.add(it) }
-//                                    }
-//                                    remindGoOutTimeAdapter.notifyDataSetChanged()
-//                                }
-//                                "remind_take_medicine" -> it.getValue(Boolean::class.java)?.let { isChecked -> sw_remind_take_medicine?.isChecked = isChecked }
-//                                "remind_take_medicine_times" -> {
-//                                    it.children.forEach {
-//                                        it.getValue(String::class.java)?.let { remindTakeMedicineTimeAdapter.times.add(it) }
-//                                    }
-//                                    remindTakeMedicineTimeAdapter.notifyDataSetChanged()
-//                                }
-//                            }
-//                        }
-//
-//                    pbLoading?.visibility = View.GONE
-//                }
-//
-//                override fun onCancelled(databaseError: DatabaseError) {}
-//            })
     }
 
     override fun onPause() {

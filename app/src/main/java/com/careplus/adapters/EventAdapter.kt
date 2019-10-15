@@ -22,9 +22,10 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
     override fun getItemCount(): Int = events.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val type = events[position].type
-        val icon = events[position].icon
-        val activeness = if (events[position].enabled) "active" else "inactive"
+        val event = events[position]
+        val type = event.type
+        val icon = event.icon
+        val activeness = if (event.enabled) "active" else "inactive"
 
         holder.view.btnEvent.apply {
             resources

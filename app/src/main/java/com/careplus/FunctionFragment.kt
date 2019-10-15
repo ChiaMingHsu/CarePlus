@@ -101,7 +101,7 @@ class FunctionFragment : Fragment() {
                             .apply {
                                 val eventId =
                                     "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "房間", "alarm", "room", "time", "08:00"))
+                                child(eventId).setValue(Event(eventId, "房間", "alarm", "room", "deadline", "08:00"))
                             }
                     }
 

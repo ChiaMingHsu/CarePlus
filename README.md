@@ -106,7 +106,7 @@
                 - name
                 - type: (`alarm` or `remind`)
                 - icon: (see `Name` in `Icon Table`)
-                - mode: (`elapsed` or `time`)
+                - mode: (`elapsed`, `deadline` or `time`)
                 - value: (format `mm:ss` for `elapsed` mode, format `HH:mm` for `time` mode)
                 - enabled: (boolean)
             - EVENT_ID_2
