@@ -106,8 +106,8 @@
                 - name
                 - type: (`alarm` or `remind`)
                 - icon: (see `Name` in `Icon Table`)
-                - mode: (`elapsed`, `deadline` or `time`)
-                - value: (format `mm:ss` for `elapsed` mode, format `HH:mm` for `time` mode)
+                - mode: (`elapsed`, `deadline` or `schedule`)
+                - value: (format `mm:ss` for `elapsed` mode, format `HH:mm` for `deadline` mode, format `[HH:mm, HH:mm, ...]` for `schedule`)
                 - enabled: (boolean)
             - EVENT_ID_2
 ```
@@ -120,3 +120,7 @@
 | toilet   | alarm_btn_toilet_active / alarm_btn_toilet_inactive       |
 | outdoor  | alarm_btn_outdoor_active / alarm_btn_outdoor_inactive     |
 | room     | alarm_btn_room_active / alarm_btn_room_inactive           |
+| medicine | remind_btn_medicine_active / remind_btn_medicine_inactive |
+| goout | remind_btn_goout_active / remind_btn_goout_inactive |
+| exercise | remind_btn_exercise_active / remind_btn_exercise_inactive |
+| dentist | remind_btn_dentist_active / remind_btn_dentist_inactive |

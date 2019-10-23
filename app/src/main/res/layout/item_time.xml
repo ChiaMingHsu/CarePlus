@@ -3,35 +3,30 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="16dp">
+        android:layout_height="wrap_content">
 
-    <Button android:layout_width="40dp" android:layout_height="40dp"
-            android:id="@+id/btn_remove"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="50dp" android:layout_marginStart="50dp"
-            android:background="#0000"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:textColor="#fff"
-            android:textAlignment="center"
-            android:text="－"/>
+    <ImageButton android:layout_width="wrap_content" android:layout_height="0dp"
+                 app:layout_constraintRight_toLeftOf="@id/tvItemTime"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintDimensionRatio="H,1:1"
+                 android:adjustViewBounds="true"
+                 android:id="@+id/btnRemove"
+                 android:src="@drawable/config_remind_btn_remove"
+                 android:background="@android:color/transparent"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:id="@+id/tv_time"
               app:layout_constraintTop_toTopOf="parent"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintLeft_toLeftOf="parent"
               app:layout_constraintRight_toRightOf="parent"
-              android:layout_marginLeft="20dp" android:layout_marginStart="20dp"
-              android:textStyle="bold"
+              android:id="@+id/tvItemTime"
               android:gravity="center"
-              android:textSize="36sp"
-              android:textColor="#fff"
-              android:textAlignment="center"/>
+              android:text="00:00"
+              android:textSize="23.3sp"
+              android:textColor="#41a8a7"
+              android:textStyle="bold"
+              android:textAlignment="center"
+              android:letterSpacing="0.3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

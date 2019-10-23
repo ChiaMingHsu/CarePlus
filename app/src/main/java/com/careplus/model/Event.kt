@@ -9,6 +9,7 @@ data class Event(
     @get:Exclude
     var id: String = "",
 
+    var code: String = "",
     var name: String = "",
     var type: String = "",
     var icon: String = "",

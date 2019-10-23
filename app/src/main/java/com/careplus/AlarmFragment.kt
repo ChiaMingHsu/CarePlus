@@ -39,7 +39,7 @@ class AlarmFragment : Fragment() {
     }
 
     private fun setupView() {
-        rvAlarm.apply {
+        rvEvent.apply {
             layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager
             adapter = eventAdapter
         }
@@ -74,8 +74,7 @@ class AlarmFragment : Fragment() {
                     dialogView.edtMinute.text.toString().toIntOrNull()?.let { minute ->
                         dialogView.edtSecond.text.toString().toIntOrNull()?.let { second ->
                             event.value = "%02d:%02d".format(minute, second)
-                            FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id)
-                                .setValue(event)
+                            FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
                             dialog.dismiss()
                         }
                     }
@@ -99,6 +98,7 @@ class AlarmFragment : Fragment() {
                     dataSnapshot.children
                         .map { it.getValue(Event::class.java)?.apply { id = it.key!! } }
                         .filterNotNull()
+                        .filter { it.type == "alarm" }
                         .let { events ->
                             eventAdapter.events.clear()
                             eventAdapter.events.addAll(events)
