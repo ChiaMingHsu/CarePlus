@@ -11,5 +11,6 @@ data class User(
 
     var name: String = "",
     var avatarUrl: String? = null,
-    var pushToken: String? = null
+    var pushToken: String? = null,
+    var rpiMac: String? = null
 )

@@ -20,8 +20,8 @@ class TimeAdapter : RecyclerView.Adapter<TimeAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         times[position].let {
-            holder.view.tv_time.text = it
-            holder.view.btn_remove.setOnClickListener {
+            holder.view.tvItemTime.text = it
+            holder.view.btnRemove.setOnClickListener {
                 times.removeAt(position)
                 notifyDataSetChanged()
             }

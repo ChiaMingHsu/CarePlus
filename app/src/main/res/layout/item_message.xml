@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="@id/ivContentBg"
                 app:layout_constraintBottom_toBottomOf="@id/ivContentBg"
                 android:layout_marginLeft="12dp"
-                android:id="@+id/tvTime"
+                android:id="@+id/tvControlTime"
                 android:text="00:00 AM"
                 android:textSize="8sp"
                 android:textColor="#ffffff"
@@ -50,7 +50,7 @@
 
         <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/tvTime"
+                app:layout_constraintLeft_toLeftOf="@id/tvControlTime"
                 app:layout_constraintBottom_toTopOf="@id/ivContentBg"
                 android:id="@+id/tvDate"
                 android:text="0000.00.00"
