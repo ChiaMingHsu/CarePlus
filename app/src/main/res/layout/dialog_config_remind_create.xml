@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.972"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivHeadBg"
+                android:src="@drawable/event_custom_head_bg"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.7891"
+                app:layout_constraintLeft_toLeftOf="@id/ivHeadBg"
+                app:layout_constraintRight_toRightOf="@id/ivHeadBg"
+                app:layout_constraintTop_toTopOf="@id/ivHeadBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivHeadBg"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivNameBg"
+                android:src="@drawable/event_custom_name_bg"
+                android:scaleType="fitXY"/>
+
+        <EditText
+                android:layout_width="0dp" android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/ivNameBg"
+                app:layout_constraintRight_toRightOf="@id/ivNameBg"
+                app:layout_constraintTop_toTopOf="@id/ivNameBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivNameBg"
+                android:layout_marginLeft="28.1dp"
+                android:layout_marginRight="28.1dp"
+                android:id="@+id/edtName"
+                android:inputType="text"
+                android:hint="輸入名稱"
+                android:textSize="23.3sp"
+                android:background="@android:color/transparent"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.3066"
+                app:layout_constraintLeft_toLeftOf="@id/edtName"
+                app:layout_constraintBottom_toTopOf="@id/edtName"
+                android:layout_marginBottom="10.1dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivHeadTitle"
+                android:src="@drawable/event_custom_head_title"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivHeadBg"
+                android:id="@+id/ivBodyBg"
+                android:adjustViewBounds="true"
+                android:src="@drawable/event_custom_body_bg"
+                android:scaleType="fitXY"/>
+
+        <View
+                android:layout_width="0dp" android:layout_height="1dp"
+                app:layout_constraintLeft_toLeftOf="@id/ivBodyBg"
+                app:layout_constraintRight_toRightOf="@id/ivBodyBg"
+                app:layout_constraintTop_toTopOf="@id/ivBodyBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivBodyBg"
+                android:id="@+id/viewIconTopAligner"/>
+
+        <!-- Icon Colors Begin -->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toLeftOf="@id/ivBodyBg"
+                app:layout_constraintRight_toRightOf="@id/ivBodyBg"
+                app:layout_constraintTop_toTopOf="@id/viewIconTopAligner"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorBlue"
+                android:src="@drawable/icon_color_blue"
+                android:scaleType="fitXY"
+                android:tag="blue"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintRight_toLeftOf="@id/ivIconColorBlue"
+                app:layout_constraintTop_toTopOf="@id/viewIconTopAligner"
+                android:layout_marginRight="38.4dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorGreen"
+                android:src="@drawable/icon_color_green"
+                android:scaleType="fitXY"
+                android:tag="green"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toRightOf="@id/ivIconColorBlue"
+                app:layout_constraintTop_toTopOf="@id/viewIconTopAligner"
+                android:layout_marginLeft="38.4dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorPurple"
+                android:src="@drawable/icon_color_purple"
+                android:scaleType="fitXY"
+                android:tag="purple"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toLeftOf="@id/ivIconColorBlue"
+                app:layout_constraintRight_toRightOf="@id/ivIconColorBlue"
+                app:layout_constraintBottom_toTopOf="@id/ivIconColorBlue"
+                android:layout_marginBottom="14.2dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorOrange"
+                android:src="@drawable/icon_color_orange"
+                android:scaleType="fitXY"
+                android:tag="orange"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toLeftOf="@id/ivIconColorBlue"
+                app:layout_constraintRight_toRightOf="@id/ivIconColorBlue"
+                app:layout_constraintTop_toBottomOf="@id/ivIconColorBlue"
+                android:layout_marginTop="14.2dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorPink"
+                android:src="@drawable/icon_color_pink"
+                android:scaleType="fitXY"
+                android:tag="pink"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toLeftOf="@id/ivIconColorGreen"
+                app:layout_constraintRight_toRightOf="@id/ivIconColorGreen"
+                app:layout_constraintTop_toTopOf="@id/ivIconColorOrange"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconColorOrange"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorRed"
+                android:src="@drawable/icon_color_red"
+                android:scaleType="fitXY"
+                android:tag="red"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toLeftOf="@id/ivIconColorPurple"
+                app:layout_constraintRight_toRightOf="@id/ivIconColorPurple"
+                app:layout_constraintTop_toTopOf="@id/ivIconColorOrange"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconColorOrange"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorYellow"
+                android:src="@drawable/icon_color_yellow"
+                android:scaleType="fitXY"
+                android:tag="yellow"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toLeftOf="@id/ivIconColorGreen"
+                app:layout_constraintRight_toRightOf="@id/ivIconColorGreen"
+                app:layout_constraintTop_toTopOf="@id/ivIconColorPink"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconColorPink"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorTiffany"
+                android:src="@drawable/icon_color_tiffany"
+                android:scaleType="fitXY"
+                android:tag="tiffany"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.1319"
+                app:layout_constraintLeft_toLeftOf="@id/ivIconColorPurple"
+                app:layout_constraintRight_toRightOf="@id/ivIconColorPurple"
+                app:layout_constraintTop_toTopOf="@id/ivIconColorPink"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconColorPink"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorCeleste"
+                android:src="@drawable/icon_color_celeste"
+                android:scaleType="fitXY"
+                android:tag="celeste"/>
+
+        <!-- Icon Colors End -->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.3066"
+                app:layout_constraintLeft_toLeftOf="@id/ivHeadTitle"
+                app:layout_constraintTop_toTopOf="@id/ivBodyBg"
+                android:layout_marginTop="23.2dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivBodyTitle"
+                android:src="@drawable/event_custom_body_title"
+                android:scaleType="fitXY"/>
+
+        <ImageButton
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivBodyBg"
+                app:layout_constraintWidth_percent="0.1706"
+                android:layout_marginTop="11.5dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/btnOk"
+                android:src="@drawable/event_btn_ok"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

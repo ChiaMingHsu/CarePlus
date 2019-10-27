@@ -20,7 +20,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.dialog_config_remind_create.view.*
 import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.*
+import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.btnOk
 import kotlinx.android.synthetic.main.fragment_remind.*
 import java.util.*
 
@@ -49,16 +51,45 @@ class RemindFragment : Fragment() {
         }
 
         eventAdapter.onBtnEventClickListener = View.OnClickListener { view ->
-            layoutProgress?.visibility = View.VISIBLE
-
             val position = view.tag as Int
             val event = eventAdapter.events[position]
 
-            event.enabled = event.enabled.not()
-            FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
+            if (event.code == "create") {
+                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_config_remind_create, layout_root, false)
+                val dialog = AlertDialog.Builder(context)
+                    .setView(dialogView)
+                    .create()
+                    .apply {
+                        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    }
+
+                with(dialogView) {
+                    arrayOf(ivIconColorRed, ivIconColorOrange, ivIconColorYellow,
+                            ivIconColorGreen, ivIconColorBlue, ivIconColorPurple,
+                            ivIconColorTiffany, ivIconColorPink, ivIconColorCeleste
+                        ).forEach { imageView ->
+                            imageView.setOnClickListener { dialogView.tag = imageView.tag }
+                        }
+                }
+                dialogView.btnOk.setOnClickListener {
+                    val eventId = "%d-%s".format(System.currentTimeMillis(), UUID.randomUUID().toString())
+                    val name = dialogView.edtName.text.toString()
+                    val color = dialogView.tag as String
+                    val customEvent = Event(eventId, "custom", name, "remind", "color_%s".format(color), "schedule", "[09:00,12:00,18:00]", true)
+                    FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(eventId).setValue(customEvent)
+                    dialog.dismiss()
+                }
+                dialog.show()
+            } else {
+                layoutProgress?.visibility = View.VISIBLE
+                event.enabled = event.enabled.not()
+                FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
+            }
         }
 
         eventAdapter.onBtnConfigClickListener = View.OnClickListener { view ->
+            // Button config for `create` event is guaranteed that unable to reach here
+
             val position = view.tag as Int
             val event = eventAdapter.events[position]
 
@@ -117,6 +148,7 @@ class RemindFragment : Fragment() {
                         .filter { it.type == "remind" }
                         .let { events ->
                             eventAdapter.events.clear()
+                            eventAdapter.events.add(Event("", "create", "新增", "remind", "create", "", "", true))
                             eventAdapter.events.addAll(events)
                             eventAdapter.notifyDataSetChanged()
                         }

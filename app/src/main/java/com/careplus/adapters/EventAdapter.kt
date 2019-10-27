@@ -24,15 +24,26 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = events[position]
+        val code = event.code
         val type = event.type
         val icon = event.icon
         val enabled = event.enabled
         val activeness = if (enabled) "active" else "inactive"
 
         holder.view.ivIcon.apply {
-            resources
-                .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
-                .let { resId -> setImageResource(resId) }
+            if (event.code == "custom") {
+                resources
+                    .getIdentifier("icon_%s".format(if (enabled) icon else "color_gray"), "drawable", context.packageName)
+                    .let { resId -> setImageResource(resId) }
+                scaleX = 0.5f
+                scaleY = 0.5f
+            } else {
+                resources
+                    .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
+                    .let { resId -> setImageResource(resId) }
+                scaleX = 1.0f
+                scaleY = 1.0f
+            }
 
             tag = position
             onBtnEventClickListener?.run { setOnClickListener(this) }
@@ -51,12 +62,17 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
         }
 
         holder.view.btnConfig.apply {
-            resources
-                .getIdentifier("%s_btn_hamburger_%s".format(type, activeness), "drawable", context.packageName)
-                .let { resId -> setImageResource(resId) }
+            if (code == "create") {
+                setImageResource(android.R.color.transparent)
+                setOnClickListener(null)
+            } else {
+                resources
+                    .getIdentifier("%s_btn_hamburger_%s".format(type, activeness), "drawable", context.packageName)
+                    .let { resId -> setImageResource(resId) }
 
-            tag = position
-            onBtnConfigClickListener?.run { setOnClickListener(this) }
+                tag = position
+                onBtnConfigClickListener?.run { setOnClickListener(this) }
+            }
         }
     }
 

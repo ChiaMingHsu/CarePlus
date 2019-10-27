@@ -47,7 +47,10 @@
             ".read": true,
             ".write": true,
             "users": {
-              ".indexOn": ["id", "rpi-mac"]
+              ".indexOn": ["id"]
+            },
+            "userExtras": {
+              ".indexOn": ["mac"]
             }
           }
         }
@@ -124,6 +127,7 @@
 | toilet   | icon_toilet_active / icon_toilet_inactive                 |
 | outdoor  | icon_outdoor_active / icon_outdoor_inactive               |
 | room     | icon_room_active / icon_room_inactive                     |
+| create   | icon_create_active / -                                    |
 | medicine | icon_medicine_active / icon_medicine_inactive             |
 | goout    | icon_goout_active / icon_goout_inactive                   |
 | exercise | icon_exercise_active / icon_exercise_inactive             |
