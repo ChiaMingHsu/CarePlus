@@ -111,10 +111,6 @@ class FunctionFragment : Fragment() {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
                                 child(eventId).setValue(Event(eventId, "exercise", "運動", "remind", "exercise", "schedule", "[09:00,12:00,18:00]"))
                             }
-                            .apply {
-                                val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "dentist", "牙醫", "remind", "dentist", "schedule", "[09:00,12:00,18:00]"))
-                            }
                     }
 
                     layoutProgress?.visibility = View.GONE

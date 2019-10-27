@@ -80,7 +80,7 @@
         - ...
     - userExtras (one user to many user_extras)
         - USER_ID
-            - rpiMac
+            - mac
     - heartbeats (one user to one heartbeat)
         - USER_ID
             - timestamp: (in milliseconds)
@@ -120,11 +120,10 @@
 
 | Name     | ResID                                                     |
 |:--------:|:---------------------------------------------------------:|
-| falldown | alarm_btn_falldown_active / alarm_btn_falldown_inactive   |
-| toilet   | alarm_btn_toilet_active / alarm_btn_toilet_inactive       |
-| outdoor  | alarm_btn_outdoor_active / alarm_btn_outdoor_inactive     |
-| room     | alarm_btn_room_active / alarm_btn_room_inactive           |
-| medicine | remind_btn_medicine_active / remind_btn_medicine_inactive |
-| goout | remind_btn_goout_active / remind_btn_goout_inactive |
-| exercise | remind_btn_exercise_active / remind_btn_exercise_inactive |
-| dentist | remind_btn_dentist_active / remind_btn_dentist_inactive |
+| falldown | icon_falldown_active / icon_falldown_inactive             |
+| toilet   | icon_toilet_active / icon_toilet_inactive                 |
+| outdoor  | icon_outdoor_active / icon_outdoor_inactive               |
+| room     | icon_room_active / icon_room_inactive                     |
+| medicine | icon_medicine_active / icon_medicine_inactive             |
+| goout    | icon_goout_active / icon_goout_inactive                   |
+| exercise | icon_exercise_active / icon_exercise_inactive             |

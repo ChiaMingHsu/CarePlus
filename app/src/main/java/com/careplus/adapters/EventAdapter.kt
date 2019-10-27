@@ -1,5 +1,6 @@
 package com.careplus.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,15 +26,28 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
         val event = events[position]
         val type = event.type
         val icon = event.icon
-        val activeness = if (event.enabled) "active" else "inactive"
+        val enabled = event.enabled
+        val activeness = if (enabled) "active" else "inactive"
 
-        holder.view.btnEvent.apply {
+        holder.view.ivIcon.apply {
             resources
                 .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
                 .let { resId -> setImageResource(resId) }
 
             tag = position
             onBtnEventClickListener?.run { setOnClickListener(this) }
+        }
+
+        holder.view.tvName.apply {
+            text = event.name
+            if (enabled) {
+                when (type) {
+                    "alarm" -> setTextColor(Color.parseColor("#5067fb"))
+                    "remind" -> setTextColor(Color.parseColor("#41a8a7"))
+                }
+            } else {
+                setTextColor(Color.parseColor("#adadbe"))
+            }
         }
 
         holder.view.btnConfig.apply {
