@@ -58,6 +58,7 @@
         ```
         - root
             - users: false
+            - userExtras: false
             - heartbeats: false
             - frames: false
             - messages: false
@@ -77,6 +78,9 @@
             - pushToken
         - USER_ID_2
         - ...
+    - userExtras (one user to many user_extras)
+        - USER_ID
+            - rpiMac
     - heartbeats (one user to one heartbeat)
         - USER_ID
             - timestamp: (in milliseconds)

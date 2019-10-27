@@ -88,7 +88,10 @@ class LoginActivity : AppCompatActivity() {
                             dataSnapshot.children
                                 .map { it.getValue(User::class.java)?.apply { id = it.key!! } }
                                 .firstOrNull()
-                                ?.let { user -> onLoginSucceed(user) }
+                                ?.let { user ->
+                                    user.pushToken = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("pushToken", null)  // Always update `pushToken`
+                                    onLoginSucceed(user)
+                                }
                                 ?: onLoginFailed("異常的使用者")  // Successfully sing-in Firebase but no user was found in DB,
                                                                 // this usually occurred by inconsistency user list between authentication and DB
                         }
