@@ -51,7 +51,7 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val pushToken = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("pushToken", null)
-                        val user = User(firebaseAuth.currentUser!!.uid, edtName.text.toString(), null, pushToken)
+                        val user = User(firebaseAuth.currentUser!!.uid, edtName.text.toString(), edtUsername.text.toString(), null, pushToken)
                         onRegisterSucceed(user)
                     } else {
                         onRegisterFailed(task.exception?.message)
@@ -64,6 +64,7 @@ class RegisterActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         layoutProgress?.visibility = View.GONE
+        finish()
     }
 
     private fun onRegisterFailed(message: String?) {

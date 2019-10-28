@@ -6,13 +6,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.careplus.model.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -39,27 +41,13 @@ class LoginActivity : AppCompatActivity() {
             .let { googleSignInClient = GoogleSignIn.getClient(this, it) }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        firebaseAuth.currentUser?.let { user ->
-            Snackbar.make(root, "%s already sign in (by email)".format(user.email), Snackbar.LENGTH_SHORT).show()
-            return
-        }
-
-        GoogleSignIn.getLastSignedInAccount(this)?.let { account ->
-            Snackbar.make(root, "%s already sign in (by Google)".format(account.email), Snackbar.LENGTH_SHORT).show()
-            return
-        }
-    }
-
     private fun setupView() {
         btnLogin.setOnClickListener {
             val username = edtUsername.text.toString()
             val password = edtPassword.text.toString()
 
             if (username.isEmpty() or password.isEmpty()) {
-                Toast.makeText(this, "Username or password is empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "帳號或密碼不可為空白", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -74,6 +62,10 @@ class LoginActivity : AppCompatActivity() {
 
         btnRegister.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+        }
+
+        btnRemember.setOnClickListener {
+            ivRememberCheck.visibility = if (ivRememberCheck.isVisible) View.GONE else View.VISIBLE
         }
     }
 
@@ -92,15 +84,18 @@ class LoginActivity : AppCompatActivity() {
                                     user.pushToken = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("pushToken", null)  // Always update `pushToken`
                                     onLoginSucceed(user)
                                 }
-                                ?: onLoginFailed("異常的使用者")  // Successfully sing-in Firebase but no user was found in DB,
-                                                                // this usually occurred by inconsistency user list between authentication and DB
+                                ?: run {
+                                    // Successfully sing-in Firebase but no user was found in DB,
+                                    // this usually occurred by inconsistency user list between authentication and DB
+                                    Toast.makeText(this@LoginActivity, "異常的使用者", Toast.LENGTH_SHORT).show()
+                                }
                         }
 
                         override fun onCancelled(databaseError: DatabaseError) {}
                     })
             }
             .addOnFailureListener { exception ->
-                onLoginFailed(exception.message)
+                onLoginFailed(exception)
             }
     }
 
@@ -117,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
                     firebaseAuthWithGoogle(account)
                 }
                 .addOnFailureListener { exception ->
-                    onLoginFailed(exception.message)
+                    onLoginFailed(exception)
                 }
         }
     }
@@ -129,24 +124,41 @@ class LoginActivity : AppCompatActivity() {
                 val user = firebaseAuth.currentUser!!
                     .run {
                         val pushToken = getSharedPreferences("user", Context.MODE_PRIVATE)?.getString("pushToken", null)
-                        User(uid, displayName ?: "", photoUrl?.toString(), pushToken)
+                        User(uid, displayName ?: "", email ?: "", photoUrl?.toString(), pushToken)
                     }
                 onLoginSucceed(user)
             }
             .addOnFailureListener {exception ->
-                onLoginFailed(exception.message)
+                onLoginFailed(exception)
             }
     }
 
     private fun onLoginSucceed(user: User) {
         FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
+        App.user = user
+
         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
         layoutProgress?.visibility = View.GONE
-        App.user = user
+
+        val preferences = getSharedPreferences("user", Context.MODE_PRIVATE).edit()
+        val isRemember = ivRememberCheck.isVisible
+        preferences.putBoolean("remember", isRemember)
+        if (isRemember) {
+            preferences.putString("id", user.id)
+            preferences.putString("name", user.name)
+            preferences.putString("avatarUrl", user.avatarUrl)
+        }
+        preferences.apply()
+
+        finish()
     }
 
-    private fun onLoginFailed(message: String?) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun onLoginFailed(exception: Exception) {
+        when (exception) {
+            is FirebaseAuthInvalidUserException -> ivErrorTip.visibility = View.VISIBLE
+            is FirebaseAuthInvalidCredentialsException -> ivErrorTip.visibility = View.VISIBLE
+            else -> Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()
+        }
         layoutProgress?.visibility = View.GONE
     }
 }

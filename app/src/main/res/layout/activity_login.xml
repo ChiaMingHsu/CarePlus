@@ -9,35 +9,47 @@
         android:id="@+id/root">
 
     <ImageView
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.656"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/ivAppName"
             android:adjustViewBounds="true"
             android:id="@+id/ivBg"
-            android:src="@drawable/login_bg"/>
+            android:src="@drawable/login_bg"
+            android:scaleType="fitXY"/>
+
+    <View
+            android:layout_width="1dp" android:layout_height="1dp"
+            app:layout_constraintLeft_toLeftOf="@id/ivBg"
+            app:layout_constraintRight_toRightOf="@id/ivBg"
+            app:layout_constraintTop_toTopOf="@id/ivBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivBg"
+            app:layout_constraintHorizontal_bias="0.1732"
+            app:layout_constraintVertical_bias="0.1571"
+            android:id="@+id/glTitleLeftTop"/>
 
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.201"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivBg"
-            app:layout_constraintBottom_toBottomOf="@id/ivBg"
-            app:layout_constraintHorizontal_bias="0.178"
-            app:layout_constraintVertical_bias="0.0996"
+            app:layout_constraintWidth_percent="0.156"
+            app:layout_constraintLeft_toLeftOf="@id/glTitleLeftTop"
+            app:layout_constraintTop_toTopOf="@id/glTitleLeftTop"
             android:adjustViewBounds="true"
             android:id="@+id/ivHello"
             android:src="@drawable/login_hello"/>
 
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.396"
+            app:layout_constraintWidth_percent="0.559"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivBg"
-            app:layout_constraintBottom_toTopOf="@id/layoutForm"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:adjustViewBounds="true"
             android:id="@+id/ivAppName"
-            android:src="@drawable/login_app_name"/>
+            android:src="@drawable/login_app_name"
+            android:scaleType="fitXY"/>
 
     <!-- Form -->
 
@@ -49,6 +61,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/layoutForm">
 
+        <!-- Error Tip -->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.507"
+                app:layout_constraintLeft_toLeftOf="@id/edtUsername"
+                app:layout_constraintTop_toTopOf="parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivErrorTip"
+                android:src="@drawable/login_error_tip"
+                android:scaleType="fitXY"
+                android:visibility="invisible"/>
+
         <!-- Username -->
 
         <ImageView
@@ -56,7 +81,8 @@
                 app:layout_constraintWidth_percent="0.579"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivErrorTip"
+                android:layout_marginTop="3dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivUsername"
                 android:src="@drawable/login_username_bg"/>
@@ -104,10 +130,10 @@
 
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.156"
+                app:layout_constraintWidth_percent="0.166"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivPassword"
+                app:layout_constraintTop_toBottomOf="@id/ivRememberText"
                 android:layout_marginTop="8.5dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/btnLogin"
@@ -115,38 +141,77 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"/>
 
-        <!-- Google Login -->
+        <!-- Remember -->
 
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.258"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnLogin"
-                android:layout_marginTop="12.7dp"
+                app:layout_constraintWidth_percent="0.039"
+                app:layout_constraintLeft_toLeftOf="@id/edtPassword"
+                app:layout_constraintTop_toBottomOf="@id/ivPassword"
+                android:layout_marginTop="8.5dp"
                 android:adjustViewBounds="true"
-                android:id="@+id/btnGoogle"
-                android:src="@drawable/login_btn_google_login"
+                android:id="@+id/btnRemember"
+                android:src="@drawable/login_btn_remember"
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"/>
 
-        <!-- Register -->
-
-        <ImageButton
+        <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.064"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnGoogle"
-                app:layout_constraintBottom_toBottomOf="@id/btnGoogle"
-                android:layout_marginRight="30.8dp"
-                android:padding="5dp"
+                app:layout_constraintWidth_percent="0.035"
+                app:layout_constraintLeft_toLeftOf="@id/btnRemember"
+                app:layout_constraintRight_toRightOf="@id/btnRemember"
+                app:layout_constraintTop_toTopOf="@id/btnRemember"
+                app:layout_constraintBottom_toBottomOf="@id/btnRemember"
+                android:layout_marginLeft="6dp"
+                android:layout_marginBottom="6dp"
                 android:adjustViewBounds="true"
-                android:id="@+id/btnRegister"
-                android:src="@drawable/login_btn_register"
-                android:background="@android:color/transparent"
+                android:id="@+id/ivRememberCheck"
+                android:src="@drawable/login_remember_check"
+                android:scaleType="fitXY"
+                android:visibility="gone"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.435"
+                app:layout_constraintLeft_toRightOf="@id/btnRemember"
+                app:layout_constraintTop_toTopOf="@id/btnRemember"
+                app:layout_constraintBottom_toBottomOf="@id/btnRemember"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="12dp"
+                android:id="@+id/ivRememberText"
+                android:src="@drawable/login_btn_remember_text"
                 android:scaleType="fitXY"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Google Login -->
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.429"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutForm"
+            android:layout_marginTop="16.3dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnGoogle"
+            android:src="@drawable/login_btn_google_login"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"/>
+
+    <!-- Register -->
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.102"
+            app:layout_constraintLeft_toRightOf="@id/ivAppName"
+            app:layout_constraintTop_toTopOf="@id/btnGoogle"
+            app:layout_constraintBottom_toBottomOf="@id/btnGoogle"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnRegister"
+            android:src="@drawable/login_btn_register"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"/>
 
     <!-- Progress -->
 

@@ -8,9 +8,40 @@
         tools:context=".CalendarFragment"
         android:background="#adadbe">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Account"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.083"
+            android:id="@+id/glTitleLeft"
+            android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.048"
+            android:id="@+id/glTitleTop"
+            android:orientation="horizontal"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.426"
+            app:layout_constraintLeft_toLeftOf="@id/glTitleLeft"
+            app:layout_constraintTop_toTopOf="@id/glTitleTop"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivTitle"
+            android:src="@drawable/account_titile"
+            android:scaleType="fitXY"/>
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.529"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTitle"
+            android:layout_marginTop="29.7dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnLogout"
+            android:src="@drawable/account_btn_logout"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

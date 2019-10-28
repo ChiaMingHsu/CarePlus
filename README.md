@@ -77,6 +77,7 @@
     - users (many users)
         - USER_ID_1
             - name
+            - email
             - avatarUrl
             - pushToken
         - USER_ID_2

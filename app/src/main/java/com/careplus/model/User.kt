@@ -10,6 +10,7 @@ data class User(
     var id: String = "",
 
     var name: String = "",
+    var email: String = "",
     var avatarUrl: String? = null,
     var pushToken: String? = null
 )

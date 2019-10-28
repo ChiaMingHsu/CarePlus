@@ -59,6 +59,7 @@ class HomeFragment : Fragment() {
     private fun setupView() {
         tvName.isSelected = true
         tvName.text = App.user.name
+        tvEmail.text = App.user.email
         App.user.avatarUrl?.let { Picasso.get().load(it).into(ivAvatar) }
 
         Calendar.getInstance().run {
