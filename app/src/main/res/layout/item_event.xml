@@ -8,6 +8,7 @@
     <ImageView
             android:layout_width="match_parent" android:layout_height="match_parent"
             android:adjustViewBounds="true"
+            android:id="@+id/ivBg"
             android:src="@drawable/event_bg"
             android:scaleType="fitXY"/>
 
@@ -26,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivIcon"
-                android:src="@drawable/icon_falldown_active"
+                android:src="@drawable/icon_placeholder"
                 android:scaleType="fitXY"
                 android:background="@android:color/transparent"/>
 

@@ -29,6 +29,7 @@ class FunctionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         setupDB()
+        (activity as HomeActivity).notifyPageEntered("alarm")
     }
 
     private fun setupView() {
@@ -58,6 +59,7 @@ class FunctionFragment : Fragment() {
                         ivIndicatorBg.setImageResource(R.drawable.function_indicator_remind_bg)
                         ivIndicatorAlarm.setImageResource(R.drawable.function_indicator_alarm_inactive)
                         ivIndicatorRemind.setImageResource(R.drawable.function_indicator_remind_active)
+                        (activity as HomeActivity).notifyPageEntered("remind")
                     }
                 }
             }

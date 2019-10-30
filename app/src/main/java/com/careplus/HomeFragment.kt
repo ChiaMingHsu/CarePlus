@@ -130,7 +130,7 @@ class HomeFragment : Fragment() {
                 btnPrivacy.setImageResource(R.drawable.home_btn_privacy_protection_dark)
                 btnPrivacy.tag = "1"
             }
-            FirebaseDatabase.getInstance().getReference("frames").child(App.user.id).child("private").setValue(isPrivate)
+            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id).child("private").setValue(isPrivate)
         }
     }
 

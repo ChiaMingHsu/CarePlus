@@ -134,9 +134,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onLoginSucceed(user: User) {
-        FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
-        App.user = user
+        FirebaseDatabase.getInstance().run {
+            getReference("users").child(user.id).setValue(user)
+            getReference("settings").child(user.id)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if (!dataSnapshot.exists()) {
+                            FirebaseDatabase.getInstance().getReference("settings").child(user.id).run{
+                                child("private").setValue(false)
+                                child("push").setValue(true)
+                            }
+                        }
+                    }
 
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
+        }
+
+
+        App.user = user
         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
         layoutProgress?.visibility = View.GONE
 
@@ -146,6 +162,7 @@ class LoginActivity : AppCompatActivity() {
         if (isRemember) {
             preferences.putString("id", user.id)
             preferences.putString("name", user.name)
+            preferences.putString("email", user.email)
             preferences.putString("avatarUrl", user.avatarUrl)
         }
         preferences.apply()

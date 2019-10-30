@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,7 +44,6 @@ class RemindFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        (activity as HomeActivity).notifyPageEntered("remind")
     }
 
     private fun setupView() {
@@ -70,13 +70,23 @@ class RemindFragment : Fragment() {
                             ivIconColorGreen, ivIconColorBlue, ivIconColorPurple,
                             ivIconColorTiffany, ivIconColorPink, ivIconColorCeleste
                         ).forEach { imageView ->
-                            imageView.setOnClickListener { dialogView.tag = imageView.tag }
+                            imageView.setOnClickListener {
+                                val params = ivIconColorCheck.layoutParams as ConstraintLayout.LayoutParams
+                                params.leftToLeft = imageView.id
+                                params.rightToRight = imageView.id
+                                params.topToTop = imageView.id
+                                params.bottomToBottom = imageView.id
+
+                                ivIconColorCheck.layoutParams = params
+                                ivIconColorCheck.requestLayout()
+                                ivIconColorCheck.tag = imageView.tag
+                            }
                         }
                 }
                 dialogView.btnOk.setOnClickListener {
                     val eventId = "%d-%s".format(System.currentTimeMillis(), UUID.randomUUID().toString())
                     val name = dialogView.edtName.text.toString()
-                    val color = dialogView.tag as String
+                    val color = dialogView.ivIconColorCheck.tag as String
                     val customEvent = Event(eventId, "custom", name, "remind", "color_%s".format(color), "schedule", "[09:00,12:00,18:00]", true)
                     FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(eventId).setValue(customEvent)
                     dialog.dismiss()
@@ -128,7 +138,7 @@ class RemindFragment : Fragment() {
                     FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
                     dialog.dismiss()
                 }
-                dialogView.btnMore.setOnClickListener {
+                dialogView.btnDestroy.setOnClickListener {
                     val confirmDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_remind_remove_confirm, layout_root, false)
                     val confirmDialog = AlertDialog.Builder(context)
                         .setView(confirmDialogView)

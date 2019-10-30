@@ -30,19 +30,37 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
         val enabled = event.enabled
         val activeness = if (enabled) "active" else "inactive"
 
+        holder.view.ivBg.apply {
+            when (event.code) {
+                "create" -> {
+                    resources
+                        .getIdentifier("event_bg_dark", "drawable", context.packageName)
+                        .let { resId -> setImageResource(resId) }
+                }
+                else -> {
+                    resources
+                        .getIdentifier("event_bg", "drawable", context.packageName)
+                        .let { resId -> setImageResource(resId) }
+                }
+            }
+        }
+
         holder.view.ivIcon.apply {
-            if (event.code == "custom") {
-                resources
-                    .getIdentifier("icon_%s".format(if (enabled) icon else "color_gray"), "drawable", context.packageName)
-                    .let { resId -> setImageResource(resId) }
-                scaleX = 0.5f
-                scaleY = 0.5f
-            } else {
-                resources
-                    .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
-                    .let { resId -> setImageResource(resId) }
-                scaleX = 1.0f
-                scaleY = 1.0f
+            when (event.code) {
+                 "custom" -> {
+                    resources
+                        .getIdentifier("icon_%s".format(if (enabled) icon else "color_gray"), "drawable", context.packageName)
+                        .let { resId -> setImageResource(resId) }
+                    scaleX = 0.5f
+                    scaleY = 0.5f
+                }
+                else -> {
+                    resources
+                        .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
+                        .let { resId -> setImageResource(resId) }
+                    scaleX = 1.0f
+                    scaleY = 1.0f
+                }
             }
 
             tag = position

@@ -193,6 +193,18 @@
                 android:scaleType="fitXY"
                 android:tag="celeste"/>
 
+        <ImageView
+                android:layout_width="0dp" android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/ivIconColorBlue"
+                app:layout_constraintRight_toRightOf="@id/ivIconColorBlue"
+                app:layout_constraintTop_toTopOf="@id/ivIconColorBlue"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconColorBlue"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivIconColorCheck"
+                android:src="@drawable/confirm_icon"
+                android:scaleType="fitXY"
+                android:tag="blue"/>
+
         <!-- Icon Colors End -->
 
         <ImageView
