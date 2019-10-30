@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivConfirmBg"
+            android:src="@drawable/remind_confirm_bg"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.776"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivConfirmBg"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivConfirmText"
+            android:src="@drawable/remind_confirm_text"
+            android:scaleType="fitXY"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.256"
+            android:id="@+id/glConfirmButtonYesLeft"
+            android:orientation="vertical"/>
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.157"
+            app:layout_constraintLeft_toLeftOf="@id/glConfirmButtonYesLeft"
+            app:layout_constraintTop_toTopOf="@id/ivConfirmBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivConfirmBg"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnYes"
+            android:src="@drawable/remind_confirm_yes"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.645"
+            android:id="@+id/glConfirmButtonNoLeft"
+            android:orientation="vertical"/>
+
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.157"
+            app:layout_constraintLeft_toLeftOf="@id/glConfirmButtonNoLeft"
+            app:layout_constraintTop_toTopOf="@id/ivConfirmBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivConfirmBg"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnNo"
+            android:src="@drawable/remind_confirm_no"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

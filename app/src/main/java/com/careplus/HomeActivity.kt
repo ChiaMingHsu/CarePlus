@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.properties.Delegates
@@ -14,8 +15,7 @@ class HomeActivity : AppCompatActivity() {
         var shouldContinue = AtomicBoolean(true)
         override fun run() {
             while (shouldContinue.get()) {
-                // TODO
-//                FirebaseDatabase.getInstance().getReference("heartbeats").child(App.user.id).child("timestamp").setValue(System.currentTimeMillis())
+                FirebaseDatabase.getInstance().getReference("heartbeats").child(App.user.id).child("timestamp").setValue(System.currentTimeMillis())
                 sleep(5000)
             }
         }

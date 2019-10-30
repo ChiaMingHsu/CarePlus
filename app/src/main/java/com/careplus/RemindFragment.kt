@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.dialog_config_remind_create.view.*
 import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.*
 import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.btnOk
+import kotlinx.android.synthetic.main.dialog_remind_remove_confirm.view.*
 import kotlinx.android.synthetic.main.fragment_remind.*
 import java.util.*
 
@@ -126,6 +127,25 @@ class RemindFragment : Fragment() {
                     event.value = timeAdapter.times.joinToString(",", "[", "]")
                     FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
                     dialog.dismiss()
+                }
+                dialogView.btnMore.setOnClickListener {
+                    val confirmDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_remind_remove_confirm, layout_root, false)
+                    val confirmDialog = AlertDialog.Builder(context)
+                        .setView(confirmDialogView)
+                        .create()
+                        .apply {
+                            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                        }
+
+                    confirmDialogView.btnYes.setOnClickListener {
+                        FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).removeValue()
+                        confirmDialog.dismiss()
+                        dialog.dismiss()
+                    }
+                    confirmDialogView.btnNo.setOnClickListener {
+                        confirmDialog.dismiss()
+                    }
+                    confirmDialog.show()
                 }
                 dialog.show()
             }
