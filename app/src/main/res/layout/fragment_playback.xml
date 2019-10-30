@@ -7,14 +7,24 @@
         android:layout_height="match_parent"
         tools:context=".PlaybackFragment">
 
-    <TextView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
+    <ImageView
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivBg"
+            android:src="@drawable/playback_bg"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.204"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="記錄"
-            android:textSize="23.3sp"
-            android:textColor="#4b5cff"
-            android:textStyle="bold"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivTitle"
+            android:src="@drawable/playback_title"
+            android:scaleType="fitXY"/>
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -24,7 +34,7 @@
 
     <FrameLayout
             android:layout_width="0dp" android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.741"
+            app:layout_constraintWidth_percent="0.675"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,18 +48,58 @@
 
     </FrameLayout>
 
-    <ImageView
+    <TextView
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.325"
+            app:layout_constraintWidth_percent="0.352"
             app:layout_constraintLeft_toLeftOf="@id/glVerticalCenter"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintTop_toTopOf="@id/layoutPlayback"
+            app:layout_constraintBottom_toTopOf="@id/layoutPlayback"
             android:adjustViewBounds="true"
-            android:id="@+id/ivMessageBg"
-            android:src="@drawable/playback_message_bg"/>
+            android:id="@+id/tvDate"
+            android:gravity="center"
+            android:text="0000.00.00"
+            android:textAlignment="center"
+            android:textSize="13.3sp"
+            android:textColor="#ffffff"
+            android:letterSpacing="0.2"
+            android:textStyle="bold"
+            android:background="@drawable/playback_date_bg"
+            android:scaleType="fitXY"/>
+
+    <TextView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.352"
+            app:layout_constraintLeft_toLeftOf="@id/tvDate"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            android:adjustViewBounds="true"
+            android:id="@+id/tvTime"
+            android:gravity="center"
+            android:text="00:00"
+            android:textAlignment="center"
+            android:textSize="13.3sp"
+            android:textColor="#ffffff"
+            android:letterSpacing="0.2"
+            android:textStyle="bold"
+            android:background="@drawable/playback_time_bg"
+            android:scaleType="fitXY"/>
+
+    <TextView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.352"
+            app:layout_constraintLeft_toLeftOf="@id/tvTime"
+            app:layout_constraintTop_toBottomOf="@id/tvTime"
+            android:adjustViewBounds="true"
+            android:id="@+id/tvContent"
+            android:gravity="center"
+            android:text="Content"
+            android:textAlignment="center"
+            android:textSize="16.7sp"
+            android:textColor="#ffffff"
+            android:letterSpacing="0.2"
+            android:textStyle="bold"
+            android:background="@drawable/playback_content_bg"
+            android:scaleType="fitXY"/>
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content" android:layout_height="wrap_content"

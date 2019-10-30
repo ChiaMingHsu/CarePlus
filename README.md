@@ -91,6 +91,7 @@
     - frames (one user to one frame)
         - USER_ID
             - frame: (base64)
+            - private: (boolean)
     - messages (one user to many messages)
         - USER_ID
             - MESSAGE_ID_1 (format: yyyyMMddHHmmss-UUID4, e.g. 20191515150030-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)

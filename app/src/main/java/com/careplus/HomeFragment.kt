@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     var isCircleFrameUpdatable: Boolean = true
     var isFullFrameUpdatable: Boolean = false
 
-    var observableBase64Str: String by Delegates.observable("") {_, _, newBase64Str->
+    var observableBase64Str: String by Delegates.observable("") { _, _, newBase64Str->
         if (newBase64Str.isEmpty())
             return@observable
 
@@ -118,6 +118,18 @@ class HomeFragment : Fragment() {
                         isCircleFrameUpdatable = true
                     }, 1000)
             }
+        }
+
+        btnPrivacy.setOnClickListener {
+            val isPrivate = btnPrivacy.tag == "1"
+            if (isPrivate) {
+                btnPrivacy.setImageResource(R.drawable.home_btn_privacy_protection_light)
+                btnPrivacy.tag = "0"
+            } else {
+                btnPrivacy.setImageResource(R.drawable.home_btn_privacy_protection_dark)
+                btnPrivacy.tag = "1"
+            }
+            FirebaseDatabase.getInstance().getReference("frames").child(App.user.id).child("private").setValue(isPrivate)
         }
     }
 

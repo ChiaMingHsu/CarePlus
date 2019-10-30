@@ -101,7 +101,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:adjustViewBounds="true"
-                android:id="@+id/ivDateBg"
+                android:id="@+id/tvDate"
                 android:src="@drawable/home_date_bg"/>
 
         <androidx.constraintlayout.widget.Guideline
@@ -204,16 +204,18 @@
             android:background="#0000"
             android:visibility="gone"/>
 
-    <ImageView
+    <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.245"
+            app:layout_constraintWidth_percent="0.333"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/btnEnterFullscreen"
             app:layout_constraintBottom_toBottomOf="@id/btnEnterFullscreen"
             android:layout_marginRight="39.7dp"
             android:adjustViewBounds="true"
-            android:id="@+id/ivPrivacy"
-            android:src="@drawable/home_btn_privacy_protection_light"/>
+            android:id="@+id/btnPrivacy"
+            android:src="@drawable/home_btn_privacy_protection_dark"
+            android:tag="0"
+            android:background="@android:color/transparent"/>
 
     <!-- Location -->
 

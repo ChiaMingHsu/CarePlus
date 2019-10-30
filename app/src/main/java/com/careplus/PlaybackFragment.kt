@@ -21,6 +21,8 @@ import org.jcodec.common.model.Rational
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.concurrent.thread
 import kotlin.properties.Delegates
 
@@ -88,6 +90,10 @@ class PlaybackFragment(private val message: Message) : Fragment() {
     }
 
     private fun setupView() {
+        tvContent.text = message.content
+        tvDate.text = SimpleDateFormat("yyyy.MM.dd").format(Date(message.createdAt))
+        tvTime.text = SimpleDateFormat("HH:mm").format(Date(message.createdAt))
+
         vvPlayback.setOnPreparedListener { mediaPlayer ->
             mediaPlayer.isLooping = true
 

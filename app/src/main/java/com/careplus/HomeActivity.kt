@@ -1,6 +1,5 @@
 package com.careplus
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
@@ -14,7 +13,8 @@ class HomeActivity : AppCompatActivity() {
         var shouldContinue = AtomicBoolean(true)
         override fun run() {
             while (shouldContinue.get()) {
-                FirebaseDatabase.getInstance().getReference("heartbeats").child(App.user.id).child("timestamp").setValue(System.currentTimeMillis())
+                // TODO
+//                FirebaseDatabase.getInstance().getReference("heartbeats").child(App.user.id).child("timestamp").setValue(System.currentTimeMillis())
                 sleep(5000)
             }
         }
@@ -41,43 +41,25 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun navigateToTab(index: Int) {
-        btnNotification.apply {
-            setImageResource(R.drawable.component_237_1)
-            setBackgroundColor(Color.rgb(248, 248, 248))
-        }
-        btnHome.apply {
-            setImageResource(R.drawable.component_241)
-            setBackgroundColor(Color.rgb(248, 248, 248))
-        }
-        btnSetting.apply {
-            setImageResource(R.drawable.component_236_1)
-            setBackgroundColor(Color.rgb(248, 248, 248))
-        }
+        ivTabIconNotification.setImageResource(R.drawable.home_tab_icon_notification_inactive)
+        ivTabIconHome.setImageResource(R.drawable.home_tab_icon_home_inactive)
+        ivTabIconSetting.setImageResource(R.drawable.home_tab_icon_setting_inactive)
 
         when (index) {
             0 -> {
-                btnNotification.apply {
-                    setImageResource(R.drawable.component_237_5)
-                    setBackgroundColor(Color.rgb(255, 255, 255))
-                }
+                ivTabIconNotification.setImageResource(R.drawable.home_tab_icon_notification_active)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, NotificationFragment())
                     .commit()
             }
             1 -> {
-                btnHome.apply {
-                    setImageResource(R.drawable.component_22_2)
-                    setBackgroundColor(Color.rgb(255, 255, 255))
-                }
+                ivTabIconHome.setImageResource(R.drawable.home_tab_icon_home_active)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, HomeFragment())
                     .commit()
             }
             2 -> {
-                btnSetting.apply {
-                    setImageResource(R.drawable.component_236_4)
-                    setBackgroundColor(Color.rgb(255, 255, 255))
-                }
+                ivTabIconSetting.setImageResource(R.drawable.home_tab_icon_setting_active)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, SettingFragment())
                     .commit()
