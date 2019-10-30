@@ -1,8 +1,9 @@
 package com.careplus
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.properties.Delegates
@@ -38,6 +39,9 @@ class HomeActivity : AppCompatActivity() {
         btnNotification.setOnClickListener { tabIndex = 0 }
         btnHome.setOnClickListener { tabIndex = 1 }
         btnSetting.setOnClickListener { tabIndex = 2 }
+        ivTutorial.setOnClickListener {
+            ivTutorial.visibility = View.GONE
+        }
     }
 
     private fun navigateToTab(index: Int) {
@@ -75,5 +79,23 @@ class HomeActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         heartbeatThread?.apply { shouldContinue.set(false) }
+    }
+
+    fun notifyPageEntered(pageName: String) {
+        val preferences = getSharedPreferences("tutorial", Context.MODE_PRIVATE)
+        val tutorialShown = preferences.getBoolean(pageName, false)
+        var resId = -1
+        when (pageName) {
+            "home" -> resId = R.drawable.home_tutorial
+            "notification" -> resId = R.drawable.notification_tutorial
+            "setting" -> resId = R.drawable.setting_tutorial
+            "alarm" -> resId = R.drawable.alarm_tutorial
+            "remind" -> resId = R.drawable.remind_tutorial
+        }
+        if (!tutorialShown and (resId != -1)) {
+            ivTutorial.setImageResource(resId)
+            ivTutorial.visibility = View.VISIBLE
+            preferences.edit().putBoolean(pageName, true).apply()
+        }
     }
 }

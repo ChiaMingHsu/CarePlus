@@ -20,6 +20,7 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
+        (activity as HomeActivity).notifyPageEntered("setting")
     }
 
     private fun setupView() {
