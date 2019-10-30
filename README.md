@@ -67,6 +67,7 @@
             - messages: false
             - playbacks: false
             - events: false
+            - settings: false
         ```
 
 
@@ -119,6 +120,9 @@
                 - value: (format `mm:ss` for `elapsed` mode, format `HH:mm` for `deadline` mode, format `[HH:mm, HH:mm, ...]` for `schedule`)
                 - enabled: (boolean)
             - EVENT_ID_2
+    - settings
+        - USER_ID
+            - push: (boolean)
 ```
 
 ## Icon Table
