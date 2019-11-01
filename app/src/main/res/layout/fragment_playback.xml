@@ -64,7 +64,7 @@
             android:textColor="#ffffff"
             android:letterSpacing="0.2"
             android:textStyle="bold"
-            android:background="@drawable/playback_date_bg"
+            android:background="@drawable/playback_date_bg_alarm_standard"
             android:scaleType="fitXY"/>
 
     <TextView
@@ -81,7 +81,7 @@
             android:textColor="#ffffff"
             android:letterSpacing="0.2"
             android:textStyle="bold"
-            android:background="@drawable/playback_time_bg"
+            android:background="@drawable/playback_time_bg_alarm_standard"
             android:scaleType="fitXY"/>
 
     <TextView
@@ -98,7 +98,7 @@
             android:textColor="#ffffff"
             android:letterSpacing="0.2"
             android:textStyle="bold"
-            android:background="@drawable/playback_content_bg"
+            android:background="@drawable/playback_content_bg_alarm_standard"
             android:scaleType="fitXY"/>
 
     <androidx.constraintlayout.widget.Guideline

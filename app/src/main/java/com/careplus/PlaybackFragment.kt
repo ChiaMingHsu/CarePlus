@@ -90,9 +90,27 @@ class PlaybackFragment(private val message: Message) : Fragment() {
     }
 
     private fun setupView() {
-        tvContent.text = message.content
         tvDate.text = SimpleDateFormat("yyyy.MM.dd").format(Date(message.createdAt))
         tvTime.text = SimpleDateFormat("HH:mm").format(Date(message.createdAt))
+        tvContent.text = message.content
+
+        when (Pair(message.type, message.priority)) {
+            Pair("alarm", "standard") -> {
+                tvDate.setBackgroundResource(R.drawable.playback_date_bg_alarm_standard)
+                tvTime.setBackgroundResource(R.drawable.playback_time_bg_alarm_standard)
+                tvContent.setBackgroundResource(R.drawable.playback_content_bg_alarm_standard)
+            }
+            Pair("alarm", "emergent") -> {
+                tvDate.setBackgroundResource(R.drawable.playback_date_bg_alarm_emergent)
+                tvTime.setBackgroundResource(R.drawable.playback_time_bg_alarm_emergent)
+                tvContent.setBackgroundResource(R.drawable.playback_content_bg_alarm_emergent)
+            }
+            Pair("remind", "standard") -> {
+                tvDate.setBackgroundResource(R.drawable.playback_date_bg_remind_standard)
+                tvTime.setBackgroundResource(R.drawable.playback_time_bg_remind_standard)
+                tvContent.setBackgroundResource(R.drawable.playback_content_bg_remind_standard)
+            }
+        }
 
         vvPlayback.setOnPreparedListener { mediaPlayer ->
             mediaPlayer.isLooping = true
