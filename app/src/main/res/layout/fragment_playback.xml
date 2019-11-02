@@ -119,18 +119,4 @@
             android:background="@android:color/transparent"
             android:scaleType="fitXY"/>
 
-    <ImageButton
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.146"
-            app:layout_constraintLeft_toRightOf="@id/btnSave"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/glHorizontalBottom"
-            app:layout_constraintHorizontal_bias="0.7"
-            android:adjustViewBounds="true"
-            android:id="@+id/btnBack"
-            android:src="@drawable/playback_btn_back"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
