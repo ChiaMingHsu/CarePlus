@@ -73,6 +73,12 @@ class PlaybackFragment(private val message: Message) : Fragment() {
                                 }
                             }
                     }
+                    ?.run {
+                        btnSave.visibility = View.VISIBLE
+                    }
+                    ?:run {
+                        btnSave.visibility = View.GONE
+                    }
             }
         }
     }
