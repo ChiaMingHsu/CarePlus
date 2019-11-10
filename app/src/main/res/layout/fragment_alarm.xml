@@ -8,23 +8,13 @@
         tools:context=".AlarmFragment"
         android:id="@+id/layout_root">
 
-    <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.083"
-            android:id="@+id/glTitleLeft"
-            android:orientation="vertical"/>
-
-    <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.05"
-            android:id="@+id/glTitleTop"
-            android:orientation="horizontal"/>
-
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.204"
-            app:layout_constraintLeft_toLeftOf="@id/glTitleLeft"
-            app:layout_constraintTop_toTopOf="@id/glTitleTop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="31dp"
             android:adjustViewBounds="true"
             android:id="@+id/ivTitle"
             android:src="@drawable/alarm_title"

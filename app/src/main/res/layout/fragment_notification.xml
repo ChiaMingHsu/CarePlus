@@ -17,9 +17,10 @@
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.204"
-            app:layout_constraintLeft_toLeftOf="@id/rvNotification"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/rvNotification"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="31dp"
             android:adjustViewBounds="true"
             android:id="@+id/ivTitle"
             android:src="@drawable/notification_title"
@@ -28,7 +29,7 @@
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp" android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.7364"
-            app:layout_constraintHeight_percent="0.7822"
+            app:layout_constraintHeight_percent="0.7"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
