@@ -1,6 +1,7 @@
 package com.careplus
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,11 +14,23 @@ import kotlinx.android.synthetic.main.fragment_account.*
 
 class AccountFragment : Fragment() {
 
+    var mContext: Context? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_account, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        mContext = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +44,7 @@ class AccountFragment : Fragment() {
                 signOut()
                 addAuthStateListener { firebaseAuth ->
                     if (firebaseAuth.currentUser == null) {
-                        startActivity(Intent(context, LoginActivity::class.java))
+                        startActivity(Intent(mContext, LoginActivity::class.java))
                         activity?.finish()
                     }
                 }
