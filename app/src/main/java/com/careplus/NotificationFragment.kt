@@ -36,6 +36,7 @@ class NotificationFragment : Fragment() {
     private fun setupView() {
         rvNotification.apply {
             layoutManager = LinearLayoutManager(context)
+                .apply { stackFromEnd = true }
             adapter = messageAdapter
         }
 
