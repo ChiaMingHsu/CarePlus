@@ -121,6 +121,4 @@
             android:scaleType="fitXY"
             android:background="@android:color/transparent"/>
 
-    <!-- TODO: config_alarm_btn_ok change to config_remind_btn_ok-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

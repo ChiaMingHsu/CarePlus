@@ -57,7 +57,7 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setupDB() {
-        pbLoading?.visibility = View.VISIBLE
+        layoutProgress?.visibility = View.VISIBLE
 
         messagesValueEventListener = FirebaseDatabase.getInstance().getReference("messages").child(App.user.id)
             .orderByKey()
@@ -71,7 +71,7 @@ class NotificationFragment : Fragment() {
                             messageAdapter.notifyDataSetChanged()
                         }
 
-                    pbLoading?.visibility = View.GONE
+                    layoutProgress?.visibility = View.GONE
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}
