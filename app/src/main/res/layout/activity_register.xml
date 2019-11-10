@@ -10,7 +10,7 @@
 
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.796"
+            app:layout_constraintWidth_percent="0.694"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutForm"
@@ -21,14 +21,15 @@
 
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.424"
+            app:layout_constraintWidth_percent="0.433"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/layoutForm"
             android:adjustViewBounds="true"
             android:id="@+id/ivTitle"
-            android:src="@drawable/register_title"/>
+            android:src="@drawable/register_title"
+            android:scaleType="fitXY"/>
 
     <!-- Form -->
 
@@ -47,15 +48,15 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="119.3dp"
-                android:layout_marginRight="43.4dp"
+                android:layout_marginLeft="135.3dp"
+                android:layout_marginRight="23.4dp"
                 android:id="@+id/ivNameBg"
                 android:src="@drawable/register_name_bg"
                 android:scaleType="fitXY"/>
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.081"
+                app:layout_constraintWidth_percent="0.102"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@id/ivNameBg"
                 app:layout_constraintBottom_toBottomOf="@id/ivNameBg"
@@ -90,7 +91,7 @@
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.133"
+                app:layout_constraintWidth_percent="0.173"
                 app:layout_constraintLeft_toLeftOf="@id/ivNameLabel"
                 app:layout_constraintTop_toTopOf="@id/ivEmailBg"
                 app:layout_constraintBottom_toBottomOf="@id/ivEmailBg"
@@ -124,7 +125,7 @@
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.081"
+                app:layout_constraintWidth_percent="0.102"
                 app:layout_constraintLeft_toLeftOf="@id/ivEmailLabel"
                 app:layout_constraintTop_toTopOf="@id/ivPasswordBg"
                 app:layout_constraintBottom_toBottomOf="@id/ivPasswordBg"
@@ -158,7 +159,7 @@
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.170"
+                app:layout_constraintWidth_percent="0.213"
                 app:layout_constraintLeft_toLeftOf="@id/ivPasswordLabel"
                 app:layout_constraintTop_toTopOf="@id/ivPasswordConfirmBg"
                 app:layout_constraintBottom_toBottomOf="@id/ivPasswordConfirmBg"
@@ -183,7 +184,7 @@
 
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.156"
+                app:layout_constraintWidth_percent="0.166"
                 app:layout_constraintRight_toRightOf="@id/ivPasswordConfirmBg"
                 app:layout_constraintTop_toBottomOf="@id/ivPasswordConfirmBg"
                 android:layout_marginTop="8.5dp"

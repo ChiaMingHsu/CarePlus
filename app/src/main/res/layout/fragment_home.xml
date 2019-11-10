@@ -5,96 +5,74 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomeFragment">
+        tools:context=".HomeFragment"
+        android:background="#5067fb">
 
-    <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5"
-            android:orientation="horizontal"
-            android:id="@+id/glHorizontalCenter"/>
+    <View
+            android:layout_width="match_parent" android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="@id/layoutDate"
+            app:layout_constraintBottom_toBottomOf="@id/layoutDate"
+            android:id="@+id/glBgTop"/>
+
 
     <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.769"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/glHorizontalCenter"
+            android:layout_width="match_parent" android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:id="@+id/ivHead"
-            android:src="@drawable/home_head"/>
+            app:layout_constraintTop_toTopOf="@id/glBgTop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/ivBg"
+            android:src="@drawable/home_bg_light"
+            android:scaleType="fitXY"/>
 
     <!-- User Info -->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.293"
-            app:layout_constraintLeft_toLeftOf="@id/ivCircleFrame"
+    <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/ivCircleFrame"
-            android:layout_marginLeft="8dp"
-            android:id="@+id/frameUserInfo">
+            android:layout_marginLeft="36.9dp"
+            android:layout_marginTop="33.3dp"
+            android:id="@+id/tvEmail"
+            android:gravity="left"
+            android:text="email@email.com"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textSize="16.7sp"
+            android:textStyle="bold"/>
 
-        <ImageView
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:adjustViewBounds="true"
-                android:id="@+id/ivUserInfoBg"
-                android:src="@drawable/home_user_info_bg"/>
+    <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/tvEmail"
+            app:layout_constraintTop_toBottomOf="@id/tvEmail"
+            android:id="@+id/tvLocation"
+            android:gravity="left"
+            android:text="爸媽的家"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textSize="16.7sp"
+            android:textStyle="bold"/>
 
-        <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.5"
-                android:orientation="horizontal"
-                android:id="@+id/glUserInfoHorizontalCenter"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="0dp" android:layout_height="0dp"
-                app:layout_constraintWidth_percent="0.2871"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/glUserInfoHorizontalCenter"
-                app:layout_constraintDimensionRatio="H,1:1"
-                android:id="@+id/ivAvatar"
-                android:src="@drawable/home_avatar_placeholder"/>
-
-        <TextView
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/glUserInfoHorizontalCenter"
-                android:id="@+id/tvName"
-                android:gravity="center"
-                android:text="NAME"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:textColor="#fff"
-                android:textStyle="bold"/>
-
-        <TextView
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvName"
-                android:id="@+id/tvEmail"
-                android:gravity="center"
-                android:text="email@email.com"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:textColor="#fff"
-                android:textSize="10sp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/tvLocation"
+            app:layout_constraintTop_toBottomOf="@id/tvLocation"
+            android:id="@+id/tvNote"
+            android:gravity="left"
+            android:text="備註資訊"
+            android:singleLine="true"
+            android:textColor="#b5b5b9"
+            android:textSize="16.7sp"
+            android:textStyle="bold"/>
 
     <!-- Date -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.300"
-            app:layout_constraintRight_toRightOf="@id/ivCircleFrame"
+            app:layout_constraintWidth_percent="0.395"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/ivCircleFrame"
-            android:layout_marginRight="8dp"
-            android:id="@+id/frameDate">
+            android:layout_marginRight="6.7dp"
+            android:id="@+id/layoutDate">
 
         <ImageView
                 android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -102,25 +80,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:adjustViewBounds="true"
                 android:id="@+id/tvDate"
-                android:src="@drawable/home_date_bg"/>
+                android:src="@drawable/home_date_bg"
+                android:scaleType="fitXY"/>
 
         <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.5708"
+                app:layout_constraintGuide_percent="0.6284"
                 android:orientation="vertical"
                 android:id="@+id/glDateVerticalRight"/>
 
         <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.1654"
+                app:layout_constraintGuide_percent="0.11"
                 android:orientation="horizontal"
                 android:id="@+id/glDateHorizontalTopYear"/>
-
-        <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.3813"
-                android:orientation="horizontal"
-                android:id="@+id/glDateHorizontalTopMonth"/>
 
         <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -136,17 +109,19 @@
                 android:gravity="right"
                 android:text="2019"
                 android:textColor="#fff"
-                android:textSize="10sp"/>
+                android:textSize="22sp"
+                android:textStyle="bold"/>
 
         <TextView
                 android:layout_width="0dp" android:layout_height="wrap_content"
                 app:layout_constraintRight_toRightOf="@id/glDateVerticalRight"
-                app:layout_constraintTop_toTopOf="@id/glDateHorizontalTopMonth"
+                app:layout_constraintTop_toBottomOf="@id/tvYear"
                 android:id="@+id/tvMonth"
                 android:gravity="right"
                 android:text="12"
                 android:textColor="#fff"
-                android:textSize="10sp"/>
+                android:textSize="22sp"
+                android:textStyle="bold"/>
 
         <TextView
                 android:layout_width="0dp" android:layout_height="wrap_content"
@@ -206,46 +181,15 @@
 
     <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.333"
+            app:layout_constraintWidth_percent="0.278"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/btnEnterFullscreen"
             app:layout_constraintBottom_toBottomOf="@id/btnEnterFullscreen"
-            android:layout_marginRight="39.7dp"
+            android:layout_marginRight="15.3dp"
             android:adjustViewBounds="true"
             android:id="@+id/btnPrivacy"
             android:src="@drawable/home_btn_privacy_protection_dark"
             android:tag="0"
             android:background="@android:color/transparent"/>
-
-    <!-- Location -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.312"
-            app:layout_constraintRight_toRightOf="@id/ivCircleFrame"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/frameDate"
-            android:id="@+id/frameLocation">
-
-        <ImageView
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:adjustViewBounds="true"
-                android:id="@+id/ivLocationBg"
-                android:src="@drawable/home_location_bg"/>
-
-        <ImageView
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.4924"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:adjustViewBounds="true"
-                android:id="@+id/ivLocationText"
-                android:src="@drawable/home_location_text"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

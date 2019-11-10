@@ -58,10 +58,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
-        tvName.isSelected = true
-        tvName.text = App.user.name
         tvEmail.text = App.user.email
-        App.user.avatarUrl?.let { Picasso.get().load(it).into(ivAvatar) }
 
         Calendar.getInstance().run {
             tvYear.text = this.get(Calendar.YEAR).toString()
@@ -124,9 +121,11 @@ class HomeFragment : Fragment() {
         btnPrivacy.setOnClickListener {
             val isPrivate = btnPrivacy.tag == "1"
             if (isPrivate) {
+                ivBg.setImageResource(R.drawable.home_bg_dark)
                 btnPrivacy.setImageResource(R.drawable.home_btn_privacy_protection_light)
                 btnPrivacy.tag = "0"
             } else {
+                ivBg.setImageResource(R.drawable.home_bg_light)
                 btnPrivacy.setImageResource(R.drawable.home_btn_privacy_protection_dark)
                 btnPrivacy.tag = "1"
             }
