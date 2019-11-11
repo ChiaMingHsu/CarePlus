@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.careplus.adapters.MessageAdapter
 import com.careplus.model.Message
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,6 +20,7 @@ class NotificationFragment : Fragment() {
 
     val messageAdapter = MessageAdapter()
     var messagesValueEventListener: ValueEventListener? = null
+    var useScrollOrSnackForMessageTip: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +38,6 @@ class NotificationFragment : Fragment() {
     private fun setupView() {
         rvNotification.apply {
             layoutManager = LinearLayoutManager(context)
-                .apply { stackFromEnd = true }
             adapter = messageAdapter
         }
 
@@ -54,6 +55,7 @@ class NotificationFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        useScrollOrSnackForMessageTip = true
         setupDB()
     }
 
@@ -70,6 +72,13 @@ class NotificationFragment : Fragment() {
                             messageAdapter.messages.clear()
                             messageAdapter.messages.addAll(it)
                             messageAdapter.notifyDataSetChanged()
+
+                            if (useScrollOrSnackForMessageTip)
+                                rvNotification.smoothScrollToPosition(messageAdapter.messages.count() - 1)
+                            else
+                                Snackbar.make(rvNotification, "您有新訊息", Snackbar.LENGTH_SHORT).show()
+
+                            useScrollOrSnackForMessageTip = false
                         }
 
                     layoutProgress?.visibility = View.GONE
