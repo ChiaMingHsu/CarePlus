@@ -49,7 +49,6 @@ class AccountFragment : Fragment() {
                     }
                 }
             }
-
         }
     }
 }

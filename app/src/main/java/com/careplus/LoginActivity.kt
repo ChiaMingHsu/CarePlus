@@ -39,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
             .requestEmail()
             .build()
             .let { googleSignInClient = GoogleSignIn.getClient(this, it) }
+
+        // NOTE: Sign out here to forget previous `Google Login`
+        googleSignInClient.signOut()
     }
 
     private fun setupView() {
