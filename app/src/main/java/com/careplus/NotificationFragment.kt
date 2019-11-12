@@ -74,7 +74,9 @@ class NotificationFragment : Fragment() {
                             messageAdapter.notifyDataSetChanged()
 
                             if (useScrollOrSnackForMessageTip)
-                                rvNotification.smoothScrollToPosition(messageAdapter.messages.count() - 1)
+                                messageAdapter.messages.count()
+                                    .takeIf { count -> count > 0 }
+                                    ?.let { count -> rvNotification.smoothScrollToPosition( count - 1) }
                             else
                                 Snackbar.make(rvNotification, "您有新訊息", Snackbar.LENGTH_SHORT).show()
 
