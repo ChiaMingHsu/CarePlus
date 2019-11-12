@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -48,6 +49,9 @@ class HomeActivity : AppCompatActivity() {
         ivTabIconNotification.setImageResource(R.drawable.home_tab_icon_notification_inactive)
         ivTabIconHome.setImageResource(R.drawable.home_tab_icon_home_inactive)
         ivTabIconSetting.setImageResource(R.drawable.home_tab_icon_setting_inactive)
+
+        // Clear stack before switching to other fragment
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         when (index) {
             0 -> {

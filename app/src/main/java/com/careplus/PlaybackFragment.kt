@@ -64,9 +64,9 @@ class PlaybackFragment(private val message: Message) : Fragment() {
                                 encoder.finish()
                             }
                             .run {
-                                vvPlayback.post {
+                                vvPlayback?.post {
                                     val uri = File(context.cacheDir, tempVideoFilename).toUri()
-                                    vvPlayback.apply {
+                                    vvPlayback?.apply {
                                         setVideoURI(uri)
                                         start()
                                     }
