@@ -144,7 +144,6 @@ class LoginActivity : AppCompatActivity() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if (!dataSnapshot.exists()) {
                             FirebaseDatabase.getInstance().getReference("settings").child(user.id).run{
-                                child("private").setValue(false)
                                 child("push").setValue(true)
                             }
                         }

@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintGuide_percent="0.6"
             android:orientation="horizontal"
             android:id="@+id/glHorizontalCenter"/>
 
@@ -31,6 +31,7 @@
             app:layout_constraintLeft_toLeftOf="@id/ivCircleFrame"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/ivCircleFrame"
+            app:layout_constraintVertical_bias="0.4"
             android:layout_marginLeft="8dp"
             android:id="@+id/frameUserInfo">
 
@@ -167,7 +168,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintVertical_bias="0.7"
+            app:layout_constraintVertical_bias="0.85"
             android:id="@+id/ivCircleFrame"
             android:src="@drawable/home_frame_placeholder"/>
 
@@ -176,8 +177,8 @@
             app:layout_constraintWidth_percent="0.143"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCircleFrame"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/ivCircleFrame"
+            android:layout_marginBottom="22.5dp"
             android:adjustViewBounds="true"
             android:id="@+id/btnEnterFullscreen"
             android:src="@drawable/home_btn_enter_fullscreen"
@@ -194,33 +195,20 @@
             app:layout_constraintWidth_percent="0.143"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCircleFrame"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/ivCircleFrame"
+            android:layout_marginBottom="22.5dp"
             android:adjustViewBounds="true"
             android:id="@+id/btnExitFullscreen"
             android:src="@drawable/home_btn_exit_fullscreen"
             android:background="#0000"
             android:visibility="gone"/>
 
-    <ImageButton
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.333"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnEnterFullscreen"
-            app:layout_constraintBottom_toBottomOf="@id/btnEnterFullscreen"
-            android:layout_marginLeft="26.4dp"
-            android:adjustViewBounds="true"
-            android:id="@+id/btnPrivacy"
-            android:src="@drawable/home_btn_privacy_protection_dark"
-            android:tag="0"
-            android:background="@android:color/transparent"/>
-
     <!-- Location -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.333"
-            app:layout_constraintRight_toRightOf="@id/ivCircleFrame"
+            app:layout_constraintWidth_percent="0.278"
+            app:layout_constraintRight_toRightOf="@id/frameDate"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/frameDate"
             android:id="@+id/frameLocation">

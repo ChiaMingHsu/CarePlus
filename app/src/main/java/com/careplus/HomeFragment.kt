@@ -126,17 +126,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-        btnPrivacy.setOnClickListener {
-            val isPrivate = btnPrivacy.tag == "1"
-            if (isPrivate) {
-                btnPrivacy.setImageResource(R.drawable.home_btn_privacy_protection_light)
-                btnPrivacy.tag = "0"
-            } else {
-                btnPrivacy.setImageResource(R.drawable.home_btn_privacy_protection_dark)
-                btnPrivacy.tag = "1"
-            }
-            FirebaseDatabase.getInstance().getReference("settings").child(App.user.id).child("private").setValue(isPrivate)
-        }
     }
 
     override fun onResume() {

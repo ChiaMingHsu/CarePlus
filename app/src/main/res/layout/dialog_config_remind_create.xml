@@ -227,10 +227,9 @@
                 android:layout_marginTop="11.5dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/btnOk"
-                android:src="@drawable/event_btn_ok"
+                android:src="@drawable/config_remind_btn_ok"
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

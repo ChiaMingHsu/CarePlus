@@ -60,13 +60,13 @@
 
     <EditText
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.136"
+            app:layout_constraintWidth_percent="0.15"
             app:layout_constraintLeft_toLeftOf="@id/ivMinute"
             app:layout_constraintRight_toRightOf="@id/ivMinute"
             app:layout_constraintTop_toTopOf="@id/glHorizontalCenter"
             android:id="@+id/edtMinute"
             android:text="00"
-            android:textSize="40.7sp"
+            android:textSize="36sp"
             android:textColor="#6170ff"
             android:textStyle="bold"
             android:maxLength="2"
@@ -75,13 +75,13 @@
 
     <EditText
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.136"
+            app:layout_constraintWidth_percent="0.15"
             app:layout_constraintLeft_toLeftOf="@id/ivSecond"
             app:layout_constraintRight_toRightOf="@id/ivSecond"
             app:layout_constraintTop_toTopOf="@id/glHorizontalCenter"
             android:id="@+id/edtSecond"
             android:text="00"
-            android:textSize="40.7sp"
+            android:textSize="36sp"
             android:textColor="#6170ff"
             android:textStyle="bold"
             android:maxLength="2"
