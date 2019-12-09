@@ -5,7 +5,7 @@
         android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
-               android:id="@+id/ivBg"
+               android:id="@+id/ivIcon"
                android:src="@mipmap/setting_remind_exercise_dialog_bg"/>
 
     <androidx.recyclerview.widget.RecyclerView

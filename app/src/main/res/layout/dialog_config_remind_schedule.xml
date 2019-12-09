@@ -19,15 +19,15 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:adjustViewBounds="true"
-                android:id="@+id/ivBg"
+                android:id="@+id/ivIcon"
                 android:src="@drawable/config_remind_schedule_bg"
                 android:scaleType="fitXY"/>
 
         <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/ivBg"
-                app:layout_constraintRight_toRightOf="@id/ivBg"
-                app:layout_constraintTop_toTopOf="@id/ivBg"
+                app:layout_constraintLeft_toLeftOf="@id/ivIcon"
+                app:layout_constraintRight_toRightOf="@id/ivIcon"
+                app:layout_constraintTop_toTopOf="@id/ivIcon"
                 android:layout_marginTop="37.5dp"
                 android:id="@+id/tvName"
                 android:text="EVENT"
@@ -43,14 +43,14 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvName"
-                app:layout_constraintBottom_toBottomOf="@id/ivBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivIcon"
                 android:id="@+id/rvTime"/>
 
         <ImageView
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivBg"
+                app:layout_constraintTop_toBottomOf="@id/ivIcon"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivControl"
                 android:src="@drawable/config_remind_schedule_control"

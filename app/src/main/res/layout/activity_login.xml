@@ -9,47 +9,62 @@
         android:id="@+id/root">
 
     <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.656"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/ivAppName"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:adjustViewBounds="true"
-            android:id="@+id/ivBg"
             android:src="@drawable/login_bg"
+            android:id="@+id/ivBg"
             android:scaleType="fitXY"/>
 
-    <View
-            android:layout_width="1dp" android:layout_height="1dp"
-            app:layout_constraintLeft_toLeftOf="@id/ivBg"
-            app:layout_constraintRight_toRightOf="@id/ivBg"
-            app:layout_constraintTop_toTopOf="@id/ivBg"
-            app:layout_constraintBottom_toBottomOf="@id/ivBg"
-            app:layout_constraintHorizontal_bias="0.1732"
-            app:layout_constraintVertical_bias="0.1571"
-            android:id="@+id/glTitleLeftTop"/>
-
     <ImageView
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.156"
-            app:layout_constraintLeft_toLeftOf="@id/glTitleLeftTop"
-            app:layout_constraintTop_toTopOf="@id/glTitleLeftTop"
-            android:adjustViewBounds="true"
-            android:id="@+id/ivHello"
-            android:src="@drawable/login_hello"/>
-
-    <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.559"
+            app:layout_constraintWidth_percent="0.482"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivBg"
+            app:layout_constraintBottom_toTopOf="@id/ivBg"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivIcon"
+            android:src="@drawable/login_icon"
+            android:scaleType="fitXY"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.184"
+            android:orientation="vertical"
+            android:id="@+id/glAppNameLeft"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.343"
+            app:layout_constraintLeft_toLeftOf="@id/glAppNameLeft"
+            app:layout_constraintBottom_toBottomOf="@id/glVerticalCenter"
             android:adjustViewBounds="true"
             android:id="@+id/ivAppName"
             android:src="@drawable/login_app_name"
             android:scaleType="fitXY"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.097"
+            android:orientation="vertical"
+            android:id="@+id/glHelloLeft"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.252"
+            app:layout_constraintLeft_toLeftOf="@id/glHelloLeft"
+            app:layout_constraintBottom_toTopOf="@id/ivAppName"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivWelcome"
+            android:src="@drawable/login_welcome"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.5"
+            android:orientation="horizontal"
+            android:id="@+id/glVerticalCenter"/>
 
     <!-- Form -->
 
@@ -57,7 +72,7 @@
             android:layout_width="match_parent" android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivAppName"
+            app:layout_constraintTop_toTopOf="@id/glVerticalCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/layoutForm">
 
@@ -78,49 +93,70 @@
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.579"
+                app:layout_constraintWidth_percent="0.514"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivErrorTip"
-                android:layout_marginTop="3dp"
                 android:adjustViewBounds="true"
-                android:id="@+id/ivUsername"
-                android:src="@drawable/login_username_bg"/>
+                android:id="@+id/ivUsernameBg"
+                android:src="@drawable/login_username_bg"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.037"
+                app:layout_constraintLeft_toLeftOf="@id/ivUsernameBg"
+                app:layout_constraintTop_toTopOf="@id/ivUsernameBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivUsernameBg"
+                android:layout_marginLeft="13.1dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivUsernameIcon"
+                android:src="@drawable/login_username_icon"
+                android:scaleType="fitXY"/>
 
         <EditText
                 android:layout_width="0dp" android:layout_height="0dp"
-                app:layout_constraintLeft_toLeftOf="@id/ivUsername"
-                app:layout_constraintRight_toRightOf="@id/ivUsername"
-                app:layout_constraintTop_toTopOf="@id/ivUsername"
-                app:layout_constraintBottom_toBottomOf="@id/ivUsername"
-                android:layout_marginLeft="45.2dp"
+                app:layout_constraintLeft_toRightOf="@id/ivUsernameIcon"
+                app:layout_constraintRight_toRightOf="@id/ivUsernameBg"
+                app:layout_constraintTop_toTopOf="@id/ivUsernameBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivUsernameBg"
+                android:layout_marginLeft="14.6dp"
                 android:layout_marginRight="18dp"
                 android:id="@+id/edtUsername"
                 android:inputType="textEmailAddress"
-                android:hint="@string/username"
+                android:hint="@string/account"
                 android:background="@android:color/transparent"/>
 
         <!-- Password -->
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.579"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivUsername"
-                android:layout_marginTop="8.4dp"
+                app:layout_constraintLeft_toLeftOf="@id/ivUsernameBg"
+                app:layout_constraintRight_toRightOf="@id/ivUsernameBg"
+                app:layout_constraintTop_toBottomOf="@id/ivUsernameBg"
+                android:layout_marginTop="10.3dp"
                 android:adjustViewBounds="true"
-                android:id="@+id/ivPassword"
-                android:src="@drawable/login_password_bg"/>
+                android:id="@+id/ivPasswordBg"
+                android:src="@drawable/login_password_bg"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivUsernameIcon"
+                app:layout_constraintRight_toRightOf="@id/ivUsernameIcon"
+                app:layout_constraintTop_toTopOf="@id/ivPasswordBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivPasswordBg"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivPasswordIcon"
+                android:src="@drawable/login_password_icon"
+                android:scaleType="fitXY"/>
 
         <EditText
                 android:layout_width="0dp" android:layout_height="0dp"
-                app:layout_constraintLeft_toLeftOf="@id/ivPassword"
-                app:layout_constraintRight_toRightOf="@id/ivPassword"
-                app:layout_constraintTop_toTopOf="@id/ivPassword"
-                app:layout_constraintBottom_toBottomOf="@id/ivPassword"
-                android:layout_marginLeft="45.2dp"
-                android:layout_marginRight="18dp"
+                app:layout_constraintLeft_toLeftOf="@id/edtUsername"
+                app:layout_constraintRight_toRightOf="@id/edtUsername"
+                app:layout_constraintTop_toTopOf="@id/ivPasswordBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivPasswordBg"
                 android:id="@+id/edtPassword"
                 android:inputType="textPassword"
                 android:hint="@string/password"
@@ -128,16 +164,35 @@
 
         <!-- Login -->
 
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5"
+                android:orientation="vertical"
+                android:id="@+id/glFormVerticalCenter"/>
+
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.166"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintWidth_percent="0.24"
+                app:layout_constraintRight_toRightOf="@id/glFormVerticalCenter"
                 app:layout_constraintTop_toBottomOf="@id/ivRememberText"
-                android:layout_marginTop="8.5dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="37.5dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/btnLogin"
                 android:src="@drawable/login_btn_login"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"/>
+
+        <ImageButton
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.24"
+                app:layout_constraintLeft_toLeftOf="@id/glFormVerticalCenter"
+                app:layout_constraintTop_toTopOf="@id/btnLogin"
+                app:layout_constraintBottom_toBottomOf="@id/btnLogin"
+                android:layout_marginLeft="6dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/btnGoogle"
+                android:src="@drawable/login_btn_google_login"
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"/>
 
@@ -146,8 +201,10 @@
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
                 app:layout_constraintWidth_percent="0.039"
-                app:layout_constraintLeft_toLeftOf="@id/edtPassword"
-                app:layout_constraintTop_toBottomOf="@id/ivPassword"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivPasswordBg"
+                app:layout_constraintHorizontal_bias="0.5"
                 android:layout_marginTop="8.5dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/btnRemember"
@@ -172,7 +229,7 @@
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.435"
+                app:layout_constraintWidth_percent="0.302"
                 app:layout_constraintLeft_toRightOf="@id/btnRemember"
                 app:layout_constraintTop_toTopOf="@id/btnRemember"
                 app:layout_constraintBottom_toBottomOf="@id/btnRemember"
@@ -184,29 +241,20 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Google Login -->
-
-    <ImageButton
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.429"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutForm"
-            android:layout_marginTop="16.3dp"
-            android:adjustViewBounds="true"
-            android:id="@+id/btnGoogle"
-            android:src="@drawable/login_btn_google_login"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"/>
-
     <!-- Register -->
 
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.769"
+            android:orientation="vertical"
+            android:id="@+id/glRegisterLeft"/>
+
     <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.102"
-            app:layout_constraintLeft_toRightOf="@id/ivAppName"
-            app:layout_constraintTop_toTopOf="@id/btnGoogle"
-            app:layout_constraintBottom_toBottomOf="@id/btnGoogle"
+            app:layout_constraintWidth_percent="0.16"
+            app:layout_constraintLeft_toLeftOf="@id/glRegisterLeft"
+            app:layout_constraintTop_toBottomOf="@id/layoutForm"
+            android:layout_marginTop="46.7dp"
             android:adjustViewBounds="true"
             android:id="@+id/btnRegister"
             android:src="@drawable/login_btn_register"
