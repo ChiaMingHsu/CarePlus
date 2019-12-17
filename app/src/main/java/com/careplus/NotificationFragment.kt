@@ -51,6 +51,15 @@ class NotificationFragment : Fragment() {
                     .commit()
             }
         }
+
+        btnActivity.setOnClickListener {
+            fragmentManager?.run {
+                beginTransaction()
+                    .replace(R.id.layoutFragmentPlaceholder, ActivityFragment())
+                    .addToBackStack(this@NotificationFragment::class.java.simpleName)
+                    .commit()
+            }
+        }
     }
 
     override fun onResume() {

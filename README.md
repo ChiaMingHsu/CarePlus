@@ -122,6 +122,14 @@
     - settings
         - USER_ID
             - push: (boolean)
+    - activities
+        - USER_ID
+            - ACTIVITY_ID_1 (format: TIMESTAMP_IN_MILLISECONDS-UUID4, e.g. 1571158337779-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)
+                - date: (string, e.g. 2019-12-12)
+                - start_time: (string, e.g. 17:05:59)
+                - end_time: (string, e.g. 17:05:59)
+                - region
+            - ACTIVITY_ID_2
 ```
 
 ## Icon Table
