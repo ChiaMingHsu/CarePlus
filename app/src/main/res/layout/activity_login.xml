@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="@id/ivBg"
             app:layout_constraintBottom_toTopOf="@id/ivBg"
             android:adjustViewBounds="true"
-            android:id="@+id/ivIcon"
+            android:id="@+id/ivBg"
             android:src="@drawable/login_icon"
             android:scaleType="fitXY"/>
 

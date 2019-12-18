@@ -19,7 +19,7 @@
             app:timeColumnBackgroundColor="#fff"
             app:headerRowPadding="12dp"
             app:columnGap="8dp"
-            app:numberOfVisibleDays="3"
+            app:numberOfVisibleDays="1"
             app:headerRowBackgroundColor="#777"
             app:dayBackgroundColor="#ff0"
             app:todayBackgroundColor="#0ee" />

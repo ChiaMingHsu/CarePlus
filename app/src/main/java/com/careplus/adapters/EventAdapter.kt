@@ -30,7 +30,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
         val enabled = event.enabled
         val activeness = if (enabled) "active" else "inactive"
 
-        holder.view.ivIcon.apply {
+        holder.view.ivBg.apply {
             when (event.code) {
                 "create" -> {
                     resources
@@ -45,7 +45,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
             }
         }
 
-        holder.view.ivIcon.apply {
+        holder.view.ivBg.apply {
             when (event.code) {
                  "custom" -> {
                     resources
