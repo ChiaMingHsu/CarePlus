@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
@@ -44,6 +48,7 @@ dependencies {
     implementation 'com.github.chenupt.android:springindicator:1.0.2@aar'
     implementation 'com.kyleduo.switchbutton:library:2.0.0'
     implementation 'com.github.thellmund.Android-Week-View:core:4.0.1'
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

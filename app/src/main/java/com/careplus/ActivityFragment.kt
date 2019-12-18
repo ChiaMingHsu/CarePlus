@@ -14,10 +14,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import kotlinx.android.synthetic.main.fragment_activity.*
 import java.util.*
 
 
 class ActivityFragment : Fragment() {
+
+    val activities = arrayListOf<Activity>()
 
     data class Event(
         val id: Long,
@@ -101,6 +105,34 @@ class ActivityFragment : Fragment() {
     }
 
     private fun setupView() {
+        btnCalendar.setOnClickListener {
+            val now = Calendar.getInstance()
+            val dialog = DatePickerDialog.newInstance(
+                { _, year, monthOfYear, dayOfMonth ->
+                    weekView.goToDate(Calendar.getInstance().apply {
+                        set(year, monthOfYear, dayOfMonth)
+                    })
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+            )
+
+            activities
+                .groupBy { it.date }
+                .keys
+                .map { date ->
+                    val (year, month, dayOfMonth) = date.split("-").map { it.toInt() }
+                    return@map Calendar.getInstance().apply {
+                        set(year, month - 1, dayOfMonth)
+                    }
+                }
+                .let { calendars ->
+                    dialog.highlightedDays = calendars.toTypedArray()
+                }
+
+            dialog.show(childFragmentManager, "DatePickerDialog")
+        }
     }
 
     private fun setupDB() {
@@ -110,6 +142,11 @@ class ActivityFragment : Fragment() {
                     dataSnapshot.children
                         .map { it.getValue(Activity::class.java)?.apply { id = it.key!! } }
                         .filterNotNull()
+                        .let {
+                            activities.addAll(it)
+                        }
+
+                    activities
                         .mapIndexed { index, activity -> Event.create(index, activity) }
                         .let {events ->
                             val displayableEvents = mutableListOf<WeekViewDisplayable<Event>>()
