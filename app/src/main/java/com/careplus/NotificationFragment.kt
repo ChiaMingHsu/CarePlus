@@ -6,21 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.careplus.adapters.MessageAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.careplus.adapters.MessageGroupAdapter
 import com.careplus.model.Message
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_notification.*
+import java.util.*
 
 
 class NotificationFragment : Fragment() {
 
-    val messageAdapter = MessageAdapter()
+    val messageGroupAdapter = MessageGroupAdapter()
     var messagesValueEventListener: ValueEventListener? = null
-    var useScrollOrSnackForMessageTip: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,14 +36,13 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setupView() {
-        rvNotification.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = messageAdapter
+        rvMessageGroup.apply {
+            layoutManager = LinearLayoutManager(context).apply { orientation = RecyclerView.HORIZONTAL }
+            adapter = messageGroupAdapter
         }
 
-        messageAdapter.onBtnPlayClickListener = View.OnClickListener { view ->
-            val position = view.tag as Int
-            val message = messageAdapter.messages[position]
+        messageGroupAdapter.onMessageAdapterBtnPlayClickListener = View.OnClickListener { view ->
+            val message = view.tag as Message
             fragmentManager?.run {
                 beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, PlaybackFragment(message))
@@ -64,7 +63,6 @@ class NotificationFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        useScrollOrSnackForMessageTip = true
         setupDB()
     }
 
@@ -77,19 +75,28 @@ class NotificationFragment : Fragment() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
                         .mapNotNull { it.getValue(Message::class.java)?.apply { id = it.key!! } }
-                        .let {
-                            messageAdapter.messages.clear()
-                            messageAdapter.messages.addAll(it)
-                            messageAdapter.notifyDataSetChanged()
+                        .let { messages ->
+                            val messageGroups = messages
+                                .map { message ->
+                                    val calendar = Calendar.getInstance().apply {
+                                        timeInMillis = message.createdAt
+                                        set(Calendar.HOUR_OF_DAY, 0)
+                                        set(Calendar.MINUTE, 0)
+                                        set(Calendar.SECOND, 0)
+                                        set(Calendar.MILLISECOND, 0)
+                                    }
+                                    return@map calendar to message
+                                }
+                                .groupBy({ it.first }, {it.second})
+                                .map { MessageGroupAdapter.MessageGroup(it.key, it.value) }
 
-                            if (useScrollOrSnackForMessageTip)
-                                messageAdapter.messages.count()
-                                    .takeIf { count -> count > 0 }
-                                    ?.let { count -> rvNotification.smoothScrollToPosition( count - 1) }
-                            else
-                                Snackbar.make(rvNotification, "您有新訊息", Snackbar.LENGTH_SHORT).show()
+                            messageGroupAdapter.messageGroups.clear()
+                            messageGroupAdapter.messageGroups.addAll(messageGroups)
+                            messageGroupAdapter.notifyDataSetChanged()
 
-                            useScrollOrSnackForMessageTip = false
+                            messageGroupAdapter.messageGroups.count()
+                                .takeIf { it > 0 }
+                                ?.let { count -> rvMessageGroup.scrollToPosition(count - 1) }
                         }
 
                     layoutProgress?.visibility = View.GONE
