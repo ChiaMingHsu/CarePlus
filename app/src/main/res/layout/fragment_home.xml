@@ -27,12 +27,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.343"
-            app:layout_constraintLeft_toLeftOf="@id/ivCircleFrame"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/ivCircleFrame"
-            app:layout_constraintVertical_bias="0.4"
-            android:layout_marginLeft="8dp"
+            app:layout_constraintWidth_percent="0.566"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/frameDate"
+            app:layout_constraintHorizontal_bias="0.05"
             android:id="@+id/frameUserInfo">
 
         <ImageView
@@ -88,14 +87,19 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.5"
+            android:orientation="vertical"
+            android:id="@+id/glDateLeft"/>
+
     <!-- Date -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.395"
-            app:layout_constraintRight_toRightOf="@id/ivCircleFrame"
+            app:layout_constraintWidth_percent="0.431"
+            app:layout_constraintLeft_toLeftOf="@id/glDateLeft"
             app:layout_constraintBottom_toTopOf="@id/ivCircleFrame"
-            android:layout_marginRight="8dp"
             android:id="@+id/frameDate">
 
         <ImageView
@@ -109,15 +113,15 @@
 
         <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.6284"
+                app:layout_constraintGuide_percent="0.2337"
                 android:orientation="vertical"
-                android:id="@+id/glDateVerticalRight"/>
+                android:id="@+id/glDateYearLeft"/>
 
         <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.11"
+                app:layout_constraintGuide_percent="0.2356"
                 android:orientation="horizontal"
-                android:id="@+id/glDateHorizontalTopYear"/>
+                android:id="@+id/glDateYearTop"/>
 
         <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -125,38 +129,52 @@
                 android:orientation="horizontal"
                 android:id="@+id/glDateHorizontalBottomDay"/>
 
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.4037"
+                android:orientation="vertical"
+                android:id="@+id/glDateDayLeft"/>
+
         <TextView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="@id/glDateVerticalRight"
-                app:layout_constraintTop_toTopOf="@id/glDateHorizontalTopYear"
+                app:layout_constraintLeft_toLeftOf="@id/glDateYearLeft"
+                app:layout_constraintTop_toTopOf="@id/glDateYearTop"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:id="@+id/tvYear"
                 android:gravity="right"
                 android:text="2019"
                 android:textColor="#fff"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:background="@drawable/home_year_frame"/>
 
         <TextView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="@id/glDateVerticalRight"
+                app:layout_constraintLeft_toLeftOf="@id/tvYear"
+                app:layout_constraintRight_toRightOf="@id/tvYear"
                 app:layout_constraintTop_toBottomOf="@id/tvYear"
                 android:id="@+id/tvMonth"
                 android:gravity="right"
-                android:text="12"
+                android:text="Dec."
                 android:textColor="#fff"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:textAlignment="center"/>
 
         <TextView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="@id/glDateVerticalRight"
+                app:layout_constraintLeft_toLeftOf="@id/glDateDayLeft"
                 app:layout_constraintBottom_toBottomOf="@id/glDateHorizontalBottomDay"
                 android:id="@+id/tvDay"
                 android:gravity="right"
                 android:text="31"
                 android:textColor="#fff"
                 android:textSize="44.7sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -168,7 +186,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintVertical_bias="0.85"
+            app:layout_constraintVertical_bias="0.7"
             android:id="@+id/ivCircleFrame"
             android:src="@drawable/home_frame_placeholder"/>
 

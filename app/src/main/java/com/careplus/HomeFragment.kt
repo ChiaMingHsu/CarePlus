@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
 
         Calendar.getInstance().run {
             tvYear.text = this.get(Calendar.YEAR).toString()
-            tvMonth.text = this.get(Calendar.MONTH).run { this + 1 }.toString()
+            tvMonth.text = this.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault())?.toString() + "."
             tvDay.text = this.get(Calendar.DAY_OF_MONTH).toString()
         }
 
