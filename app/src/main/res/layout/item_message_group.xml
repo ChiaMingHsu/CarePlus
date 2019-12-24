@@ -5,18 +5,63 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.9"
+            android:orientation="vertical"
+            android:id="@+id/glDateFrameRight"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.20"
+            app:layout_constraintRight_toRightOf="@id/glDateFrameRight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rvMessage"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivDateFrame"
+            android:src="@drawable/notification_date_frame"
+            android:scaleType="fitXY"/>
+
     <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/ivDateFrame"
+            app:layout_constraintRight_toRightOf="@id/ivDateFrame"
+            app:layout_constraintBottom_toBottomOf="@id/ivDateFrame"
+            app:layout_constraintHorizontal_bias="0.3"
             android:id="@+id/tvDay"
-            android:text="Nov. 23"/>
+            android:text="23"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#adadbe"
+            android:letterSpacing="0.05"
+            android:includeFontPadding="false"/>
+
+    <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/tvDay"
+            app:layout_constraintBottom_toTopOf="@id/tvDay"
+            android:id="@+id/tvMonth"
+            android:text="Nov."
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#adadbe"
+            android:letterSpacing="0.1"
+            android:includeFontPadding="false"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent" android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.7"
+            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/rvMessage"/>
+    
+    <ImageView
+            android:layout_width="2dp" android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.05"
+            app:layout_constraintRight_toRightOf="@id/rvMessage"
+            app:layout_constraintTop_toTopOf="@id/rvMessage"
+            app:layout_constraintBottom_toBottomOf="@id/rvMessage"
+            android:src="@drawable/notification_divider"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

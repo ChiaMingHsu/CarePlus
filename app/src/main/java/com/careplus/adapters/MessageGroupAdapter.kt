@@ -31,9 +31,13 @@ class MessageGroupAdapter : RecyclerView.Adapter<MessageGroupAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         messageGroups[position].let { messageGroup ->
-            holder.view.tvDay.text = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(Date(messageGroup.calendar.timeInMillis))
+            Date(messageGroup.calendar.timeInMillis)
+                .let { date ->
+                    holder.view.tvMonth.text = SimpleDateFormat("MMM.", Locale.getDefault()).format(date)
+                    holder.view.tvDay.text = SimpleDateFormat("dd", Locale.getDefault()).format(date)
+                }
             holder.view.rvMessage.apply {
-                layoutManager = LinearLayoutManager(context).apply { orientation = RecyclerView.VERTICAL }
+                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 adapter = MessageAdapter().apply {
                     onBtnPlayClickListener = onMessageAdapterBtnPlayClickListener
 

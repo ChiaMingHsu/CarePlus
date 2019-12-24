@@ -37,7 +37,12 @@ class NotificationFragment : Fragment() {
 
     private fun setupView() {
         rvMessageGroup.apply {
-            layoutManager = LinearLayoutManager(context).apply { orientation = RecyclerView.HORIZONTAL }
+            layoutManager = object : LinearLayoutManager(context, HORIZONTAL, false) {
+                override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
+                    lp?.width = (width * 0.8).toInt()
+                    return super.checkLayoutParams(lp)
+                }
+            }
             adapter = messageGroupAdapter
         }
 

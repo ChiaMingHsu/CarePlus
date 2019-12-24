@@ -8,9 +8,9 @@
         tools:context=".NotificationFragment">
 
     <ImageView
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_width="match_parent" android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.771"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:adjustViewBounds="true"
             android:id="@+id/ivBg"
             android:src="@drawable/notification_bg_"
             android:scaleType="fitXY"/>

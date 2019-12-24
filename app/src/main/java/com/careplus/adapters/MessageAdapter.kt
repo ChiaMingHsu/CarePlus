@@ -1,6 +1,5 @@
 package com.careplus.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,21 +28,17 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
                 Pair("alarm", "standard") -> {
                     holder.view.ivContentBg.setImageResource(R.drawable.notification_content_alarm_standard_bg)
                     holder.view.btnPlay.setImageResource(R.drawable.notification_btn_play_alarm_standard)
-                    holder.view.tvDate.setTextColor(Color.parseColor("#4b5cff"))
                 }
                 Pair("alarm", "emergent") -> {
                     holder.view.ivContentBg.setImageResource(R.drawable.notification_content_alarm_emergent_bg)
                     holder.view.btnPlay.setImageResource(R.drawable.notification_btn_play_alarm_emergent)
-                    holder.view.tvDate.setTextColor(Color.parseColor("#f77570"))
                 }
                 Pair("remind", "standard") -> {
                     holder.view.ivContentBg.setImageResource(R.drawable.notification_content_remind_standard_bg)
                     holder.view.btnPlay.setImageResource(R.drawable.notification_btn_play_remind_standard)
-                    holder.view.tvDate.setTextColor(Color.parseColor("#adadbe"))
                 }
             }
-            holder.view.tvDate.text = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(message.createdAt)
-            holder.view.tvControlTime.text = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(message.createdAt)
+            holder.view.tvControlTime.text = SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(message.createdAt)
             holder.view.tvContent.text = message.content
             holder.view.btnPlay.apply {
                 tag = message
