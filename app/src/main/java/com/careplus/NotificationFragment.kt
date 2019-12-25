@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.careplus.adapters.MessageGroupAdapter
+import com.careplus.adapters.WeekdayAdapter
 import com.careplus.model.Message
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,6 +20,7 @@ import java.util.*
 
 class NotificationFragment : Fragment() {
 
+    val weekdayAdapter = WeekdayAdapter()
     val messageGroupAdapter = MessageGroupAdapter()
     var messagesValueEventListener: ValueEventListener? = null
 
@@ -54,6 +56,11 @@ class NotificationFragment : Fragment() {
                     .addToBackStack(this@NotificationFragment::class.java.simpleName)
                     .commit()
             }
+        }
+
+        rvWeekday.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            adapter = weekdayAdapter
         }
 
         btnActivity.setOnClickListener {
@@ -98,6 +105,17 @@ class NotificationFragment : Fragment() {
                             messageGroupAdapter.messageGroups.clear()
                             messageGroupAdapter.messageGroups.addAll(messageGroups)
                             messageGroupAdapter.notifyDataSetChanged()
+
+                            val weekdays = messageGroups
+                                .map { messageGroup ->
+                                    WeekdayAdapter.Weekday(
+                                        messageGroup.calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()),
+                                        true
+                                    )
+                                }
+                            weekdayAdapter.weekdays.clear()
+                            weekdayAdapter.weekdays.addAll(weekdays)
+                            weekdayAdapter.notifyDataSetChanged()
 
                             messageGroupAdapter.messageGroups.count()
                                 .takeIf { it > 0 }
