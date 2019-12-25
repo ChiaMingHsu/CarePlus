@@ -1,5 +1,6 @@
 package com.careplus.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ class WeekdayAdapter : RecyclerView.Adapter<WeekdayAdapter.ViewHolder>() {
 
     data class Weekday(
         val text: String?,
-        val isToday: Boolean
+        var highlighted: Boolean
     )
 
     val weekdays = arrayListOf<Weekday>()
@@ -29,7 +30,13 @@ class WeekdayAdapter : RecyclerView.Adapter<WeekdayAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         weekdays[position].let { weekday ->
-            holder.view.tvText.text = weekday.text
+            val resId = if (weekday.highlighted) R.drawable.notification_weekday_focus_bg else R.drawable.notification_weekday_normal_bg
+            val textColor = if (weekday.highlighted) Color.parseColor("#ffffff") else Color.parseColor("#adadbe")
+            holder.view.tvText.apply {
+                text = weekday.text
+                setTextColor(textColor)
+            }
+            holder.view.ivTextBg.setImageResource(resId)
         }
     }
 

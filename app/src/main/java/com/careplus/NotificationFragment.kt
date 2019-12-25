@@ -38,6 +38,11 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setupView() {
+        rvWeekday.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            adapter = weekdayAdapter
+        }
+
         rvMessageGroup.apply {
             layoutManager = object : LinearLayoutManager(context, HORIZONTAL, false) {
                 override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
@@ -46,6 +51,42 @@ class NotificationFragment : Fragment() {
                 }
             }
             adapter = messageGroupAdapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                var offsetX = 0
+                var latestPosition: Int? = null
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    offsetX += dx
+                }
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        recyclerView.getChildAt(0)?.width?.let { childWidth ->
+                            val totalWidth = childWidth * messageGroupAdapter.itemCount
+                            val screenWidth = width
+                            val targetX = totalWidth - screenWidth / 2 + offsetX
+                            val position = targetX / childWidth
+
+                            if (latestPosition == position)
+                                return
+
+                            rvWeekday.smoothScrollToPosition(position)
+
+                            weekdayAdapter.weekdays[position].highlighted = true
+                            weekdayAdapter.notifyItemChanged(position)
+
+                            latestPosition
+                                ?.let { latestPosition ->
+                                    weekdayAdapter.weekdays[latestPosition].highlighted = false
+                                    weekdayAdapter.notifyItemChanged(latestPosition)
+                                }
+                            latestPosition = position
+                        }
+                    }
+                }
+            })
         }
 
         messageGroupAdapter.onMessageAdapterBtnPlayClickListener = View.OnClickListener { view ->
@@ -56,11 +97,6 @@ class NotificationFragment : Fragment() {
                     .addToBackStack(this@NotificationFragment::class.java.simpleName)
                     .commit()
             }
-        }
-
-        rvWeekday.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = weekdayAdapter
         }
 
         btnActivity.setOnClickListener {
@@ -110,7 +146,7 @@ class NotificationFragment : Fragment() {
                                 .map { messageGroup ->
                                     WeekdayAdapter.Weekday(
                                         messageGroup.calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()),
-                                        true
+                                        false
                                     )
                                 }
                             weekdayAdapter.weekdays.clear()
@@ -119,7 +155,14 @@ class NotificationFragment : Fragment() {
 
                             messageGroupAdapter.messageGroups.count()
                                 .takeIf { it > 0 }
-                                ?.let { count -> rvMessageGroup.scrollToPosition(count - 1) }
+                                ?.let { count ->
+                                    rvWeekday.apply {
+                                        scrollToPosition(count - 1)
+                                        weekdayAdapter.weekdays[count - 1].highlighted = true
+                                        weekdayAdapter.notifyItemChanged(count - 1)
+                                    }
+                                    rvMessageGroup.scrollToPosition(count - 1)
+                                }
                         }
 
                     layoutProgress?.visibility = View.GONE

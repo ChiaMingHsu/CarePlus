@@ -10,7 +10,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:adjustViewBounds="true"
             android:id="@+id/ivTextBg"
-            android:src="@drawable/notification_weekday_focus_bg"
+            android:src="@drawable/notification_weekday_normal_bg"
             android:scaleType="fitXY"/>
 
     <TextView
@@ -24,7 +24,7 @@
             android:text="Sat"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#ffffff"
+            android:textColor="#adadbe"
             android:textAlignment="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
