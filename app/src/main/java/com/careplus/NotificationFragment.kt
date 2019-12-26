@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_notification.*
 import java.util.*
 
@@ -38,6 +39,8 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setupView() {
+        App.user.avatarUrl?.let { Picasso.get().load(it).into(ivAvatar) }
+
         rvWeekday.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = weekdayAdapter
