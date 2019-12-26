@@ -14,18 +14,6 @@
             android:src="@drawable/playback_bg"
             android:scaleType="fitXY"/>
 
-    <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.204"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="31dp"
-            android:adjustViewBounds="true"
-            android:id="@+id/ivTitle"
-            android:src="@drawable/playback_title"
-            android:scaleType="fitXY"/>
-
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             app:layout_constraintGuide_percent="0.5"
@@ -34,12 +22,13 @@
 
     <FrameLayout
             android:layout_width="0dp" android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.6"
+            app:layout_constraintWidth_percent="0.8"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1.75"
+            app:layout_constraintVertical_bias="0.3"
             android:id="@+id/layoutPlayback">
 
         <VideoView
@@ -51,8 +40,8 @@
     <TextView
             android:layout_width="0dp" android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.352"
-            app:layout_constraintLeft_toLeftOf="@id/glVerticalCenter"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@id/glVerticalCenter"
             app:layout_constraintTop_toTopOf="@id/layoutPlayback"
             app:layout_constraintBottom_toTopOf="@id/layoutPlayback"
             android:adjustViewBounds="true"
@@ -101,23 +90,15 @@
             android:background="@drawable/playback_content_bg_alarm_standard"
             android:scaleType="fitXY"/>
 
-    <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.8751"
-            android:orientation="horizontal"
-            android:id="@+id/glHorizontalBottom"/>
-
     <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.30"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/glHorizontalBottom"
+            app:layout_constraintWidth_percent="0.164"
+            app:layout_constraintRight_toRightOf="@id/layoutPlayback"
+            app:layout_constraintTop_toTopOf="@id/layoutPlayback"
             android:adjustViewBounds="true"
             android:id="@+id/btnSave"
-            android:src="@drawable/playback_btn_save"
+            android:src="@drawable/playback_btn_save_alarm_standard"
             android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:visibility="gone"/>
+            android:scaleType="fitXY"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

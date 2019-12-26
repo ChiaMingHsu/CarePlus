@@ -105,16 +105,19 @@ class PlaybackFragment(private val message: Message) : Fragment() {
                 tvDate.setBackgroundResource(R.drawable.playback_date_bg_alarm_standard)
                 tvTime.setBackgroundResource(R.drawable.playback_time_bg_alarm_standard)
                 tvContent.setBackgroundResource(R.drawable.playback_content_bg_alarm_standard)
+                btnSave.setImageResource(R.drawable.playback_btn_save_alarm_standard)
             }
             Pair("alarm", "emergent") -> {
                 tvDate.setBackgroundResource(R.drawable.playback_date_bg_alarm_emergent)
                 tvTime.setBackgroundResource(R.drawable.playback_time_bg_alarm_emergent)
                 tvContent.setBackgroundResource(R.drawable.playback_content_bg_alarm_emergent)
+                btnSave.setImageResource(R.drawable.playback_btn_save_alarm_emergent)
             }
             Pair("remind", "standard") -> {
                 tvDate.setBackgroundResource(R.drawable.playback_date_bg_remind_standard)
                 tvTime.setBackgroundResource(R.drawable.playback_time_bg_remind_standard)
                 tvContent.setBackgroundResource(R.drawable.playback_content_bg_remind_standard)
+                btnSave.setImageResource(R.drawable.playback_btn_save_remind_standard)
             }
         }
 
@@ -125,22 +128,26 @@ class PlaybackFragment(private val message: Message) : Fragment() {
             vvPlayback.setMediaController(mediaController)
         }
 
-        btnSave.setOnClickListener {
-            context
-                ?.also { context ->
-                    val srcFile = File(context.cacheDir, tempThumbnailFilename)
-                    val dstFile = File(context.filesDir, "%s.jpg".format(message.id))
-                    srcFile.copyTo(dstFile, true)
+        btnSave
+            .apply {
+                visibility = View.GONE
+                setOnClickListener {
+                    context
+                        ?.also { context ->
+                            val srcFile = File(context.cacheDir, tempThumbnailFilename)
+                            val dstFile = File(context.filesDir, "%s.jpg".format(message.id))
+                            srcFile.copyTo(dstFile, true)
+                        }
+                        ?.also { context ->
+                            val srcFile = File(context.cacheDir, tempVideoFilename)
+                            val dstFile = File(context.filesDir, "%s.mp4".format(message.id))
+                            srcFile.copyTo(dstFile, true)
+                        }
+                        ?.also {
+                            Toast.makeText(context, "The video was saved", Toast.LENGTH_SHORT).show()
+                        }
                 }
-                ?.also { context ->
-                    val srcFile = File(context.cacheDir, tempVideoFilename)
-                    val dstFile = File(context.filesDir, "%s.mp4".format(message.id))
-                    srcFile.copyTo(dstFile, true)
-                }
-                ?.also {
-                    Toast.makeText(context, "影片已儲存", Toast.LENGTH_SHORT).show()
-                }
-        }
+            }
     }
 
     override fun onResume() {
