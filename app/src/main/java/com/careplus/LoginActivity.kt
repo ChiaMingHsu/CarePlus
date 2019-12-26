@@ -45,12 +45,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        ivErrorTip.visibility = View.INVISIBLE
+
         btnLogin.setOnClickListener {
             val username = edtUsername.text.toString()
             val password = edtPassword.text.toString()
 
             if (username.isEmpty() or password.isEmpty()) {
-                Toast.makeText(this, "帳號或密碼不可為空白", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Account and password are required", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -90,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
                                 ?: run {
                                     // Successfully sing-in Firebase but no user was found in DB,
                                     // this usually occurred by inconsistency user list between authentication and DB
-                                    Toast.makeText(this@LoginActivity, "異常的使用者", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@LoginActivity, "Illegal user", Toast.LENGTH_SHORT).show()
                                 }
                         }
 
@@ -173,6 +175,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onLoginFailed(exception: Exception) {
+        ivErrorTip.visibility = View.INVISIBLE
         when (exception) {
             is FirebaseAuthInvalidUserException -> ivErrorTip.visibility = View.VISIBLE
             is FirebaseAuthInvalidCredentialsException -> ivErrorTip.visibility = View.VISIBLE

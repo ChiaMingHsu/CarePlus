@@ -33,6 +33,7 @@ class MessageGroupAdapter : RecyclerView.Adapter<MessageGroupAdapter.ViewHolder>
         messageGroups[position].let { messageGroup ->
             Date(messageGroup.calendar.timeInMillis)
                 .let { date ->
+                    holder.view.tvYear.text = SimpleDateFormat("yyyy", Locale.getDefault()).format(date)
                     holder.view.tvMonth.text = SimpleDateFormat("MMM.", Locale.getDefault()).format(date)
                     holder.view.tvDay.text = SimpleDateFormat("dd", Locale.getDefault()).format(date)
                 }

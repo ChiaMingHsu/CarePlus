@@ -46,28 +46,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun navigateToTab(index: Int) {
-        ivNotificationActive.visibility = View.GONE
-        ivHomeActive.visibility = View.GONE
-        ivSettingActive.visibility = View.GONE
-
         // Clear stack before switching to other fragment
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         when (index) {
             0 -> {
-                ivNotificationActive.visibility = View.VISIBLE
+                ivActiveTab.setImageResource(R.drawable.home_tab_notification_active)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, NotificationFragment())
                     .commit()
             }
             1 -> {
-                ivHomeActive.visibility = View.VISIBLE
+                ivActiveTab.setImageResource(R.drawable.home_tab_home_active)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, HomeFragment())
                     .commit()
             }
             2 -> {
-                ivSettingActive.visibility = View.VISIBLE
+                ivActiveTab.setImageResource(R.drawable.home_tab_setting_active)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.layoutFragmentPlaceholder, SettingFragment())
                     .commit()

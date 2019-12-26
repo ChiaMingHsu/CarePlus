@@ -31,6 +31,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/frameDate"
+            app:layout_constraintBottom_toTopOf="@id/frameDate"
             app:layout_constraintHorizontal_bias="0.05"
             android:id="@+id/frameUserInfo">
 
@@ -42,48 +43,79 @@
                 android:id="@+id/ivUserInfoBg"
                 android:src="@drawable/home_user_info_bg"/>
 
-        <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.5"
-                android:orientation="horizontal"
-                android:id="@+id/glUserInfoHorizontalCenter"/>
-
         <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="0dp" android:layout_height="0dp"
-                app:layout_constraintWidth_percent="0.2871"
+                app:layout_constraintWidth_percent="0.1144"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/glUserInfoHorizontalCenter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintVertical_bias="0.28"
                 android:id="@+id/ivAvatar"
                 android:src="@drawable/home_avatar_placeholder"/>
 
         <TextView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/glUserInfoHorizontalCenter"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintLeft_toRightOf="@id/ivAvatar"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar"
+                android:layout_marginLeft="9.2dp"
                 android:id="@+id/tvName"
-                android:gravity="center"
                 android:text="NAME"
                 android:singleLine="true"
                 android:ellipsize="marquee"
-                android:textSize="16.7sp"
+                android:textSize="13.3sp"
+                android:textAlignment="textStart"
                 android:textColor="#fff"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:includeFontPadding="false"/>
 
         <TextView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/tvName"
+                app:layout_constraintRight_toRightOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvName"
+                android:layout_marginLeft="6.7dp"
                 android:id="@+id/tvEmail"
-                android:gravity="center"
                 android:text="email@email.com"
                 android:singleLine="true"
                 android:ellipsize="marquee"
+                android:textSize="8.3sp"
                 android:textColor="#fff"
-                android:textSize="12.7sp"/>
+                android:textAlignment="textStart"
+                android:letterSpacing="0.2"
+                android:includeFontPadding="false"/>
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/ivAvatar"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.38"
+                android:id="@+id/tvLocation"
+                android:text="Mom's Home"
+                android:textSize="13.3sp"
+                android:textColor="#5067fb"
+                android:textAlignment="textStart"
+                android:letterSpacing="0.2"
+                android:includeFontPadding="false"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/tvLocation"
+                app:layout_constraintTop_toBottomOf="@id/tvLocation"
+                android:id="@+id/tvRemark"
+                android:text="Remarks"
+                android:textSize="13.3sp"
+                android:textColor="#b5b5b9"
+                android:textAlignment="textStart"
+                android:letterSpacing="0.2"
+                android:includeFontPadding="false"
+                android:textStyle="bold"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -220,39 +252,5 @@
             android:src="@drawable/home_btn_exit_fullscreen"
             android:background="#0000"
             android:visibility="gone"/>
-
-    <!-- Location -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.278"
-            app:layout_constraintRight_toRightOf="@id/frameDate"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/frameDate"
-            android:id="@+id/frameLocation">
-
-        <ImageView
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:adjustViewBounds="true"
-                android:id="@+id/ivLocationBg"
-                android:src="@drawable/home_location_bg"
-                android:scaleType="fitXY"/>
-
-        <TextView
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center"
-                android:id="@+id/tvLocation"
-                android:text="爸媽的家"
-                android:textSize="16.7sp"
-                android:textColor="#ffffff"
-                android:textStyle="bold"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

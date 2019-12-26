@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="@id/ivBg"
             app:layout_constraintBottom_toTopOf="@id/ivBg"
             android:adjustViewBounds="true"
-            android:id="@+id/ivBg"
+            android:id="@+id/ivIcon"
             android:src="@drawable/login_icon"
             android:scaleType="fitXY"/>
 
@@ -80,14 +80,13 @@
 
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.507"
-                app:layout_constraintLeft_toLeftOf="@id/edtUsername"
+                app:layout_constraintWidth_percent="0.244"
+                app:layout_constraintRight_toRightOf="@id/edtUsername"
                 app:layout_constraintTop_toTopOf="parent"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivErrorTip"
                 android:src="@drawable/login_error_tip"
-                android:scaleType="fitXY"
-                android:visibility="invisible"/>
+                android:scaleType="fitXY"/>
 
         <!-- Username -->
 
@@ -97,6 +96,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivErrorTip"
+                android:layout_marginTop="7.7dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivUsernameBg"
                 android:src="@drawable/login_username_bg"

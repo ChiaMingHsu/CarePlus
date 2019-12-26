@@ -9,6 +9,7 @@
 
     <com.alamkanak.weekview.WeekView
             android:layout_width="match_parent" android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
             android:id="@+id/weekView"
             app:defaultEventColor="#f00"
             app:eventTextColor="#0f0"
@@ -21,8 +22,10 @@
             app:columnGap="8dp"
             app:numberOfVisibleDays="1"
             app:headerRowBackgroundColor="#d3d3d3"
+            app:headerRowTextColor="#4a4a4a"
             app:dayBackgroundColor="#ffffff"
-            app:todayBackgroundColor="#eaeaf1"/>
+            app:todayBackgroundColor="#eaeaf1"
+            app:todayHeaderTextColor="#fd9c00"/>
 
     <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"
