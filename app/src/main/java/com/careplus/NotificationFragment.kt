@@ -53,7 +53,6 @@ class NotificationFragment : Fragment() {
             adapter = messageGroupAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 var offsetX = 0
-                var latestPosition: Int? = null
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -68,6 +67,7 @@ class NotificationFragment : Fragment() {
                             val screenWidth = width
                             val targetX = totalWidth - screenWidth / 2 + offsetX
                             val position = targetX / childWidth
+                            val latestPosition = weekdayAdapter.weekdays.indexOfFirst { it.highlighted }
 
                             if (latestPosition == position)
                                 return
@@ -77,12 +77,8 @@ class NotificationFragment : Fragment() {
                             weekdayAdapter.weekdays[position].highlighted = true
                             weekdayAdapter.notifyItemChanged(position)
 
-                            latestPosition
-                                ?.let { latestPosition ->
-                                    weekdayAdapter.weekdays[latestPosition].highlighted = false
-                                    weekdayAdapter.notifyItemChanged(latestPosition)
-                                }
-                            latestPosition = position
+                            weekdayAdapter.weekdays[latestPosition].highlighted = false
+                            weekdayAdapter.notifyItemChanged(latestPosition)
                         }
                     }
                 }
@@ -157,11 +153,13 @@ class NotificationFragment : Fragment() {
                                 .takeIf { it > 0 }
                                 ?.let { count ->
                                     rvWeekday.apply {
-                                        scrollToPosition(count - 1)
                                         weekdayAdapter.weekdays[count - 1].highlighted = true
                                         weekdayAdapter.notifyItemChanged(count - 1)
+                                        scrollToPosition(count - 1)
                                     }
-                                    rvMessageGroup.scrollToPosition(count - 1)
+                                    rvMessageGroup.apply {
+                                        scrollToPosition(count - 1)
+                                    }
                                 }
                         }
 
