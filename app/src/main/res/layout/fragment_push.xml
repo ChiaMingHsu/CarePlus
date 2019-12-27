@@ -9,75 +9,66 @@
         android:background="#adadbe">
 
     <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.426"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="31dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivBg"
+            android:src="@drawable/push_bg"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.115"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="34.3dp"
+            android:layout_marginTop="34dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivIcon"
+            android:src="@drawable/push_icon"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.659"
+            app:layout_constraintRight_toRightOf="@id/ivIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="57.3dp"
             android:adjustViewBounds="true"
             android:id="@+id/ivTitle"
             android:src="@drawable/push_title"
             android:scaleType="fitXY"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp" android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.833"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+    <ImageView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/ivTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="16.3dp"
-            android:layout_marginBottom="37.8dp"
-            android:id="@+id/layoutList">
+            android:layout_marginTop="37.1dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivPushItemBg"
+            android:src="@drawable/push_item_bg"
+            android:scaleType="fitXY"/>
 
-        <ImageView
-                android:layout_width="match_parent" android:layout_height="0dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:id="@+id/ivListBg"
-                android:src="@drawable/push_list_bg"
-                android:scaleType="fitXY"/>
+    <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ivPushItemBg"
+            app:layout_constraintTop_toTopOf="@id/ivPushItemBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivPushItemBg"
+            android:layout_marginLeft="48.7dp"
+            android:id="@+id/tvPush"
+            android:text="Push Notification"
+            android:textSize="16.7sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:letterSpacing="0.2"/>
 
-        <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.159"
-                android:orientation="vertical"
-                android:id="@+id/glSettingTextLeft"/>
-
-        <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.881"
-                android:orientation="vertical"
-                android:id="@+id/glSettingSwitchRight"/>
-
-        <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.08"
-                android:orientation="horizontal"
-                android:id="@+id/glSettingTop"/>
-
-        <ImageView
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.3543"
-                app:layout_constraintLeft_toLeftOf="@id/glSettingTextLeft"
-                app:layout_constraintTop_toTopOf="@id/glSettingTop"
-                android:adjustViewBounds="true"
-                android:id="@+id/ivPushText"
-                android:src="@drawable/push_setting_push_text"
-                android:scaleType="fitXY"/>
-
-        <com.kyleduo.switchbutton.SwitchButton
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="@id/glSettingSwitchRight"
-                app:layout_constraintTop_toTopOf="@id/ivPushText"
-                app:layout_constraintBottom_toBottomOf="@id/ivPushText"
-                app:kswThumbDrawable="@drawable/push_switch"
-                app:kswBackDrawable="@drawable/push_switch_bg"
-                android:id="@+id/swPush"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.kyleduo.switchbutton.SwitchButton
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@id/ivPushItemBg"
+            app:layout_constraintTop_toTopOf="@id/ivPushItemBg"
+            app:layout_constraintBottom_toBottomOf="@id/ivPushItemBg"
+            android:layout_marginRight="50dp"
+            app:kswThumbDrawable="@drawable/push_switch"
+            app:kswBackDrawable="@drawable/push_switch_bg"
+            android:id="@+id/swPush"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

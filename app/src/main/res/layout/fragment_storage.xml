@@ -9,12 +9,31 @@
         android:background="#adadbe">
 
     <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.426"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="31dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivBg"
+            android:src="@drawable/storage_bg"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.148"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="47.2dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivIcon"
+            android:src="@drawable/storage_icon"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.419"
+            app:layout_constraintRight_toRightOf="@id/ivIcon"
+            app:layout_constraintTop_toBottomOf="@id/ivIcon"
+            android:layout_marginTop="0.2dp"
             android:adjustViewBounds="true"
             android:id="@+id/ivTitle"
             android:src="@drawable/storage_title"
@@ -22,12 +41,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp" android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.945"
+            app:layout_constraintWidth_percent="0.8"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivTitle"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="16dp"
+            android:layout_marginTop="23.3dp"
+            android:layout_marginBottom="90dp"
             android:id="@+id/rvAlbum"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

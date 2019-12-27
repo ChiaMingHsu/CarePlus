@@ -9,29 +9,61 @@
         android:background="#adadbe">
 
     <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.426"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="31dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivBg"
+            android:src="@drawable/account_bg"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.156"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="25dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivIcon"
+            android:src="@drawable/account_icon"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.445"
+            app:layout_constraintRight_toRightOf="@id/ivIcon"
+            app:layout_constraintTop_toBottomOf="@id/ivIcon"
+            android:layout_marginTop="6.7dp"
             android:adjustViewBounds="true"
             android:id="@+id/ivTitle"
-            android:src="@drawable/account_titile"
+            android:src="@drawable/account_title"
             android:scaleType="fitXY"/>
 
     <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.529"
+            app:layout_constraintWidth_percent="0.881"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivTitle"
-            android:layout_marginTop="29.7dp"
+            android:layout_marginTop="34dp"
             android:adjustViewBounds="true"
             android:id="@+id/btnLogout"
-            android:src="@drawable/account_btn_logout"
+            android:src="@drawable/account_btn_logout_bg"
             android:scaleType="fitXY"
             android:background="@android:color/transparent"/>
+
+    <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/btnLogout"
+            app:layout_constraintRight_toRightOf="@id/btnLogout"
+            app:layout_constraintTop_toTopOf="@id/btnLogout"
+            app:layout_constraintBottom_toBottomOf="@id/btnLogout"
+            android:id="@+id/tvLogout"
+            android:text="Log out"
+            android:textSize="16.7sp"
+            android:textColor="#2e2e2e"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

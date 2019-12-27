@@ -33,14 +33,14 @@ class SettingFragment : Fragment() {
             }
         }
 
-        btnCalendar.setOnClickListener {
-            fragmentManager?.run {
-                beginTransaction()
-                    .replace(R.id.layoutFragmentPlaceholder, CalendarFragment())
-                    .addToBackStack(this@SettingFragment::class.java.simpleName)
-                    .commit()
-            }
-        }
+//        btnCalendar.setOnClickListener {
+//            fragmentManager?.run {
+//                beginTransaction()
+//                    .replace(R.id.layoutFragmentPlaceholder, CalendarFragment())
+//                    .addToBackStack(this@SettingFragment::class.java.simpleName)
+//                    .commit()
+//            }
+//        }
 
         btnStorage.setOnClickListener {
             fragmentManager?.run {
