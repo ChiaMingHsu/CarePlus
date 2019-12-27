@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_activity.*
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class ActivityFragment : Fragment() {
@@ -29,12 +30,32 @@ class ActivityFragment : Fragment() {
         val startTime: Calendar,
         val endTime: Calendar,
         val location: String,
-        val color: Int,
+        val bgColor: Int,
+        val textColor: Int,
         val isAllDay: Boolean,
         val isCanceled: Boolean
     ) : WeekViewDisplayable<Event> {
 
+        data class Theme(
+            val bgColor: Int,
+            val textColor: Int
+        )
+
         companion object {
+            val themePool = arrayOf(
+                Theme(Color.parseColor("#ed7070"), Color.parseColor("#ffffff")),
+                Theme(Color.parseColor("#72be8f"), Color.parseColor("#ffffff")),
+                Theme(Color.parseColor("#f8a76b"), Color.parseColor("#ffffff")),
+                Theme(Color.parseColor("#6191fd"), Color.parseColor("#ffffff")),
+                Theme(Color.parseColor("#b979db"), Color.parseColor("#ffffff")),
+                Theme(Color.parseColor("#ffd8d8"), Color.parseColor("#656565")),
+                Theme(Color.parseColor("#ffe283"), Color.parseColor("#656565")),
+                Theme(Color.parseColor("#c0d9aa"), Color.parseColor("#656565")),
+                Theme(Color.parseColor("#b0dee8"), Color.parseColor("#656565")),
+                Theme(Color.parseColor("#9a7a59"), Color.parseColor("#ffffff"))
+            )
+            private val stringToThemeMap = HashMap<String, Theme>()
+
             fun create(index: Int, activity: Activity): Event {
                 val (year, month, dayOfMonth) = activity.date.split("-").map { it.toInt() }
                 val startTime = activity.start_time.split(":")
@@ -64,13 +85,30 @@ class ActivityFragment : Fragment() {
                         }
                     }
                 val title = activity.region
-                return Event(index.toLong(), title, startTime, endTime, "", Color.RED, isAllDay = false, isCanceled = false)
+                val theme = mapStringToTheme(title)
+                val location = "from %02d:%02d to %02d:%02d".format(
+                    startTime.get(Calendar.HOUR_OF_DAY),
+                    startTime.get(Calendar.MINUTE),
+                    endTime.get(Calendar.HOUR_OF_DAY),
+                    endTime.get(Calendar.MINUTE)
+                )
+                return Event(
+                    index.toLong(), title, startTime, endTime, location, theme.bgColor, theme.textColor,
+                    isAllDay = false, isCanceled = false
+                )
+            }
+
+            private fun mapStringToTheme(str: String): Theme {
+                if (!stringToThemeMap.contains(str))
+                    stringToThemeMap[str] = themePool[stringToThemeMap.size.rem(themePool.size)]
+                return stringToThemeMap.getValue(str)
             }
         }
 
         override fun toWeekViewEvent(): WeekViewEvent<Event> {
             val style = WeekViewEvent.Style.Builder()
-                .setBackgroundColor(color)
+                .setBackgroundColor(bgColor)
+                .setTextColor(textColor)
                 .setTextStrikeThrough(isCanceled)
                 .build()
 
