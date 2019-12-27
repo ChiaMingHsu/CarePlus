@@ -53,18 +53,21 @@ class HomeActivity : AppCompatActivity() {
             0 -> {
                 ivActiveTab.setImageResource(R.drawable.home_tab_notification_active)
                 supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                     .replace(R.id.layoutFragmentPlaceholder, NotificationFragment())
                     .commit()
             }
             1 -> {
                 ivActiveTab.setImageResource(R.drawable.home_tab_home_active)
                 supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                     .replace(R.id.layoutFragmentPlaceholder, HomeFragment())
                     .commit()
             }
             2 -> {
                 ivActiveTab.setImageResource(R.drawable.home_tab_setting_active)
                 supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                     .replace(R.id.layoutFragmentPlaceholder, SettingFragment())
                     .commit()
             }

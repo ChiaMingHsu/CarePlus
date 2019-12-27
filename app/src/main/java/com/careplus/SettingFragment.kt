@@ -27,6 +27,7 @@ class SettingFragment : Fragment() {
         btnFunction.setOnClickListener {
             fragmentManager?.run {
                 beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
                     .replace(R.id.layoutFragmentPlaceholder, FunctionFragment())
                     .addToBackStack(this@SettingFragment::class.java.simpleName)
                     .commit()
@@ -36,6 +37,7 @@ class SettingFragment : Fragment() {
 //        btnCalendar.setOnClickListener {
 //            fragmentManager?.run {
 //                beginTransaction()
+//                    .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
 //                    .replace(R.id.layoutFragmentPlaceholder, CalendarFragment())
 //                    .addToBackStack(this@SettingFragment::class.java.simpleName)
 //                    .commit()
@@ -45,6 +47,7 @@ class SettingFragment : Fragment() {
         btnStorage.setOnClickListener {
             fragmentManager?.run {
                 beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
                     .replace(R.id.layoutFragmentPlaceholder, StorageFragment())
                     .addToBackStack(this@SettingFragment::class.java.simpleName)
                     .commit()
@@ -54,6 +57,7 @@ class SettingFragment : Fragment() {
         btnPush.setOnClickListener {
             fragmentManager?.run {
                 beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
                     .replace(R.id.layoutFragmentPlaceholder, PushFragment())
                     .addToBackStack(this@SettingFragment::class.java.simpleName)
                     .commit()
@@ -63,6 +67,7 @@ class SettingFragment : Fragment() {
         btnAccount.setOnClickListener {
             fragmentManager?.run {
                 beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
                     .replace(R.id.layoutFragmentPlaceholder, AccountFragment())
                     .addToBackStack(this@SettingFragment::class.java.simpleName)
                     .commit()

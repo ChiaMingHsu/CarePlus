@@ -92,6 +92,7 @@ class NotificationFragment : Fragment() {
             val message = view.tag as Message
             fragmentManager?.run {
                 beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_from_bottom, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_to_bottom)
                     .replace(R.id.layoutFragmentPlaceholder, PlaybackFragment(message))
                     .addToBackStack(this@NotificationFragment::class.java.simpleName)
                     .commit()
@@ -101,6 +102,7 @@ class NotificationFragment : Fragment() {
         btnActivity.setOnClickListener {
             fragmentManager?.run {
                 beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_from_top, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_to_top)
                     .replace(R.id.layoutFragmentPlaceholder, ActivityFragment())
                     .addToBackStack(this@NotificationFragment::class.java.simpleName)
                     .commit()
