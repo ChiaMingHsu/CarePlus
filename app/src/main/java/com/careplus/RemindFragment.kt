@@ -2,8 +2,8 @@ package com.careplus
 
 
 import android.app.AlertDialog
-import android.app.TimePickerDialog
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.careplus.adapters.EventAdapter
-import com.careplus.adapters.TimeAdapter
 import com.careplus.model.Event
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.dialog_config_remind_create.view.*
-import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.*
 import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.btnOk
-import kotlinx.android.synthetic.main.dialog_remind_remove_confirm.view.*
 import kotlinx.android.synthetic.main.fragment_remind.*
 import java.util.*
 
@@ -32,7 +29,6 @@ import java.util.*
 class RemindFragment : Fragment() {
 
     val eventAdapter = EventAdapter()
-    var eventsValueEventListener: ValueEventListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,15 +40,53 @@ class RemindFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
+        setupDB()
     }
 
     private fun setupView() {
         rvEvent.apply {
-            layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false) as RecyclerView.LayoutManager
             adapter = eventAdapter
+            addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                    super.getItemOffsets(outRect, view, parent, state)
+                    val layoutParams = (view.layoutParams as RecyclerView.LayoutParams)
+                    val adapterPosition = layoutParams.viewAdapterPosition
+                    val layoutManager = parent.layoutManager as LinearLayoutManager
+                    if (adapterPosition == 0)
+                        outRect.left = parent.width / 2 - layoutParams.width / 2
+                    else if (adapterPosition == layoutManager.itemCount - 1)
+                        outRect.right = parent.width / 2 - layoutParams.width / 2
+                }
+            })
+
+            val snapHelper = LinearSnapHelper()
+            snapHelper.attachToRecyclerView(rvEvent)
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                var selectedPosition = 0
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        layoutManager
+                            ?.let { layoutManager ->
+                                snapHelper.findSnapView(layoutManager)
+                                    ?.let { view -> layoutManager.getPosition(view) }
+                                    ?.takeIf { position -> position != selectedPosition }
+                                    ?.let { position ->
+                                        selectedPosition = position
+//                                        updateBody(selectedPosition)
+                                    }
+                            }
+                    }
+                }
+            })
         }
 
         eventAdapter.onBtnEventClickListener = View.OnClickListener { view ->
+            layoutProgress?.visibility = View.VISIBLE
+
             val position = view.tag as Int
             val event = eventAdapter.events[position]
 
@@ -93,10 +127,12 @@ class RemindFragment : Fragment() {
                 }
                 dialog.show()
             } else {
-                layoutProgress?.visibility = View.VISIBLE
                 event.enabled = event.enabled.not()
                 FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
+                eventAdapter.notifyItemChanged(position)
             }
+
+            layoutProgress?.visibility = View.GONE
         }
 
 //        eventAdapter.onBtnConfigClickListener = View.OnClickListener { view ->
@@ -162,16 +198,11 @@ class RemindFragment : Fragment() {
 //        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        setupDB()
-    }
-
     private fun setupDB() {
         layoutProgress?.visibility = View.VISIBLE
 
-        eventsValueEventListener = FirebaseDatabase.getInstance().getReference("events").child(App.user.id)
-            .addValueEventListener(object : ValueEventListener {
+        FirebaseDatabase.getInstance().getReference("events").child(App.user.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.children
                         .map { it.getValue(Event::class.java)?.apply { id = it.key!! } }
@@ -179,7 +210,7 @@ class RemindFragment : Fragment() {
                         .filter { it.type == "remind" }
                         .let { events ->
                             eventAdapter.events.clear()
-                            eventAdapter.events.add(Event("", "create", "新增", "remind", "create", "", "", true))
+                            eventAdapter.events.add(Event("", "create", "Create", "remind", "create", "", "", true))
                             eventAdapter.events.addAll(events)
                             eventAdapter.notifyDataSetChanged()
                         }
@@ -189,11 +220,6 @@ class RemindFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-    }
-
-    override fun onPause() {
-        super.onPause()
-        eventsValueEventListener?.let { FirebaseDatabase.getInstance().getReference("events").child(App.user.id).removeEventListener(it) }
     }
 
 }

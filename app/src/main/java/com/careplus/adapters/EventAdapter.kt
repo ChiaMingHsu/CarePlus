@@ -13,7 +13,6 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     val events = arrayListOf<Event>()
     var onBtnEventClickListener: View.OnClickListener? = null
-//    var onBtnConfigClickListener: View.OnClickListener? = null  // TODO: remove
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)

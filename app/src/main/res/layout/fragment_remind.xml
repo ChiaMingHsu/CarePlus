@@ -9,25 +9,156 @@
         android:id="@+id/layout_root">
 
     <ImageView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.204"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="31dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivBg"
+            android:src="@drawable/remind_bg"
+            android:scaleType="fitXY"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.576"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="46.2dp"
+            android:layout_marginTop="77.3dp"
             android:adjustViewBounds="true"
             android:id="@+id/ivTitle"
             android:src="@drawable/remind_title"
             android:scaleType="fitXY"/>
 
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.457"
+            app:layout_constraintLeft_toLeftOf="@id/ivTitle"
+            app:layout_constraintTop_toBottomOf="@id/ivTitle"
+            android:layout_marginTop="5.5dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivSubtitle"
+            android:src="@drawable/remind_subtitle"
+            android:scaleType="fitXY"/>
+
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="0dp" android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.74"
+            android:layout_width="match_parent" android:layout_height="100dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivSubtitle"
+            app:layout_constraintBottom_toBottomOf="@id/ivBg"
             android:id="@+id/rvEvent"/>
+
+    <ImageView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.184"
+            app:layout_constraintLeft_toLeftOf="@id/rvEvent"
+            app:layout_constraintRight_toRightOf="@id/rvEvent"
+            app:layout_constraintTop_toBottomOf="@id/rvEvent"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivIndicator"
+            android:src="@drawable/remind_event_indicator"
+            android:scaleType="fitXY"/>
+
+    <!-- Body -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/ivBg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/layoutBody">
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.863"
+                app:layout_constraintLeft_toLeftOf="@+id/ivValueBg"
+                app:layout_constraintTop_toTopOf="@+id/ivValueBg"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="2dp"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivValueBgShadow"
+                android:src="@drawable/remind_event_value_bg_shadow"
+                android:scaleType="fitXY"/>
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.863"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.6"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivValueBg"
+                android:src="@drawable/remind_event_value_bg"
+                android:scaleType="fitXY"/>
+
+        <!--<com.zyyoona7.wheel.WheelView-->
+                <!--android:layout_width="100dp" android:layout_height="wrap_content"-->
+                <!--app:layout_constraintLeft_toLeftOf="@+id/ivValueBg"-->
+                <!--app:layout_constraintRight_toRightOf="@+id/ivValueBg"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/ivValueBg"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/ivValueBg"-->
+                <!--android:id="@+id/wvValue"-->
+                <!--app:wv_textSize="28sp"-->
+                <!--app:wv_cyclic="true"-->
+                <!--app:wv_curved="true"-->
+                <!--app:wv_selectedItemTextColor="#5067fb"-->
+                <!--app:wv_normalItemTextColor="#4a4a4a"-->
+                <!--app:wv_curvedArcDirection="center"-->
+                <!--app:wv_integerNeedFormat="true"-->
+                <!--app:wv_integerFormat="%02d"/>-->
+
+        <!--<com.zyyoona7.wheel.WheelView-->
+                <!--android:layout_width="50dp" android:layout_height="0dp"-->
+                <!--app:layout_constraintLeft_toRightOf="@+id/wvValue"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/wvValue"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/wvValue"-->
+                <!--android:id="@+id/wvUnit"-->
+                <!--app:wv_textSize="24sp"-->
+                <!--app:wv_cyclic="false"-->
+                <!--app:wv_curved="true"-->
+                <!--app:wv_selectedItemTextColor="#5067fb"-->
+                <!--app:wv_normalItemTextColor="#4a4a4a"-->
+                <!--app:wv_curvedArcDirection="center"/>-->
+
+        <ImageView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.501"
+                app:layout_constraintLeft_toLeftOf="@id/ivValueBg"
+                app:layout_constraintTop_toTopOf="@id/ivValueBg"
+                app:layout_constraintBottom_toTopOf="@id/ivValueBg"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivNameBg"
+                android:src="@drawable/remind_event_name_bg"
+                android:scaleType="fitXY"/>
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/ivNameBg"
+                app:layout_constraintRight_toRightOf="@+id/ivNameBg"
+                app:layout_constraintTop_toTopOf="@+id/ivNameBg"
+                app:layout_constraintBottom_toBottomOf="@+id/ivNameBg"
+                android:id="@+id/tvName"
+                android:text="Medicine"
+                android:textSize="23sp"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:letterSpacing="0.3"/>
+
+        <ImageButton
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.24"
+                app:layout_constraintLeft_toLeftOf="@id/ivValueBg"
+                app:layout_constraintRight_toRightOf="@id/ivValueBg"
+                app:layout_constraintTop_toBottomOf="@id/ivValueBg"
+                app:layout_constraintBottom_toBottomOf="@id/ivValueBg"
+                android:adjustViewBounds="true"
+                android:id="@+id/btnConfirm"
+                android:src="@drawable/remind_btn_confirm"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Progress -->
 

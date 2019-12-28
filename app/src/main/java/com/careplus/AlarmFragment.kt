@@ -138,10 +138,10 @@ class AlarmFragment : Fragment() {
                             eventAdapter.notifyDataSetChanged()
 
                             if (events.count() > 0) {
-                                layoutBody.visibility = View.VISIBLE
+                                layoutBody?.visibility = View.VISIBLE
                                 updateBody(0)
                             } else
-                                layoutBody.visibility = View.GONE
+                                layoutBody?.visibility = View.GONE
                         }
 
                     layoutProgress?.visibility = View.GONE
@@ -153,8 +153,8 @@ class AlarmFragment : Fragment() {
 
     private fun updateBody(index: Int) {
         val event = eventAdapter.events[index]
-        btnConfirm.tag = index
-        tvName.text = event.name
+        btnConfirm?.tag = index
+        tvName?.text = event.name
         event.value.split(":")
             .let { (minute, second) -> Pair(minute.toInt(), second.toInt()) }
             .let { (minute, second) ->
@@ -165,12 +165,12 @@ class AlarmFragment : Fragment() {
                 //       4. both mm and ss are in range of [1, 99]
                 //       Maybe change to format `%02d {min, sec}` later
                 if (minute > 0) {
-                    wvValue.selectedItemPosition = minute - 1
-                    wvUnit.selectedItemPosition = 1  // min
+                    wvValue?.selectedItemPosition = minute - 1
+                    wvUnit?.selectedItemPosition = 1  // min
                 }
                 else if (second > 0) {
-                    wvValue.selectedItemPosition = second - 1
-                    wvUnit.selectedItemPosition = 0  // sec
+                    wvValue?.selectedItemPosition = second - 1
+                    wvUnit?.selectedItemPosition = 0  // sec
                 }
             }
     }
