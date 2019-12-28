@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.careplus.adapters.EventAdapter
 import com.careplus.model.Event
@@ -40,7 +40,7 @@ class AlarmFragment : Fragment() {
 
     private fun setupView() {
         rvEvent.apply {
-            layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = eventAdapter
         }
 
