@@ -13,7 +13,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     val events = arrayListOf<Event>()
     var onBtnEventClickListener: View.OnClickListener? = null
-    var onBtnConfigClickListener: View.OnClickListener? = null
+//    var onBtnConfigClickListener: View.OnClickListener? = null  // TODO: remove
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
@@ -30,68 +30,82 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
         val enabled = event.enabled
         val activeness = if (enabled) "active" else "inactive"
 
-        holder.view.ivBg.apply {
-            when (event.code) {
-                "create" -> {
-                    resources
-                        .getIdentifier("event_bg_dark", "drawable", context.packageName)
-                        .let { resId -> setImageResource(resId) }
-                }
-                else -> {
-                    resources
-                        .getIdentifier("event_bg", "drawable", context.packageName)
-                        .let { resId -> setImageResource(resId) }
-                }
-            }
-        }
-
-        holder.view.ivBg.apply {
-            when (event.code) {
-                 "custom" -> {
-                    resources
-                        .getIdentifier("icon_%s".format(if (enabled) icon else "color_gray"), "drawable", context.packageName)
-                        .let { resId -> setImageResource(resId) }
-                    scaleX = 0.5f
-                    scaleY = 0.5f
-                }
-                else -> {
-                    resources
-                        .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
-                        .let { resId -> setImageResource(resId) }
-                    scaleX = 1.0f
-                    scaleY = 1.0f
-                }
-            }
-
+        holder.view.btnIcon.apply {
             tag = position
-            onBtnEventClickListener?.run { setOnClickListener(this) }
-        }
+            when (event.code) {
+                "custom" -> {
 
-        holder.view.tvName.apply {
-            text = event.name
-            if (enabled) {
-                when (type) {
-                    "alarm" -> setTextColor(Color.parseColor("#5067fb"))
-                    "remind" -> setTextColor(Color.parseColor("#41a8a7"))
                 }
-            } else {
-                setTextColor(Color.parseColor("#adadbe"))
+                else -> {
+                    resources.getIdentifier("event_icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
+                        .let { resId -> setImageResource(resId) }
+                }
             }
+            onBtnEventClickListener?.let { setOnClickListener(it) }
         }
 
-        holder.view.btnConfig.apply {
-            if (code == "create") {
-                setImageResource(android.R.color.transparent)
-                setOnClickListener(null)
-            } else {
-                resources
-                    .getIdentifier("%s_btn_hamburger_%s".format(type, activeness), "drawable", context.packageName)
-                    .let { resId -> setImageResource(resId) }
-
-                tag = position
-                onBtnConfigClickListener?.run { setOnClickListener(this) }
-            }
-        }
+//        holder.view.ivBg.apply {
+//            when (event.code) {
+//                "create" -> {
+//                    resources
+//                        .getIdentifier("event_bg_dark", "drawable", context.packageName)
+//                        .let { resId -> setImageResource(resId) }
+//                }
+//                else -> {
+//                    resources
+//                        .getIdentifier("event_bg", "drawable", context.packageName)
+//                        .let { resId -> setImageResource(resId) }
+//                }
+//            }
+//        }
+//
+//        holder.view.ivBg.apply {
+//            when (event.code) {
+//                 "custom" -> {
+//                    resources
+//                        .getIdentifier("icon_%s".format(if (enabled) icon else "color_gray"), "drawable", context.packageName)
+//                        .let { resId -> setImageResource(resId) }
+//                    scaleX = 0.5f
+//                    scaleY = 0.5f
+//                }
+//                else -> {
+//                    resources
+//                        .getIdentifier("icon_%s_%s".format(icon, activeness), "drawable", context.packageName)
+//                        .let { resId -> setImageResource(resId) }
+//                    scaleX = 1.0f
+//                    scaleY = 1.0f
+//                }
+//            }
+//
+//            tag = position
+//            onBtnEventClickListener?.run { setOnClickListener(this) }
+//        }
+//
+//        holder.view.tvName.apply {
+//            text = event.name
+//            if (enabled) {
+//                when (type) {
+//                    "alarm" -> setTextColor(Color.parseColor("#5067fb"))
+//                    "remind" -> setTextColor(Color.parseColor("#41a8a7"))
+//                }
+//            } else {
+//                setTextColor(Color.parseColor("#adadbe"))
+//            }
+//        }
+//
+//        holder.view.btnConfig.apply {
+//            if (code == "create") {
+//                setImageResource(android.R.color.transparent)
+//                setOnClickListener(null)
+//            } else {
+//                resources
+//                    .getIdentifier("%s_btn_hamburger_%s".format(type, activeness), "drawable", context.packageName)
+//                    .let { resId -> setImageResource(resId) }
+//
+//                tag = position
+//                onBtnConfigClickListener?.run { setOnClickListener(this) }
+//            }
+//        }
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)

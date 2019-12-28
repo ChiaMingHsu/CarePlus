@@ -66,6 +66,7 @@
             - frames: false
             - messages: false
             - playbacks: false
+            - activities: false
             - events: false
             - settings: false
         ```
@@ -112,7 +113,8 @@
     - events (one user to many events)
         - USER_ID
             - EVENT_ID_1 (format: TIMESTAMP_IN_MILLISECONDS-UUID4, e.g. 1571158337779-cb19e916-0cb0-45e0-ae9c-c80ad10484e7)
-                - name
+                - code: (e.g. `falldown`, special codes are `create` and `custom`)   
+                - name: (for display)
                 - type: (`alarm` or `remind`)
                 - icon: (see `Name` in `Icon Table`)
                 - mode: (`elapsed`, `deadline` or `schedule`)
@@ -136,11 +138,12 @@
 
 | Name     | ResID                                                     |
 |:--------:|:---------------------------------------------------------:|
-| falldown | icon_falldown_active / icon_falldown_inactive             |
-| toilet   | icon_toilet_active / icon_toilet_inactive                 |
-| outdoor  | icon_outdoor_active / icon_outdoor_inactive               |
-| room     | icon_room_active / icon_room_inactive                     |
-| create   | icon_create_active / -                                    |
-| medicine | icon_medicine_active / icon_medicine_inactive             |
-| goout    | icon_goout_active / icon_goout_inactive                   |
-| exercise | icon_exercise_active / icon_exercise_inactive             |
+| outdoor  | event_icon_outdoor_active / event_icon_outdoor_inactive   |
+| falldown | event_icon_falldown_active / event_icon_falldown_inactive |
+| toilet   | event_icon_toilet_active / event_icon_toilet_inactive     |
+| room     | event_icon_room_active / event_icon_room_inactive         |
+| exercise | event_icon_exercise_active / event_icon_exercise_inactive |
+| goout    | event_icon_goout_active / event_icon_goout_inactive       |
+| medicine | event_icon_medicine_active / event_icon_medicine_inactive |
+
+> Note that these resources can be removed by `Remove Unused Resources`

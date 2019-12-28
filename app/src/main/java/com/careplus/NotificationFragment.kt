@@ -70,9 +70,9 @@ class NotificationFragment : Fragment() {
                             val screenWidth = width
                             val targetX = totalWidth - screenWidth / 2 + offsetX
                             val position = targetX / childWidth
-                            val latestPosition = weekdayAdapter.weekdays.indexOfFirst { it.highlighted }
+                            val lastPosition = weekdayAdapter.weekdays.indexOfFirst { it.highlighted }
 
-                            if (latestPosition == position)
+                            if (lastPosition == position)
                                 return
 
                             rvWeekday?.smoothScrollToPosition(position)
@@ -80,8 +80,8 @@ class NotificationFragment : Fragment() {
                             weekdayAdapter.weekdays[position].highlighted = true
                             weekdayAdapter.notifyItemChanged(position)
 
-                            weekdayAdapter.weekdays[latestPosition].highlighted = false
-                            weekdayAdapter.notifyItemChanged(latestPosition)
+                            weekdayAdapter.weekdays[lastPosition].highlighted = false
+                            weekdayAdapter.notifyItemChanged(lastPosition)
                         }
                     }
                 }

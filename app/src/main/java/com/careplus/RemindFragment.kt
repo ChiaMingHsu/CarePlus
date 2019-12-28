@@ -99,67 +99,67 @@ class RemindFragment : Fragment() {
             }
         }
 
-        eventAdapter.onBtnConfigClickListener = View.OnClickListener { view ->
-            // Button config for `create` event is guaranteed that unable to reach here
-
-            val position = view.tag as Int
-            val event = eventAdapter.events[position]
-
-            if (event.enabled) {
-                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_config_remind_schedule, layout_root, false)
-                val dialog = AlertDialog.Builder(context)
-                    .setView(dialogView)
-                    .create()
-                    .apply {
-                        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    }
-                val timeAdapter = TimeAdapter()
-                    .apply {
-                        times.addAll(event.value.trim('[', ']').split(","))
-                    }
-
-                dialogView.tvName.text = event.name
-                dialogView.rvTime.apply {
-                    layoutManager = LinearLayoutManager(context)
-                    dialogView.rvTime.adapter = timeAdapter
-                }
-                dialogView.tvControlTime.setOnClickListener {
-                    val calendar = Calendar.getInstance()
-                    TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                        dialogView.tvControlTime.text = "%02d:%02d".format(hourOfDay, minute)
-                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
-                }
-                dialogView.btnAdd.setOnClickListener {
-                    timeAdapter.times.add(dialogView.tvControlTime.text.toString())
-                    timeAdapter.notifyDataSetChanged()
-                }
-                dialogView.btnOk.setOnClickListener {
-                    event.value = timeAdapter.times.joinToString(",", "[", "]")
-                    FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
-                    dialog.dismiss()
-                }
-                dialogView.btnDestroy.setOnClickListener {
-                    val confirmDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_remind_remove_confirm, layout_root, false)
-                    val confirmDialog = AlertDialog.Builder(context)
-                        .setView(confirmDialogView)
-                        .create()
-                        .apply {
-                            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                        }
-
-                    confirmDialogView.btnYes.setOnClickListener {
-                        FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).removeValue()
-                        confirmDialog.dismiss()
-                        dialog.dismiss()
-                    }
-                    confirmDialogView.btnNo.setOnClickListener {
-                        confirmDialog.dismiss()
-                    }
-                    confirmDialog.show()
-                }
-                dialog.show()
-            }
-        }
+//        eventAdapter.onBtnConfigClickListener = View.OnClickListener { view ->
+//            // Button config for `create` event is guaranteed that unable to reach here
+//
+//            val position = view.tag as Int
+//            val event = eventAdapter.events[position]
+//
+//            if (event.enabled) {
+//                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_config_remind_schedule, layout_root, false)
+//                val dialog = AlertDialog.Builder(context)
+//                    .setView(dialogView)
+//                    .create()
+//                    .apply {
+//                        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//                    }
+//                val timeAdapter = TimeAdapter()
+//                    .apply {
+//                        times.addAll(event.value.trim('[', ']').split(","))
+//                    }
+//
+//                dialogView.tvName.text = event.name
+//                dialogView.rvTime.apply {
+//                    layoutManager = LinearLayoutManager(context)
+//                    dialogView.rvTime.adapter = timeAdapter
+//                }
+//                dialogView.tvControlTime.setOnClickListener {
+//                    val calendar = Calendar.getInstance()
+//                    TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+//                        dialogView.tvControlTime.text = "%02d:%02d".format(hourOfDay, minute)
+//                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+//                }
+//                dialogView.btnAdd.setOnClickListener {
+//                    timeAdapter.times.add(dialogView.tvControlTime.text.toString())
+//                    timeAdapter.notifyDataSetChanged()
+//                }
+//                dialogView.btnOk.setOnClickListener {
+//                    event.value = timeAdapter.times.joinToString(",", "[", "]")
+//                    FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
+//                    dialog.dismiss()
+//                }
+//                dialogView.btnDestroy.setOnClickListener {
+//                    val confirmDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_remind_remove_confirm, layout_root, false)
+//                    val confirmDialog = AlertDialog.Builder(context)
+//                        .setView(confirmDialogView)
+//                        .create()
+//                        .apply {
+//                            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//                        }
+//
+//                    confirmDialogView.btnYes.setOnClickListener {
+//                        FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).removeValue()
+//                        confirmDialog.dismiss()
+//                        dialog.dismiss()
+//                    }
+//                    confirmDialogView.btnNo.setOnClickListener {
+//                        confirmDialog.dismiss()
+//                    }
+//                    confirmDialog.show()
+//                }
+//                dialog.show()
+//            }
+//        }
     }
 
     override fun onResume() {
