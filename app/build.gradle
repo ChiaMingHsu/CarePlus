@@ -45,7 +45,7 @@ dependencies {
     implementation 'org.jcodec:jcodec-android:0.2.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
-    implementation 'com.github.chenupt.android:springindicator:1.0.2@aar'
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
     implementation 'com.kyleduo.switchbutton:library:2.0.0'
     implementation 'com.github.thellmund.Android-Week-View:core:4.0.1'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'

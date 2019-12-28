@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <array name="functionIndicatorColors">
-        <item>@color/colorFunctionIndicatorAlarm</item>
-        <item>@color/colorFunctionIndicatorRemind</item>
-    </array>
-</resources>

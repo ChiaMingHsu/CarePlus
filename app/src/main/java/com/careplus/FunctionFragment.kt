@@ -1,9 +1,11 @@
 package com.careplus
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.alpha
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.careplus.adapters.FunctionFragmentPagerAdapter
@@ -46,19 +48,25 @@ class FunctionFragment : Fragment() {
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                // change alpha only whiling actually scrolling
+                if (positionOffset > 0.01 && positionOffset < 0.99) {
+                    ivIndicatorAlarmBg.alpha = 1 - positionOffset
+                    ivIndicatorRemindBg.alpha = positionOffset
+                }
+            }
 
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-                        ivIndicatorBg.setImageResource(R.drawable.function_indicator_alarm_bg)
-                        ivIndicatorAlarm.setImageResource(R.drawable.function_indicator_alarm_active)
-                        ivIndicatorRemind.setImageResource(R.drawable.function_indicator_remind_inactive)
+                        tvIndicatorAlarm.setTextColor(Color.parseColor("#4b5cff"))
+                        tvIndicatorRemind.setTextColor(Color.parseColor("#adadbe"))
+                        indicator.setDotIndicatorColor(Color.parseColor("#6170ff"))
                     }
                     1 -> {
-                        ivIndicatorBg.setImageResource(R.drawable.function_indicator_remind_bg)
-                        ivIndicatorAlarm.setImageResource(R.drawable.function_indicator_alarm_inactive)
-                        ivIndicatorRemind.setImageResource(R.drawable.function_indicator_remind_active)
+                        tvIndicatorAlarm.setTextColor(Color.parseColor("#adadbe"))
+                        tvIndicatorRemind.setTextColor(Color.parseColor("#4dc9c8"))
+                        indicator.setDotIndicatorColor(Color.parseColor("#4dc9c8"))
                         (activity as HomeActivity).notifyPageEntered("remind")
                     }
                 }
