@@ -75,7 +75,7 @@ class NotificationFragment : Fragment() {
                             if (latestPosition == position)
                                 return
 
-                            rvWeekday.smoothScrollToPosition(position)
+                            rvWeekday?.smoothScrollToPosition(position)
 
                             weekdayAdapter.weekdays[position].highlighted = true
                             weekdayAdapter.notifyItemChanged(position)

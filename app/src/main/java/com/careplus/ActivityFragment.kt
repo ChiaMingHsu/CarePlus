@@ -125,8 +125,8 @@ class ActivityFragment : Fragment() {
 
     }
 
-    private val weekView: WeekView<Event> by lazy {
-        requireActivity().findViewById<WeekView<Event>>(R.id.weekView)
+    private val weekView: WeekView<Event>? by lazy {
+        activity?.findViewById<WeekView<Event>>(R.id.weekView)
     }
 
     override fun onCreateView(
@@ -147,7 +147,7 @@ class ActivityFragment : Fragment() {
             val now = Calendar.getInstance()
             val dialog = DatePickerDialog.newInstance(
                 { _, year, monthOfYear, dayOfMonth ->
-                    weekView.goToDate(Calendar.getInstance().apply {
+                    weekView?.goToDate(Calendar.getInstance().apply {
                         set(year, monthOfYear, dayOfMonth)
                     })
                 },
@@ -191,7 +191,7 @@ class ActivityFragment : Fragment() {
                         .let {events ->
                             val displayableEvents = mutableListOf<WeekViewDisplayable<Event>>()
                             displayableEvents.addAll(events)
-                            weekView.submit(displayableEvents)
+                            weekView?.submit(displayableEvents)
                         }
                 }
 
