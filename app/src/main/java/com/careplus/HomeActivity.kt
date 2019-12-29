@@ -33,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setupView()
+        setupDB()
         tabIndex = 1
     }
 
@@ -43,6 +44,11 @@ class HomeActivity : AppCompatActivity() {
         ivTutorial.setOnClickListener {
             ivTutorial.visibility = View.GONE
         }
+    }
+
+    private fun setupDB() {
+        FirebaseDatabase.getInstance().getReference("messages").child(App.user.id).keepSynced(true)
+        FirebaseDatabase.getInstance().getReference("activities").child(App.user.id).keepSynced(true)
     }
 
     private fun navigateToTab(index: Int) {

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.careplus.model.Event
 import com.careplus.model.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -139,24 +141,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onLoginSucceed(user: User) {
-        FirebaseDatabase.getInstance().run {
-            getReference("users").child(user.id).setValue(user)
-            getReference("settings").child(user.id)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        if (!dataSnapshot.exists()) {
-                            FirebaseDatabase.getInstance().getReference("settings").child(user.id).run{
-                                child("push").setValue(true)
-                            }
-                        }
-                    }
-
-                    override fun onCancelled(databaseError: DatabaseError) {}
-                })
-        }
-
-
+        FirebaseDatabase.getInstance().getReference("users").child(user.id).setValue(user)
         App.user = user
+
+        initializeDefaultSetting(user)
+        initializeDefaultEvent(user)
+
         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
         layoutProgress?.visibility = View.GONE
 
@@ -182,5 +172,65 @@ class LoginActivity : AppCompatActivity() {
             else -> Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()
         }
         layoutProgress?.visibility = View.GONE
+    }
+
+    private fun initializeDefaultSetting(user: User) {
+        // Initialize default settings if no events was found
+        FirebaseDatabase.getInstance() .getReference("settings").child(user.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (!dataSnapshot.exists()) {
+                        FirebaseDatabase.getInstance().getReference("settings").child(user.id).run {
+                            child("push").setValue(true)
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+    }
+
+    private fun initializeDefaultEvent(user: User) {
+        // Initialize default events if no events was found
+        FirebaseDatabase.getInstance().getReference("events").child(user.id)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.children.count() == 0) {
+                        FirebaseDatabase.getInstance().getReference("events").child(user.id)
+                            .apply {
+                                val eventId = "%d-%s".format(System.currentTimeMillis() + 0, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "falldown","Fall Down", "alarm", "falldown", "elapsed", "00:05"))
+                            }
+                            .apply {
+                                val eventId = "%d-%s".format(System.currentTimeMillis() + 1, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "toilet", "Bathroom", "alarm", "toilet", "elapsed", "00:05"))
+                            }
+                            .apply {
+                                val eventId = "%d-%s".format(System.currentTimeMillis() + 2, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "outdoor", "Go Outside", "alarm", "outdoor", "elapsed", "00:05"))
+                            }
+                            .apply {
+                                val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "room", "Bedroom", "alarm", "room", "deadline", "08:00"))
+                            }
+                            .apply {
+                                val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "medicine", "Medicine", "remind", "medicine", "schedule", "[09:00,12:00,18:00]"))
+                            }
+                            .apply {
+                                val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "goout", "Walking Outdoor", "remind", "goout", "schedule", "[09:00,12:00,18:00]"))
+                            }
+                            .apply {
+                                val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
+                                child(eventId).setValue(Event(eventId, "exercise", "Exercise", "remind", "exercise", "schedule", "[09:00,12:00,18:00]"))
+                            }
+                    }
+
+                    layoutProgress?.visibility = View.GONE
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
     }
 }
