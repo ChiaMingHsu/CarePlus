@@ -85,31 +85,31 @@ class FunctionFragment : Fragment() {
                         FirebaseDatabase.getInstance().getReference("events").child(App.user.id)
                             .apply {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 0, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "falldown","跌倒", "alarm", "falldown", "elapsed", "00:05"))
+                                child(eventId).setValue(Event(eventId, "falldown","Fall Down", "alarm", "falldown", "elapsed", "00:05"))
                             }
                             .apply {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 1, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "toilet", "廁所", "alarm", "toilet", "elapsed", "00:05"))
+                                child(eventId).setValue(Event(eventId, "toilet", "Bathroom", "alarm", "toilet", "elapsed", "00:05"))
                             }
                             .apply {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 2, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "outdoor", "出門", "alarm", "outdoor", "elapsed", "00:05"))
+                                child(eventId).setValue(Event(eventId, "outdoor", "Go Outside", "alarm", "outdoor", "elapsed", "00:05"))
                             }
                             .apply {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "room", "房間", "alarm", "room", "deadline", "08:00"))
+                                child(eventId).setValue(Event(eventId, "room", "Bedroom", "alarm", "room", "deadline", "08:00"))
                             }
                             .apply {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "medicine", "吃藥", "remind", "medicine", "schedule", "[09:00,12:00,18:00]"))
+                                child(eventId).setValue(Event(eventId, "medicine", "Medicine", "remind", "medicine", "schedule", "[09:00,12:00,18:00]"))
                             }
                             .apply {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "goout", "外出", "remind", "goout", "schedule", "[09:00,12:00,18:00]"))
+                                child(eventId).setValue(Event(eventId, "goout", "Walking Outdoor", "remind", "goout", "schedule", "[09:00,12:00,18:00]"))
                             }
                             .apply {
                                 val eventId = "%d-%s".format(System.currentTimeMillis() + 3, UUID.randomUUID().toString())
-                                child(eventId).setValue(Event(eventId, "exercise", "運動", "remind", "exercise", "schedule", "[09:00,12:00,18:00]"))
+                                child(eventId).setValue(Event(eventId, "exercise", "Exercise", "remind", "exercise", "schedule", "[09:00,12:00,18:00]"))
                             }
                     }
 
