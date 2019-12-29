@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.careplus.adapters.EventAdapter
+import com.careplus.adapters.TimeAdapter
 import com.careplus.model.Event
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -22,13 +23,21 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.dialog_config_remind_create.view.*
 import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.btnOk
+import kotlinx.android.synthetic.main.fragment_alarm.*
 import kotlinx.android.synthetic.main.fragment_remind.*
+import kotlinx.android.synthetic.main.fragment_remind.btnConfirm
+import kotlinx.android.synthetic.main.fragment_remind.layoutBody
+import kotlinx.android.synthetic.main.fragment_remind.layoutProgress
+import kotlinx.android.synthetic.main.fragment_remind.layout_root
+import kotlinx.android.synthetic.main.fragment_remind.rvEvent
+import kotlinx.android.synthetic.main.fragment_remind.tvName
 import java.util.*
 
 
 class RemindFragment : Fragment() {
 
     val eventAdapter = EventAdapter()
+    val timeAdapter = TimeAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +85,7 @@ class RemindFragment : Fragment() {
                                     ?.takeIf { position -> position != selectedPosition }
                                     ?.let { position ->
                                         selectedPosition = position
-//                                        updateBody(selectedPosition)
+                                        updateBody(selectedPosition)
                                     }
                             }
                     }
@@ -196,6 +205,38 @@ class RemindFragment : Fragment() {
 //                dialog.show()
 //            }
 //        }
+
+        layoutBody.visibility = View.GONE
+
+        rvTime.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            adapter = timeAdapter
+        }
+
+        btnAdd.setOnClickListener {
+            val hour = wvHour.selectedItemData as Int
+            val minute = wvMinute.selectedItemData as Int
+            timeAdapter.times.add("%02d:%02d".format(hour, minute))
+            timeAdapter.notifyDataSetChanged()
+            rvTime.smoothScrollToPosition(timeAdapter.times.size - 1)
+        }
+
+        wvHour.data = (0..23).toList()
+        wvMinute.data = (0..59).toList()
+
+        btnConfirm.setOnClickListener { view ->
+            layoutProgress?.visibility = View.VISIBLE
+
+            val index = view.tag as Int
+            val event = eventAdapter.events[index]
+
+            event.value = timeAdapter.times.joinToString(",", "[", "]")
+
+            FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
+            eventAdapter.notifyItemChanged(index)
+
+            layoutProgress?.visibility = View.GONE
+        }
     }
 
     private fun setupDB() {
@@ -213,6 +254,12 @@ class RemindFragment : Fragment() {
                             eventAdapter.events.add(Event("", "create", "Create", "remind", "create", "", "", true))
                             eventAdapter.events.addAll(events)
                             eventAdapter.notifyDataSetChanged()
+
+                            if (events.count() >= 2) {
+                                layoutBody?.visibility = View.VISIBLE
+                                updateBody(0)
+                            } else
+                                layoutBody?.visibility = View.GONE
                         }
 
                     layoutProgress?.visibility = View.GONE
@@ -220,6 +267,20 @@ class RemindFragment : Fragment() {
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
+    }
+
+    private fun updateBody(index: Int) {
+        val event = eventAdapter.events[index]
+        btnConfirm?.tag = index
+        tvName?.text = event.name
+        event.value
+            .run { trim('[', ']').split(",") }
+            .filter { it.isNotBlank() }
+            .let { times ->
+                    timeAdapter.times.clear()
+                    timeAdapter.times.addAll(times)
+                    timeAdapter.notifyDataSetChanged()
+                }
     }
 
 }

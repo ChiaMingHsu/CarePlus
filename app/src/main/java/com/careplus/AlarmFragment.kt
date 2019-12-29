@@ -93,6 +93,9 @@ class AlarmFragment : Fragment() {
 
         layoutBody.visibility = View.GONE
 
+        wvValue.data = (1..99).toList()
+        wvUnit.data = listOf("sec", "min")
+
         btnConfirm.setOnClickListener { view ->
             layoutProgress?.visibility = View.VISIBLE
 
@@ -117,9 +120,6 @@ class AlarmFragment : Fragment() {
 
             layoutProgress?.visibility = View.GONE
         }
-
-        wvValue.data = (1..99).toList()
-        wvUnit.data = listOf("sec", "min")
     }
 
     private fun setupDB() {
