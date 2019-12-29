@@ -130,11 +130,11 @@
                 app:layout_constraintBottom_toBottomOf="@+id/ivNameBg"
                 android:id="@+id/tvName"
                 android:text="Fall Down"
-                android:textSize="22.7sp"
+                android:textSize="16sp"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:letterSpacing="0.2"
-                android:maxEms="3"/>
+                android:maxEms="8"/>
 
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
