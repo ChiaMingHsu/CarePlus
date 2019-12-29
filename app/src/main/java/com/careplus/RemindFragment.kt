@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -23,10 +25,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.dialog_config_remind_create.view.*
 import kotlinx.android.synthetic.main.dialog_config_remind_schedule.view.btnOk
-import kotlinx.android.synthetic.main.fragment_alarm.*
 import kotlinx.android.synthetic.main.fragment_remind.*
 import kotlinx.android.synthetic.main.fragment_remind.btnConfirm
-import kotlinx.android.synthetic.main.fragment_remind.layoutBody
+import kotlinx.android.synthetic.main.fragment_remind.layoutBodyGeneral
 import kotlinx.android.synthetic.main.fragment_remind.layoutProgress
 import kotlinx.android.synthetic.main.fragment_remind.layout_root
 import kotlinx.android.synthetic.main.fragment_remind.rvEvent
@@ -99,43 +100,7 @@ class RemindFragment : Fragment() {
             val position = view.tag as Int
             val event = eventAdapter.events[position]
 
-            if (event.code == "create") {
-                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_config_remind_create, layout_root, false)
-                val dialog = AlertDialog.Builder(context)
-                    .setView(dialogView)
-                    .create()
-                    .apply {
-                        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    }
-
-                with(dialogView) {
-                    arrayOf(ivIconColorRed, ivIconColorOrange, ivIconColorYellow,
-                            ivIconColorGreen, ivIconColorBlue, ivIconColorPurple,
-                            ivIconColorTiffany, ivIconColorPink, ivIconColorCeleste
-                        ).forEach { imageView ->
-                            imageView.setOnClickListener {
-                                val params = ivIconColorCheck.layoutParams as ConstraintLayout.LayoutParams
-                                params.leftToLeft = imageView.id
-                                params.rightToRight = imageView.id
-                                params.topToTop = imageView.id
-                                params.bottomToBottom = imageView.id
-
-                                ivIconColorCheck.layoutParams = params
-                                ivIconColorCheck.requestLayout()
-                                ivIconColorCheck.tag = imageView.tag
-                            }
-                        }
-                }
-                dialogView.btnOk.setOnClickListener {
-                    val eventId = "%d-%s".format(System.currentTimeMillis(), UUID.randomUUID().toString())
-                    val name = dialogView.edtName.text.toString()
-                    val color = dialogView.ivIconColorCheck.tag as String
-                    val customEvent = Event(eventId, "custom", name, "remind", "color_%s".format(color), "schedule", "[09:00,12:00,18:00]", true)
-                    FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(eventId).setValue(customEvent)
-                    dialog.dismiss()
-                }
-                dialog.show()
-            } else {
+            if (event.code != "create") {
                 event.enabled = event.enabled.not()
                 FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
                 eventAdapter.notifyItemChanged(position)
@@ -144,69 +109,54 @@ class RemindFragment : Fragment() {
             layoutProgress?.visibility = View.GONE
         }
 
-//        eventAdapter.onBtnConfigClickListener = View.OnClickListener { view ->
-//            // Button config for `create` event is guaranteed that unable to reach here
-//
-//            val position = view.tag as Int
-//            val event = eventAdapter.events[position]
-//
-//            if (event.enabled) {
-//                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_config_remind_schedule, layout_root, false)
-//                val dialog = AlertDialog.Builder(context)
-//                    .setView(dialogView)
-//                    .create()
-//                    .apply {
-//                        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//                    }
-//                val timeAdapter = TimeAdapter()
-//                    .apply {
-//                        times.addAll(event.value.trim('[', ']').split(","))
-//                    }
-//
-//                dialogView.tvName.text = event.name
-//                dialogView.rvTime.apply {
-//                    layoutManager = LinearLayoutManager(context)
-//                    dialogView.rvTime.adapter = timeAdapter
-//                }
-//                dialogView.tvControlTime.setOnClickListener {
-//                    val calendar = Calendar.getInstance()
-//                    TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-//                        dialogView.tvControlTime.text = "%02d:%02d".format(hourOfDay, minute)
-//                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
-//                }
-//                dialogView.btnAdd.setOnClickListener {
-//                    timeAdapter.times.add(dialogView.tvControlTime.text.toString())
-//                    timeAdapter.notifyDataSetChanged()
-//                }
-//                dialogView.btnOk.setOnClickListener {
-//                    event.value = timeAdapter.times.joinToString(",", "[", "]")
-//                    FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
-//                    dialog.dismiss()
-//                }
-//                dialogView.btnDestroy.setOnClickListener {
-//                    val confirmDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_remind_remove_confirm, layout_root, false)
-//                    val confirmDialog = AlertDialog.Builder(context)
-//                        .setView(confirmDialogView)
-//                        .create()
-//                        .apply {
-//                            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//                        }
-//
-//                    confirmDialogView.btnYes.setOnClickListener {
-//                        FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).removeValue()
-//                        confirmDialog.dismiss()
-//                        dialog.dismiss()
-//                    }
-//                    confirmDialogView.btnNo.setOnClickListener {
-//                        confirmDialog.dismiss()
-//                    }
-//                    confirmDialog.show()
-//                }
-//                dialog.show()
-//            }
-//        }
+        eventAdapter.onBtnDestroyClickListener = View.OnClickListener { view ->
+            layoutProgress?.visibility = View.VISIBLE
 
-        layoutBody.visibility = View.GONE
+            val position = view.tag as Int
+            val event = eventAdapter.events[position]
+
+            FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).removeValue()
+            eventAdapter.events.remove(event)
+            eventAdapter.notifyDataSetChanged()
+
+            layoutProgress?.visibility = View.GONE
+        }
+
+        /* Body Create */
+
+        layoutBodyCreate.visibility = View.GONE
+
+        val clearAllImages = {
+            layoutColorGrid.children
+                .map { it as ImageView }
+                .forEach { it.setImageResource(android.R.color.transparent) }
+        }
+
+        layoutColorGrid.children
+            .map { it as ImageView }
+            .forEach { imageView ->
+                imageView.apply {
+                    setOnClickListener { view ->
+                        clearAllImages()
+                        setImageResource(R.drawable.remind_check)
+                        btnConfirmCreate.tag = view.tag
+                    }
+                }
+            }
+
+        btnConfirmCreate.setOnClickListener { view ->
+            val eventId = "%d-%s".format(System.currentTimeMillis(), UUID.randomUUID().toString())
+            val name = edtName.text.toString()
+            val colorId = view.tag as String
+            val customEvent = Event(eventId, "custom", name, "remind", colorId, "schedule", "[09:00,12:00,18:00]", true)
+            FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(eventId).setValue(customEvent)
+            eventAdapter.events.add(customEvent)
+            eventAdapter.notifyDataSetChanged()
+        }
+
+        /* Body General */
+
+        layoutBodyGeneral.visibility = View.GONE
 
         rvTime.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -231,7 +181,6 @@ class RemindFragment : Fragment() {
             val event = eventAdapter.events[index]
 
             event.value = timeAdapter.times.joinToString(",", "[", "]")
-
             FirebaseDatabase.getInstance().getReference("events").child(App.user.id).child(event.id).setValue(event)
             eventAdapter.notifyItemChanged(index)
 
@@ -255,11 +204,8 @@ class RemindFragment : Fragment() {
                             eventAdapter.events.addAll(events)
                             eventAdapter.notifyDataSetChanged()
 
-                            if (events.count() >= 2) {
-                                layoutBody?.visibility = View.VISIBLE
+                            if (events.count() > 0)
                                 updateBody(0)
-                            } else
-                                layoutBody?.visibility = View.GONE
                         }
 
                     layoutProgress?.visibility = View.GONE
@@ -271,16 +217,27 @@ class RemindFragment : Fragment() {
 
     private fun updateBody(index: Int) {
         val event = eventAdapter.events[index]
+
         btnConfirm?.tag = index
         tvName?.text = event.name
-        event.value
-            .run { trim('[', ']').split(",") }
-            .filter { it.isNotBlank() }
-            .let { times ->
+
+        if (event.code == "create") {
+            layoutBodyCreate?.visibility = View.VISIBLE
+            layoutBodyGeneral?.visibility = View.GONE
+        }
+        else {
+            layoutBodyCreate?.visibility = View.GONE
+            layoutBodyGeneral?.visibility = View.VISIBLE
+
+            event.value
+                .run { trim('[', ']').split(",") }
+                .filter { it.isNotBlank() }
+                .let { times ->
                     timeAdapter.times.clear()
                     timeAdapter.times.addAll(times)
                     timeAdapter.notifyDataSetChanged()
                 }
+        }
     }
 
 }

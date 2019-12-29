@@ -91,7 +91,7 @@ class AlarmFragment : Fragment() {
             layoutProgress?.visibility = View.GONE
         }
 
-        layoutBody.visibility = View.GONE
+        layoutBodyGeneral.visibility = View.GONE
 
         wvValue.data = (1..99).toList()
         wvUnit.data = listOf("sec", "min")
@@ -138,10 +138,10 @@ class AlarmFragment : Fragment() {
                             eventAdapter.notifyDataSetChanged()
 
                             if (events.count() > 0) {
-                                layoutBody?.visibility = View.VISIBLE
+                                layoutBodyGeneral?.visibility = View.VISIBLE
                                 updateBody(0)
                             } else
-                                layoutBody?.visibility = View.GONE
+                                layoutBodyGeneral?.visibility = View.GONE
                         }
 
                     layoutProgress?.visibility = View.GONE

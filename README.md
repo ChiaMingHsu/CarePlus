@@ -145,5 +145,8 @@
 | exercise | event_icon_exercise_active / event_icon_exercise_inactive |
 | goout    | event_icon_goout_active / event_icon_goout_inactive       |
 | medicine | event_icon_medicine_active / event_icon_medicine_inactive |
+| color_N  | event_icon_color_n / event_icon_color_0                   |
 
 > Note that these resources can be removed by `Remove Unused Resources`
+
+> color N in range [1, 10]

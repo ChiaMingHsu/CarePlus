@@ -201,7 +201,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/ivIconColorBlue"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivIconColorCheck"
-                android:src="@drawable/confirm_icon"
+                android:src="@drawable/remind_check"
                 android:scaleType="fitXY"
                 android:tag="blue"/>
 
