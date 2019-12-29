@@ -370,7 +370,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/ivNameBg"
                 android:id="@+id/tvName"
                 android:text="Medicine"
-                android:textSize="23sp"
+                android:textSize="16sp"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:letterSpacing="0.3"/>
