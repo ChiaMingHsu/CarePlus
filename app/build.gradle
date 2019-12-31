@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     implementation 'com.github.florent37:shapeofview:1.4.7'
     implementation 'com.github.zyyoona7:wheelview:1.0.7'
+    implementation 'com.andrognito.flashbar:flashbar:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

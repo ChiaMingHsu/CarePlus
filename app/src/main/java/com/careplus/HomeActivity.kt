@@ -1,10 +1,17 @@
 package com.careplus
 
 import android.content.Context
+import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.andrognito.flashbar.Flashbar
+import com.andrognito.flashbar.anim.FlashAnim
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -23,6 +30,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
     var heartbeatThread: HeartbeatThread? = null
+
+    var isNetworkEverUnavailable = false
+
+    var networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onLost(network: Network) {
+            super.onLost(network)
+            showNetworkUnreachable()
+            isNetworkEverUnavailable = true
+        }
+
+        override fun onAvailable(network: Network) {
+            super.onAvailable(network)
+            if (isNetworkEverUnavailable) {
+                showNetworkRecovered()
+                isNetworkEverUnavailable = false
+            }
+        }
+    }
 
     var tabIndex: Int by Delegates.observable(-1) { _, oldTabIndex, newTabIndex ->
         if (newTabIndex != oldTabIndex)
@@ -86,11 +111,23 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         heartbeatThread = HeartbeatThread().apply { start() }
+
+        (applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+            .apply {
+                val networkRequest = NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .build()
+                registerNetworkCallback(networkRequest, networkCallback)
+            }
     }
 
     override fun onPause() {
         super.onPause()
         heartbeatThread?.apply { shouldContinue.set(false) }
+        (applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+            .apply { unregisterNetworkCallback(networkCallback) }
     }
 
     fun notifyPageEntered(pageName: String) {
@@ -108,6 +145,55 @@ class HomeActivity : AppCompatActivity() {
             ivTutorial.setImageResource(resId)
             ivTutorial.visibility = View.VISIBLE
             preferences.edit().putBoolean(pageName, true).apply()
+        }
+    }
+
+    private fun showNetworkUnreachable() {
+        runOnUiThread {
+            Flashbar.Builder(this@HomeActivity)
+                .gravity(Flashbar.Gravity.TOP)
+                .message("Network is unreachable")
+                .backgroundColor(Color.parseColor("#d9534f"))
+                .enterAnimation(FlashAnim.with(this@HomeActivity)
+                    .animateBar()
+                    .duration(750)
+                    .alpha()
+                    .overshoot())
+                .exitAnimation(
+                    FlashAnim.with(this@HomeActivity)
+                        .animateBar()
+                        .duration(400)
+                        .accelerateDecelerate())
+                .primaryActionText("GOT IT")
+                .primaryActionTapListener(object : Flashbar.OnActionTapListener {
+                    override fun onActionTapped(bar: Flashbar) {
+                        bar.dismiss()
+                    }
+                })
+                .build()
+                .show()
+        }
+    }
+
+    private fun showNetworkRecovered() {
+        runOnUiThread {
+            Flashbar.Builder(this@HomeActivity)
+                .gravity(Flashbar.Gravity.TOP)
+                .message("Network is recovered")
+                .backgroundColor(Color.parseColor("#5cb85c"))
+                .enterAnimation(FlashAnim.with(this@HomeActivity)
+                    .animateBar()
+                    .duration(750)
+                    .alpha()
+                    .overshoot())
+                .exitAnimation(
+                    FlashAnim.with(this@HomeActivity)
+                        .animateBar()
+                        .duration(400)
+                        .accelerateDecelerate())
+                .duration(Flashbar.DURATION_LONG)
+                .build()
+                .show()
         }
     }
 }
