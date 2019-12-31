@@ -47,8 +47,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupDB() {
-        FirebaseDatabase.getInstance().getReference("messages").child(App.user.id).keepSynced(true)
-        FirebaseDatabase.getInstance().getReference("activities").child(App.user.id).keepSynced(true)
+        FirebaseDatabase.getInstance().apply {
+            getReference("messages").child(App.user.id).keepSynced(true)
+            getReference("activities").child(App.user.id).keepSynced(true)
+            getReference("events").child(App.user.id).keepSynced(true)
+        }
     }
 
     private fun navigateToTab(index: Int) {
