@@ -40,6 +40,7 @@ class AlarmFragment : Fragment() {
         rvEvent.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false) as RecyclerView.LayoutManager
             adapter = eventAdapter
+
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                     super.getItemOffsets(outRect, view, parent, state)
@@ -54,7 +55,7 @@ class AlarmFragment : Fragment() {
             })
 
             val snapHelper = LinearSnapHelper()
-            snapHelper.attachToRecyclerView(rvEvent)
+            snapHelper.attachToRecyclerView(this)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 var selectedPosition = 0

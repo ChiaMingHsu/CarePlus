@@ -2,13 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
+        android:layout_width="74.3dp"
         android:layout_height="match_parent">
 
     <ImageView
-            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:layout_width="match_parent" android:layout_height="match_parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:adjustViewBounds="true"
             android:id="@+id/ivTextBg"
             android:src="@drawable/notification_weekday_normal_bg"
             android:scaleType="fitXY"/>

@@ -75,7 +75,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.9"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivValueBg"
                 android:src="@drawable/alarm_event_value_bg"
@@ -113,10 +112,9 @@
         <ImageView
                 android:layout_width="0dp" android:layout_height="wrap_content"
                 app:layout_constraintWidth_percent="0.326"
-                app:layout_constraintLeft_toLeftOf="@id/ivValueBg"
-                app:layout_constraintTop_toBottomOf="@id/ivValueBg"
-                app:layout_constraintBottom_toTopOf="@id/ivValueBg"
-                app:layout_constraintVertical_bias="0.75"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivValueBg"
+                android:layout_marginLeft="41.2dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/ivNameBg"
                 android:src="@drawable/alarm_event_name_bg"
@@ -138,7 +136,7 @@
 
         <ImageButton
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.24"
+                app:layout_constraintWidth_percent="0.263"
                 app:layout_constraintLeft_toLeftOf="@id/ivValueBg"
                 app:layout_constraintRight_toRightOf="@id/ivValueBg"
                 app:layout_constraintBottom_toBottomOf="@id/ivValueBg"
