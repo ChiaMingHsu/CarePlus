@@ -2,26 +2,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="74.3dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-    <ImageView
-            android:layout_width="match_parent" android:layout_height="match_parent"
+    <ImageButton
+            android:layout_width="0dp" android:layout_height="match_parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:id="@+id/ivTextBg"
+            android:adjustViewBounds="true"
+            android:id="@+id/btnWeekday"
             android:src="@drawable/notification_weekday_normal_bg"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"/>
 
     <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/ivTextBg"
-            app:layout_constraintRight_toRightOf="@id/ivTextBg"
-            app:layout_constraintTop_toTopOf="@id/ivTextBg"
-            app:layout_constraintBottom_toBottomOf="@id/ivTextBg"
+            app:layout_constraintLeft_toLeftOf="@id/btnWeekday"
+            app:layout_constraintRight_toRightOf="@id/btnWeekday"
+            app:layout_constraintTop_toTopOf="@id/btnWeekday"
+            app:layout_constraintBottom_toBottomOf="@id/btnWeekday"
             android:id="@+id/tvText"
             android:gravity="center"
             android:text="Sat"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#adadbe"
             android:textAlignment="center"/>

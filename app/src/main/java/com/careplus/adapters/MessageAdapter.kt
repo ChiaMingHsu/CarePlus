@@ -38,7 +38,7 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
                     holder.view.btnPlay.setImageResource(R.drawable.notification_btn_play_remind_standard)
                 }
             }
-            holder.view.tvControlTime.text = SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(message.createdAt)
+            holder.view.tvControlTime.text = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(message.createdAt)
             holder.view.tvContent.text = message.content
             holder.view.btnPlay.apply {
                 tag = message

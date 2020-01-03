@@ -6,11 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.careplus.R
-import com.careplus.model.Message
-import kotlinx.android.synthetic.main.item_message.view.*
 import kotlinx.android.synthetic.main.item_weekday.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class WeekdayAdapter : RecyclerView.Adapter<WeekdayAdapter.ViewHolder>() {
 
@@ -20,6 +16,7 @@ class WeekdayAdapter : RecyclerView.Adapter<WeekdayAdapter.ViewHolder>() {
     )
 
     val weekdays = arrayListOf<Weekday>()
+    var onBtnWeekdayClickListener: View.OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_weekday, parent, false)
@@ -36,7 +33,11 @@ class WeekdayAdapter : RecyclerView.Adapter<WeekdayAdapter.ViewHolder>() {
                 text = weekday.text
                 setTextColor(textColor)
             }
-            holder.view.ivTextBg.setImageResource(resId)
+            holder.view.btnWeekday.apply {
+                tag = position
+                setImageResource(resId)
+                onBtnWeekdayClickListener?.let { setOnClickListener(it) }
+            }
         }
     }
 
