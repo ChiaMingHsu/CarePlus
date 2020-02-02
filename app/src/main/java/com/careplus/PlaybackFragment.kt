@@ -96,27 +96,27 @@ class PlaybackFragment(private val message: Message) : Fragment() {
     }
 
     private fun setupView() {
-        tvDate.text = SimpleDateFormat("yyyy.MM.dd").format(Date(message.createdAt))
-        tvTime.text = SimpleDateFormat("HH:mm").format(Date(message.createdAt))
+        Date(message.createdAt)
+            .let { date ->
+                tvYear.text = SimpleDateFormat("yyyy", Locale.getDefault()).format(date)
+                tvMonth.text = SimpleDateFormat("MMM.", Locale.getDefault()).format(date)
+                tvDay.text = SimpleDateFormat("dd", Locale.getDefault()).format(date)
+                tvTime.text = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(date)
+                tvWeekday.text = SimpleDateFormat("EEE", Locale.getDefault()).format(date)
+            }
         tvContent.text = message.content
 
         when (Pair(message.type, message.priority)) {
             Pair("alarm", "standard") -> {
-                tvDate.setBackgroundResource(R.drawable.playback_date_bg_alarm_standard)
-                tvTime.setBackgroundResource(R.drawable.playback_time_bg_alarm_standard)
-                tvContent.setBackgroundResource(R.drawable.playback_content_bg_alarm_standard)
+                ivDate.setImageResource(R.drawable.playback_date_bg_alarm_standard)
                 btnSave.setImageResource(R.drawable.playback_btn_save_alarm_standard)
             }
             Pair("alarm", "emergent") -> {
-                tvDate.setBackgroundResource(R.drawable.playback_date_bg_alarm_emergent)
-                tvTime.setBackgroundResource(R.drawable.playback_time_bg_alarm_emergent)
-                tvContent.setBackgroundResource(R.drawable.playback_content_bg_alarm_emergent)
+                ivDate.setImageResource(R.drawable.playback_date_bg_alarm_emergent)
                 btnSave.setImageResource(R.drawable.playback_btn_save_alarm_emergent)
             }
             Pair("remind", "standard") -> {
-                tvDate.setBackgroundResource(R.drawable.playback_date_bg_remind_standard)
-                tvTime.setBackgroundResource(R.drawable.playback_time_bg_remind_standard)
-                tvContent.setBackgroundResource(R.drawable.playback_content_bg_remind_standard)
+                ivDate.setImageResource(R.drawable.playback_date_bg_remind_standard)
                 btnSave.setImageResource(R.drawable.playback_btn_save_remind_standard)
             }
         }

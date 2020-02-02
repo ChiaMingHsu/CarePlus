@@ -5,14 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".PlaybackFragment">
-
-    <ImageView
-            android:layout_width="match_parent" android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:id="@+id/ivBg"
-            android:src="@drawable/playback_bg"
-            android:scaleType="fitXY"/>
+        tools:context=".PlaybackFragment"
+        android:background="#cc4a4a4a">
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -22,13 +16,13 @@
 
     <FrameLayout
             android:layout_width="0dp" android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintWidth_percent="0.65"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1.75"
-            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintVertical_bias="0.6"
             android:id="@+id/layoutPlayback">
 
         <VideoView
@@ -37,58 +31,126 @@
 
     </FrameLayout>
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.352"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="@id/glVerticalCenter"
-            app:layout_constraintTop_toTopOf="@id/layoutPlayback"
+            app:layout_constraintWidth_percent="0.263"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/layoutPlayback"
-            android:adjustViewBounds="true"
-            android:id="@+id/tvDate"
-            android:gravity="center"
-            android:text="0000.00.00"
-            android:textAlignment="center"
-            android:textSize="13.3sp"
-            android:textColor="#ffffff"
-            android:letterSpacing="0.2"
-            android:textStyle="bold"
-            android:background="@drawable/playback_date_bg_alarm_standard"
-            android:scaleType="fitXY"/>
+            app:layout_constraintRight_toRightOf="@id/layoutPlayback"
+            android:id="@+id/frameDate">
+
+        <ImageView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/ivDate"
+                android:src="@drawable/playback_date_bg_alarm_standard"
+                android:scaleType="fitXY"/>
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
+                android:layout_marginTop="4dp"
+                android:id="@+id/tvWeekday"
+                android:gravity="center"
+                android:text="Sat"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.1"
+                android:orientation="vertical"
+                android:id="@+id/glDateYearLeft"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.2"
+                android:orientation="horizontal"
+                android:id="@+id/glDateYearTop"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.95"
+                android:orientation="horizontal"
+                android:id="@+id/glDateHorizontalBottomDay"/>
+
+        <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/glDateYearLeft"
+                app:layout_constraintTop_toTopOf="@id/glDateYearTop"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:id="@+id/tvYear"
+                android:gravity="right"
+                android:text="2019"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"/>
+
+        <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/tvYear"
+                app:layout_constraintRight_toRightOf="@id/tvYear"
+                app:layout_constraintTop_toBottomOf="@id/tvYear"
+                android:id="@+id/tvMonth"
+                android:gravity="right"
+                android:text="Dec."
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:textAlignment="center"/>
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/glDateHorizontalBottomDay"
+                android:id="@+id/tvDay"
+                android:gravity="right"
+                android:text="23"
+                android:textColor="#fff"
+                android:textSize="46sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.352"
-            app:layout_constraintLeft_toLeftOf="@id/tvDate"
-            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/frameDate"
+            app:layout_constraintBottom_toBottomOf="@id/frameDate"
+            app:layout_constraintHorizontal_bias="0.15"
             android:adjustViewBounds="true"
             android:id="@+id/tvTime"
-            android:gravity="center"
-            android:text="00:00"
-            android:textAlignment="center"
+            android:text="14:14:14"
             android:textSize="13.3sp"
             android:textColor="#ffffff"
             android:letterSpacing="0.2"
-            android:textStyle="bold"
-            android:background="@drawable/playback_time_bg_alarm_standard"
-            android:scaleType="fitXY"/>
+            android:textStyle="bold"/>
 
     <TextView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.352"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/tvTime"
-            app:layout_constraintTop_toBottomOf="@id/tvTime"
+            app:layout_constraintBottom_toTopOf="@id/tvTime"
+            android:layout_marginTop="2.3dp"
             android:adjustViewBounds="true"
             android:id="@+id/tvContent"
-            android:gravity="center"
-            android:text="Content"
-            android:textAlignment="center"
-            android:textSize="16.7sp"
+            android:text="Fall Down"
+            android:textSize="20sp"
             android:textColor="#ffffff"
             android:letterSpacing="0.2"
-            android:textStyle="bold"
-            android:background="@drawable/playback_content_bg_alarm_standard"
-            android:scaleType="fitXY"/>
+            android:textStyle="bold"/>
 
     <ImageButton
             android:layout_width="0dp" android:layout_height="wrap_content"

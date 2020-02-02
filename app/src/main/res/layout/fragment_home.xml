@@ -139,7 +139,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:adjustViewBounds="true"
-                android:id="@+id/tvDate"
+                android:id="@+id/ivDate"
                 android:src="@drawable/home_date_bg"
                 android:scaleType="fitXY"/>
 
